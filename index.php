@@ -3,37 +3,48 @@
 session_start();
 error_reporting(E_ALL);
 
+/* Aqui se registran funciones 
+ Es el ultimo lugar en el que busca PHP para intentar resolver un tipo /interfaz..etc, antes de generar un error */
+spl_autoload_register(function (string $clase) {
+  if (strpos($clase, 'app\\EleccionesSindicales\\') === 0) {
+    $nombre = str_replace('app\\EleccionesSindicales\\', '', $clase);
+    $nombre = str_replace('\\', '/', $nombre);
+    require_once __DIR__ . '/fuente/' . $nombre . '.inc';
+  }
+});
+
 require_once __DIR__ . '/fuente/Controlador/defaultController.inc'; /*controladores */
 require_once __DIR__ . '/app/conf/rutas.inc'; /*Ubicación del archivo de rutas*/
 
+if (isset($_SESSION['admin']) || isset($_SESSION['interventor'])) {
+  $_SESSION['admin'] = false;
+  $_SESSION['interventor'] = false;
+}
 
 // Parseo de la ruta
-if (isset($_GET['ctl']))
-{ 
-  if (isset($mapeoRutas[$_GET['ctl']]))
-  { 
+if (isset($_GET['ctl'])) {
+  if (isset($mapeoRutas[$_GET['ctl']])) {
     $ruta = $_GET['ctl'];
-  } else { 
+  } else {
     header('Status: 404 Not Found');
     echo '<html><body><h1>Error 404: No existe la ruta <i>' .
-          $_GET['ctl'] .
-          '</p></body></html>';
+      $_GET['ctl'] .
+      '</p></body></html>';
     exit;
   }
-} else { 
+} else {
   $ruta = 'inicio';
 }
 
 $controlador = $mapeoRutas[$ruta];
 // Ejecución del controlador asociado a la ruta
 
-if (method_exists($controlador['controller'],$controlador['action']))
-{ 
+if (method_exists($controlador['controller'], $controlador['action'])) {
   call_user_func(array(new $controlador['controller'], $controlador['action']));
-} else { 
+} else {
   header('Status: 404 Not Found');
   echo '<html><body><h1>Error 404: El controlador <i>' .
-       $controlador['controller'] .
-       '->' . $controlador['action'] .
-       '</i> no existe</h1></body></html>';
+    $controlador['controller'] .
+    '->' . $controlador['action'] .
+    '</i> no existe</h1></body></html>';
 }

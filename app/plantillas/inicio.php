@@ -12,10 +12,19 @@
     $contenido que provocará que se muestre la salida del buffer dentro dicha
     página "base.php"
 */
- ?>
+?>
 <?php ob_start() ?>
 
+<form method="post">
+  <fieldset>
+    <legend>Credenciales de Inicio</legend>
+    <label for="user">User</label>
+    <input type="email" id="user" placeholder="Usuario">
+    <label for="pass">Password</label>
+    <input type="password" id="pass" placeholder="Contraseña">
+    <input type="submit" value="Entrar" name="okLogin">
+  </fieldset>
+</form>
+<?php $contenido = ob_get_clean() ?>
 
- <?php $contenido = ob_get_clean() ?>
-
- <?php include 'base.php' ?>
+<?php include 'base.php' ?>
