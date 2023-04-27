@@ -13,11 +13,12 @@ spl_autoload_register(function (string $clase) {
   }
 });
 
-require_once __DIR__ . '/fuente/Controlador/defaultController.inc'; /*controladores */
 require_once __DIR__ . '/app/conf/rutas.inc'; /*Ubicación del archivo de rutas*/
 
-if (isset($_SESSION['admin']) || isset($_SESSION['interventor'])) {
+if (isset($_SESSION['admin'])) {
   $_SESSION['admin'] = false;
+}
+if (isset($_SESSION['interventor'])) {
   $_SESSION['interventor'] = false;
 }
 
@@ -33,7 +34,7 @@ if (isset($_GET['ctl'])) {
     exit;
   }
 } else {
-  $ruta = 'inicio';
+  $ruta = 'login';
 }
 
 $controlador = $mapeoRutas[$ruta];

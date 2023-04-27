@@ -1,0 +1,125 @@
+Creo la base de datos:
+
+CREATE DATABASE EleccionesSindicales;
+USE EleccionesSindicales;
+
+Creamos las tablas:
+
+--Tabla Roles, donde se almacenará el admin y los interventores
+CREATE TABLE Admin (
+  "usuario" VARCHAR(50) NOT NULL,
+  "password" VARCHAR(50) NOT NULL
+);
+
+--Tabla Mesas, donde se almacenará el idMesa y el nombre
+CREATE TABLE Mesas (
+  idMesa INT NOT NULL,
+  Nombre VARCHAR(50) NOT NULL,
+  PRIMARY KEY (idMesa)
+);
+
+--Tabla Votantes, donde se almacenarán las personas que vayan a votar, junto a su idMesa
+CREATE TABLE Votantes (
+  IdVotante INT NOT NULL IDENTITY(1,1),
+  Nombre VARCHAR(50) NOT NULL,
+  Apellido1 VARCHAR(50) NOT NULL,
+  Apellido2 VARCHAR(50) NOT NULL,
+  NIF CHAR(9) NOT NULL,
+  CodCentro VARCHAR(10) NOT NULL,
+  NombreCentro VARCHAR(50) NOT NULL,
+  idMesa INT,
+  Voto TINYINT NOT NULL DEFAULT 0,
+  Fecha DATETIME DEFAULT NULL, --AAAA-MM-DD HH:MM:SS
+  PRIMARY KEY (NIF),
+  FOREIGN KEY (idMesa) REFERENCES Mesas(idMesa)
+);
+
+--Tabla Afiliado, que es lo mismo que votantes pero varian un par de campos
+CREATE TABLE Afiliados (
+  IdVotante INT NOT NULL IDENTITY(1,1),
+  Nombre VARCHAR(50) NOT NULL,
+  Apellido1 VARCHAR(50) NOT NULL,
+  Apellido2 VARCHAR(50) NOT NULL,
+  NIF CHAR(9) NOT NULL,
+  Telefono INT NOT NULL,
+  Direccion VARCHAR(100) NOT NULL,
+  Email VARCHAR(100) NOT NULL,
+  CodCentro VARCHAR(10) NOT NULL,
+  NombreCentro VARCHAR(50) NOT NULL,
+  Voto TINYINT NOT NULL DEFAULT 0,
+  Fecha DATETIME DEFAULT NULL, --AAAA-MM-DD HH:MM:SS
+  PRIMARY KEY (NIF),
+);
+
+--Tabla Interventor, donde el admin podrá cambiar todo.
+CREATE TABLE Interventor (
+    "usuario" VARCHAR(50),
+    "password" VARCHAR(50),
+    "idMesa" INT,
+    FOREIGN KEY ("idMesa") REFERENCES Mesas("idMesa") ON DELETE SET NULL
+);
+
+
+Para pruebas, insertaremos varios datos para comprobar que funciona: 
+
+Dentro de Admin insertamos el usuario admin.
+----
+
+--Creacion Rol Admin
+INSERT INTO Admin ("usuario", "password")
+VALUES ('admin', '1234');
+
+--Creacion Mesas
+INSERT INTO Mesas ("idMesa","Nombre")
+VALUES ('1','Berceo');
+INSERT INTO Mesas ("idMesa","Nombre")
+VALUES ('2','Alcampo');
+
+--Creación interventores.
+INSERT INTO Interventor ("usuario", "password","idMesa")
+VALUES ('inter1', '0000','1');
+
+--Creacion Afiliados
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro)
+VALUES ('Andrei','Miu',' ','X9999999F','666666666','C/Duero','andrei@miu.com','43332A','IESComercio');
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro)
+VALUES ('Oscar','Gonzales',' ','69696969Z','123456789','Av. Gran Vía','oscar@gonzales.com','1234B','IESComercio');
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro)
+VALUES ('Pepe','Díaz','Martínez','12345678J','111111111','Av. Gran Vía','pepedm@comercio.com','123123','Empresa Fantasma');
+--Añadiendole voto 1
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha)
+VALUES ('Dario','Alcobendas','Fernandez','22244477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
+
+--Creamos Votantes
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa)
+VALUES ('Santiago','Perez','Vildosola','232323234','12121','Gonzalo Berceo','1');
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa)
+VALUES ('Martin','Salosa','Morado','121111111','12121','Gonzalo Berceo','2');
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa)
+VALUES ('Diana','Fati','Harom','444444444','55','Delhuyar','2');
+
+
+---PROYECTO---
+Una vez inicie el admin, se le preguntará si desea generar mesas y cuantos interventores
+
+Desea generar mesas?
+Si > Cuantas mesas desea generar? > Inserta numero y pone (Mesa [X]: Nombre a introducir y boton guardar)
+No > Default las que hay en la bbdd.
+
+Desea generar interventores?
+Si > Cuantos? > Genera automaticamente InterventorX + randomPass
+No > Default los que hayan
+
+Cuando responda, se le mostrará el menú y abajo un mensaje de:
+
+-Bienvenido de nuevo Admin!-
+
+El menú constará de:
+	-Gestion
+		-Mesa -> Cambiar nombre de la mesa (NO ID)
+		-Votantes -> Cambiar datos de los votantes(Nombre,1erApellido,2doApellido,NIF,CodCentro,NombreCentro,idMesa)
+		-Afiliado -> Cambiar datos de los afiliados (Lo mismo pero sin idMesa y añadiendo telf,direccion y correo)
+		-Interventor -> Cambiar nombre usuario/password/mesa de los interventores
+	-Panel Control
+		-Estadisticas -> Estadisticas de quien a votado, quien no.
+		-Lista Afiliados
