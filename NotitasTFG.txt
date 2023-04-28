@@ -123,3 +123,12 @@ El menú constará de:
 	-Panel Control
 		-Estadisticas -> Estadisticas de quien a votado, quien no.
 		-Lista Afiliados
+
+
+
+
+
+Bibliografía
+---
+Imagen/es ANPE -> Dieron permiso (Victor) de usar las imagenes (https://anperioja.es/)
+AwesomeFonts (v. 6.4.0) -> Framework de iconos vectoriales y estilos CSS (https://fontawesome.com/icons)
