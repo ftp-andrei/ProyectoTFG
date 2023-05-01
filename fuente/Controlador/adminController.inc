@@ -28,7 +28,7 @@ class AdminController
             header('Location: index.php?ctl=generaInterventores');
         }
         if (isset($_POST['No'])) {
-            header('Location: index.php?ctl=votantesAdmin');
+            header('Location: index.php?ctl=gestionVotantes');
         }
         require __DIR__ . '/../../app/plantillas/deseaInterventoresAdmin.inc';
     }

@@ -8,8 +8,10 @@ Creamos las tablas:
 --Tabla Roles, donde se almacenará el admin y los interventores
 CREATE TABLE Admin (
   "usuario" VARCHAR(50) NOT NULL,
-  "password" VARCHAR(50) NOT NULL
+  "password" VARCHAR(50) NOT NULL,
+  PRIMARY KEY ("usuario")
 );
+
 
 --Tabla Mesas, donde se almacenará el idMesa y el nombre
 CREATE TABLE Mesas (
@@ -56,6 +58,7 @@ CREATE TABLE Interventor (
     "usuario" VARCHAR(50),
     "password" VARCHAR(50),
     "idMesa" INT,
+	PRIMARY KEY ("usuario"),
     FOREIGN KEY ("idMesa") REFERENCES Mesas("idMesa") ON DELETE SET NULL
 );
 
@@ -122,9 +125,7 @@ El menú constará de:
 		-Interventor -> Cambiar nombre usuario/password/mesa de los interventores
 	-Panel Control
 		-Estadisticas -> Estadisticas de quien a votado, quien no.
-		-Lista Afiliados
-
-
+		-Listados filtrados
 
 
 

@@ -19,6 +19,7 @@ class SessionController
       // Comprueba que exista usuario admin
       if ($usuario = (new AdminRepositorio())->loginAdmin($_POST['user'], $_POST['pass'])) {
         $_SESSION['admin'] = true;
+        // Si el usuario es admin redirige a la página donde le pregunta si desea generar  mesas
         header('Location: index.php?ctl=deseaMesas');
       } else {
         // Comprueba que exista usuario interventor

@@ -32,13 +32,8 @@
   </header>
   <nav>
     <hr>
-    <!-- Observa cómo el enlace agrega el valor de la variable GET 'ctl'
-           que será analizado en la página index.php, en este caso le da el
-           valor 'inicio' para que la vista cambie a la página home de la
-           aplicación
-       -->
     <?php if (isset($_SESSION['admin'])) { ?>
-      <a href="index.php?ctl=gestionMesa">Mesa</a> |
+      <a href="index.php?ctl=gestionMesas">Mesas</a> |
       <a href="index.php?ctl=gestionVotantes">Votantes</a> |
       <a href="index.php?ctl=gestionAfiliados">Afiliados</a> |
       <a href="index.php?ctl=gestionInterventores">Interventores</a> |
@@ -54,11 +49,6 @@
       <a href="index.php?ctl=logout">Salir</a> |
       <hr>
     <?php  } ?>
-    <!-- En general, la mayoría de los enlaces serán a la página index.php
-           y una asignación a la variable 'ctl'. El valor de la variable deberá
-           ser analizada en la página index.php de cara a encontrar la ruta del
-           controlador (y método) que debe procesar la petición
-      -->
   </nav>
   <div id="contenido">
     <!-- el id css facilita (si se define) la definición del aspecto visual

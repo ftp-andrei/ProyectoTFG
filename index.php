@@ -4,7 +4,7 @@ session_start();
 error_reporting(E_ALL);
 
 /* Aqui se registran funciones 
- Es el ultimo lugar en el que busca PHP para intentar resolver un tipo /interfaz..etc, antes de generar un error */
+Es el ultimo lugar en el que busca PHP para intentar resolver un tipo /interfaz..etc, antes de generar un error */
 spl_autoload_register(function (string $clase) {
   if (strpos($clase, 'app\\EleccionesSindicales\\') === 0) {
     $nombre = str_replace('app\\EleccionesSindicales\\', '', $clase);
@@ -34,6 +34,7 @@ if (isset($_GET['ctl'])) {
     exit;
   }
 } else {
+  // Si no se especifica una ruta, se redirige al login
   $ruta = 'login';
 }
 

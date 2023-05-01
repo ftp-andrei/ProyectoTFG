@@ -32,31 +32,34 @@ class InterventorRepositorio
     }
 
     // Metodo que genera interventores al iniciar sesion el admin
-    public function generaInterventorAdmin()
+    public function generaInterventorAdmin(string $password)
     {
-        // Coge el numero de interventores
-        // $sql = 'SELECT count(usuario) FROM Interventor';
-        $sql = 'SELECT count(*) FROM Interventor WHERE "usuario"=(SELECT TOP 1 SUBSTRING("usuario",6,10) FROM Interventor ORDER BY "usuario" desc)';
+        // Coge el numero mayor de interventores
+        $sql = 'SELECT MAX(CAST(SUBSTRING("usuario", 6, LEN("usuario")) AS INT)) AS mayor_numero_usuario
+        FROM Interventor';
         // SQL inserta Interventores
-        $sql2 = 'INSERT INTO Interventor ("usuario", "password","idMesa") VALUES (:usuario,:password,:idMesa)';
+        $sql2 = 'INSERT INTO Interventor ("usuario", "password","idMesa") VALUES (:usuario,:password,NULL)';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
             $snt->execute();
-            //Fetch devuelve un array con el numero de interventores
+            //Fetch devuelve un array con el numero maximo del interventor
             $fila = $snt->fetch(\PDO::FETCH_ASSOC);
-            if (!$fila) {
-                $fila[''] = 0;
+            if ($fila['mayor_numero_usuario'] == null) {
+                $fila['mayor_numero_usuario'] = 0;
             }
 
             // Preparamos la siguiente sentencia
-            // $snt = $con->prepare($sql2);
-            // $snt->bindValue(':usuario', 'interventor' . $fila[''] + 1);
-            // $snt->bindValue(':password', $password);
-            // $snt->execute();
-            //Fetch devuelve un array
-            return $fila;
+            $snt = $con->prepare($sql2);
+            $snt->bindValue(':usuario', 'inter' . $fila['mayor_numero_usuario'] + 1);
+            $snt->bindValue(':password', $password);
+            // No pongo la mesa ya que por default es null.
+
+            if ($snt->execute()) {
+                return true;
+            }
+            return false;
         } catch (\PDOException $th) {
             throw $th;
         } finally {
