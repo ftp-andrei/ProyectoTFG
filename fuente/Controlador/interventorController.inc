@@ -6,6 +6,14 @@ use app\EleccionesSindicales\repositorio\InterventorRepositorio;
 // Ejemplo de controlador para página home de la aplicación
 class InterventorController
 {
+    public function inicioInterventor()
+    {
+        $titulo = (new TitleController())->setTitle('Inicio - ANPE');
+
+        require __DIR__ . '/../../app/plantillas/inicioInterventor.inc';
+    }
+
+
     // Metodo de generar interventores al iniciar sesion el admin
     public function generaInterventores()
     {
@@ -40,11 +48,54 @@ class InterventorController
     {
         $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&@#$*!^';
         $pass = "";
-        $longitudTotal = strlen($caracteres);
+        $longitudTotal = strlen($caracteres) - 1;
         for ($i = 0; $i < 8; $i++) {
-            $n = rand(0, $longitudTotal) - 1;
+            $n = rand(0, $longitudTotal);
             $pass .= $caracteres[$n];
         }
         return $pass;
+    }
+    // Funcion que muestra los interventores (solo para el admin)
+    public function verInterventores()
+    {
+        $titulo = (new TitleController())->setTitle('Interventores - ANPE');
+
+        $interventores = (new InterventorRepositorio())->getAllInterventores();
+        // Boton de añadir interventor
+        if (isset($_POST['anadirInterventor'])) {
+            // Creo una instancia del controlador
+            $obj = new InterventorController();
+            $pass = $obj->randomPassword();
+            // Devuelve true o false.
+            $interventor = (new InterventorRepositorio())->generaInterventorAdmin($pass);
+            // Hace header hacia la misma pagina para refrescar, y asi evitar que al hacer F5 se creen mas interventores.
+            header('Location: index.php?ctl=gestionInterventores');
+        }
+
+        // if (isset($_POST["remove_{$interventores[0]}"])) {
+        //     $eliminar = $_POST["remove_{$interventores[0]['usuario']}"];
+        //     // $interventor = (new InterventorRepositorio())->borraInterventor();
+        //     header('Location: index.php?ctl=gestionInterventores');
+        // }
+
+        if (isset($_POST["guardarCambios"])) {
+            $arrInterventores = [];
+            for ($i = 0; $i < count($interventores); $i++) {
+                $arrInterventores[$i]['IdInterventor'] = $interventores[$i]['IdInterventor'];
+                $arrInterventores[$i]['usuario'] = $interventores[$i]['usuario'];
+                $arrInterventores[$i]['password'] = $interventores[$i]['password'];
+                $arrInterventores[$i]['idMesa'] = $interventores[$i]['idMesa'];
+            }
+            foreach ($arrInterventores as $interventor) {
+                var_dump($interventor);
+                // Argument #3 ($idMesa) must be of type int, null given
+                if ($insertarInterventores = (new InterventorRepositorio())->guardarCambiosInterventores($interventor['usuario'], $interventor['password'], $interventor['idMesa'], $interventor['IdInterventor'])) {
+                    continue;
+                } else {
+                    $error = "Error al guardar los cambios";
+                }
+            }
+        }
+        require __DIR__ . '/../../app/plantillas/gestionInterventores.inc';
     }
 }

@@ -3,6 +3,7 @@
 namespace app\EleccionesSindicales\controlador;
 
 use app\EleccionesSindicales\repositorio\AdminRepositorio;
+
 // Ejemplo de controlador para página home de la aplicación
 class AdminController
 {
@@ -33,10 +34,10 @@ class AdminController
         require __DIR__ . '/../../app/plantillas/deseaInterventoresAdmin.inc';
     }
     // Le muestra al admin la pagina de votantes
-    public function votantesAdmin()
+    public function gestionVotantes()
     {
         $titulo = (new TitleController())->setTitle('Votantes - ANPE');
 
-        require __DIR__ . '/../../app/plantillas/votantesAdmin.inc';
+        require __DIR__ . '/../../app/plantillas/gestionVotantes.inc';
     }
 }

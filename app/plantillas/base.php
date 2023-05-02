@@ -15,7 +15,8 @@
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" href="web/imagenes/favicon.ico" />
   <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href='web/css/resposnive.css' />
+  <script src="web/js/main.js"></script>
+  <!-- CSS -->
   <link rel="stylesheet" type="text/css" href='web/css/ordenador.css' />
   <link rel="stylesheet" type="text/css" href='web/css/tablet.css' />
   <link rel="stylesheet" type="text/css" href='web/css/movil.css' />
@@ -45,7 +46,7 @@
     <?php  } ?>
 
     <?php if (isset($_SESSION['interventor'])) { ?>
-      <a href="index.php?ctl=votosMesa">Votos de la mesa</a> |
+      <a href="index.php?ctl=inicioInterventor">Votos de la mesa</a> |
       <a href="index.php?ctl=logout">Salir</a> |
       <hr>
     <?php  } ?>

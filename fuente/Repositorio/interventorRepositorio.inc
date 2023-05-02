@@ -9,7 +9,7 @@ class InterventorRepositorio
     // Login del interventor
     public function loginInterventor(string $user, string $password): bool
     {
-        $sql = 'SELECT usuario,password FROM Admin WHERE usuario = :user AND password = :password';
+        $sql = 'SELECT usuario,password FROM Interventor WHERE usuario = :user AND password = :password';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
@@ -32,7 +32,7 @@ class InterventorRepositorio
     }
 
     // Metodo que genera interventores al iniciar sesion el admin
-    public function generaInterventorAdmin(string $password)
+    public function generaInterventorAdmin(string $password): bool
     {
         // Coge el numero mayor de interventores
         $sql = 'SELECT MAX(CAST(SUBSTRING("usuario", 6, LEN("usuario")) AS INT)) AS mayor_numero_usuario
@@ -70,13 +70,61 @@ class InterventorRepositorio
         }
     }
     // Metodo que borra todos los interventores
-    public function borraTodosInterventores()
+    public function borraTodosInterventores(): bool
     {
         $sql = 'DELETE FROM Interventor';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
+            $snt->execute();
+            if ($snt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
+    // Devuelve un array con todos los interventores
+    public function getAllInterventores(): array
+    {
+        $sql = 'SELECT CAST(SUBSTRING("usuario",6,len("usuario")) AS INT) as IdInterventor,usuario,password,idMesa FROM Interventor ORDER BY IdInterventor asc';
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            $snt->execute();
+            //Fetch devuelve un array
+            $fila = $snt->fetchAll(\PDO::FETCH_ASSOC);
+            return $fila;
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
+
+    public function guardarCambiosInterventores(string $usuario, string $password, int $idMesa, int $idInterventor): bool
+    {
+        $sql = 'UPDATE Interventor SET usuario = :usuario, password = :password, idMesa = :idMesa WHERE IdInterventor = :IdInterventor';
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            $snt->bindValue(':IdInterventor', $idInterventor);
+            $snt->bindValue(':usuario', $usuario);
+            $snt->bindValue(':password', $password);
+            $snt->bindValue(':idMesa', $idMesa);
             $snt->execute();
             if ($snt->execute()) {
                 return true;

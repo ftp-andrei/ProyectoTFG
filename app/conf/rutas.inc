@@ -25,11 +25,14 @@ $mapeoRutas = [
     'deseaInterventor' => ['controller' => 'app\EleccionesSindicales\controlador\AdminController', 'action' => 'deseaInterventores'],
     // En caso afirmativo, le preguntará cuantos
     'generaInterventores' => ['controller' => 'app\EleccionesSindicales\controlador\InterventorController', 'action' => 'generaInterventores'],
-    // En caso de que no, le mostrará la página inicial (votantes(?))
-    'gestionVotantes' => ['controller' => 'app\EleccionesSindicales\controlador\AdminController', 'action' => 'votantesAdmin'],
-    // Se le mostrará la página de votantes de los interventores
-    'inicioInterventor' => ['controller' => 'app\EleccionesSindicales\controlador\InterventorController', 'action' => 'inicioInterventor'],
+    // En caso de que no, le mostrará la página inicial (gestion votantes)
+    'gestionVotantes' => ['controller' => 'app\EleccionesSindicales\controlador\AdminController', 'action' => 'gestionVotantes'],
     // Funciones admin
-
+    // Gestion Interventores - Lista de Interventores
+    'gestionInterventores' => ['controller' => 'app\EleccionesSindicales\controlador\InterventorController', 'action' => 'verInterventores'],
+    // Gestion Interventores - Lista de Interventores
+    'gestionMesas' => ['controller' => 'app\EleccionesSindicales\controlador\MesasController', 'action' => 'verMesas'],
+    // Pagina Inicial Interventores
+    'inicioInterventor' => ['controller' => 'app\EleccionesSindicales\controlador\InterventorController', 'action' => 'inicioInterventor'],
     // Funciones interventor
 ];
