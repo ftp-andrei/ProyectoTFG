@@ -12,9 +12,10 @@ class MesasController
         $titulo = (new TitleController())->setTitle('Mesas - ANPE');
 
         if (isset($_POST['okGenerarMesas'])) {
-
-            // Te lleva a la página que pregunta si desea interventores al iniciar el admin
-            header('Location: index.php?ctl=deseaInterventor');
+            if ($generado = (new MesasRepositorio())->generaMesasAdmin($_POST['numeroMesas'])) {
+                // Te lleva a la página que pregunta si desea interventores al iniciar el admin
+                header('Location: index.php?ctl=deseaInterventor');
+            }
         }
         require __DIR__ . '/../../app/plantillas/generaMesasAdmin.inc';
     }

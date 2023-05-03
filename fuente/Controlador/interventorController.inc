@@ -31,8 +31,6 @@ class InterventorController
                     // Devuelve true o false.
                     $interventor = (new InterventorRepositorio())->generaInterventorAdmin($pass);
                 }
-                // ::Pagina Se han creado con exito, time 5s, header votantesAdmin
-                // header('Refresh: 5; url=index.php?ctl=gestionVotantes');
                 // Al generar te lleva a la pagina de votantes del admin (¿Quizás hacer una pagina de inicio?)
                 header('Location: index.php?ctl=gestionVotantes');
             } else {
@@ -61,8 +59,9 @@ class InterventorController
         $titulo = (new TitleController())->setTitle('Interventores - ANPE');
 
         $interventores = (new InterventorRepositorio())->getAllInterventores();
+        $tamano = sizeof($interventores);
         // Boton de añadir interventor
-        if (isset($_POST['anadirInterventor'])) {
+        if (isset($_POST['anadirInterventor']) || isset($_POST['crearInterventor'])) {
             // Creo una instancia del controlador
             $obj = new InterventorController();
             $pass = $obj->randomPassword();
@@ -71,15 +70,17 @@ class InterventorController
             // Hace header hacia la misma pagina para refrescar, y asi evitar que al hacer F5 se creen mas interventores.
             header('Location: index.php?ctl=gestionInterventores');
         }
-
-        // if (isset($_POST["remove_{$interventores[0]}"])) {
-        //     $eliminar = $_POST["remove_{$interventores[0]['usuario']}"];
-        //     // $interventor = (new InterventorRepositorio())->borraInterventor();
-        //     header('Location: index.php?ctl=gestionInterventores');
-        // }
-
+        // TODO: ELIMINAR INTERVENTORES
+        for ($i = 0; $i < $tamano; $i++) {
+            if (isset($_POST["remove_{$interventores[$i]['usuario']}"])) {
+                var_dump("remove_{$interventores[$i]['usuario']}");
+                $eliminar = $interventores[$i]['IdInterventor'];
+                $interventor = (new InterventorRepositorio())->borraInterventor($eliminar);
+                header('Location: index.php?ctl=gestionInterventores');
+            }
+        }
+        // TODO: GUARDAR CAMBIOS DE LOS INTERVENTORES
         if (isset($_POST["guardarCambios"])) {
-            $arrInterventores = [];
             for ($i = 0; $i < count($interventores); $i++) {
                 $arrInterventores[$i]['IdInterventor'] = $interventores[$i]['IdInterventor'];
                 $arrInterventores[$i]['usuario'] = $interventores[$i]['usuario'];
@@ -87,8 +88,6 @@ class InterventorController
                 $arrInterventores[$i]['idMesa'] = $interventores[$i]['idMesa'];
             }
             foreach ($arrInterventores as $interventor) {
-                var_dump($interventor);
-                // Argument #3 ($idMesa) must be of type int, null given
                 if ($insertarInterventores = (new InterventorRepositorio())->guardarCambiosInterventores($interventor['usuario'], $interventor['password'], $interventor['idMesa'], $interventor['IdInterventor'])) {
                     continue;
                 } else {

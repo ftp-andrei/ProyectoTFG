@@ -6,10 +6,11 @@ use ConexionBd;
 
 class MesasRepositorio
 {
-    public function generaMesasAdmin(int $mesas, $nombre)
+    // Genera mesas al iniciar sesion el admin
+    public function generaMesasAdmin(int $numMesa)
     {
         // SQL inserta nombres
-        $sql = 'INSERT INTO Mesas (idMesa,nombre) VALUES (:mesas,:nombre)';
+        $sql = 'INSERT INTO Mesas (idMesa,nombre) VALUES (:numMesa,:nombre)';
         // SQL borra todos los registros de mesas
         $sql2 = 'DELETE FROM Mesas';
         require_once __DIR__ . '/../../core/conexionBd.inc';
@@ -17,6 +18,17 @@ class MesasRepositorio
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql2);
             if ($snt->execute()) {
+                for ($i = 0; $i <= $numMesa; $i++) {
+                    $snt = $con->prepare($sql);
+                    $snt->bindValue(':numMesa', $i);
+                    if ($i == 0) {
+                        $snt->bindValue(':nombre', "Sin Asignar");
+                    } else {
+                        $snt->bindValue(':nombre', "Sin Nombre");
+                    }
+                    $snt->execute();
+                }
+                return true;
             } else {
                 return false;
             }
@@ -32,7 +44,7 @@ class MesasRepositorio
     // Devuelve un array con todas las mesas
     public function getAllMesas()
     {
-        $sql = 'SELECT idMesa,nombre FROM Mesas';
+        $sql = 'SELECT idMesa,nombre FROM Mesas WHERE idMesa != 0';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();

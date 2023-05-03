@@ -38,7 +38,7 @@ class InterventorRepositorio
         $sql = 'SELECT MAX(CAST(SUBSTRING("usuario", 6, LEN("usuario")) AS INT)) AS mayor_numero_usuario
         FROM Interventor';
         // SQL inserta Interventores
-        $sql2 = 'INSERT INTO Interventor ("usuario", "password","idMesa") VALUES (:usuario,:password,NULL)';
+        $sql2 = 'INSERT INTO Interventor ("usuario", "password","idMesa") VALUES (:usuario,:password,0)';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
@@ -54,7 +54,7 @@ class InterventorRepositorio
             $snt = $con->prepare($sql2);
             $snt->bindValue(':usuario', 'inter' . $fila['mayor_numero_usuario'] + 1);
             $snt->bindValue(':password', $password);
-            // No pongo la mesa ya que por default es null.
+            // No pongo la mesa ya que por default es 0.
 
             if ($snt->execute()) {
                 return true;
@@ -92,18 +92,22 @@ class InterventorRepositorio
             }
         }
     }
-    // Devuelve un array con todos los interventores
-    public function getAllInterventores(): array
+
+    // Metodo que borra todos los interventores
+    public function borraInterventor(int $idInterventor): bool
     {
-        $sql = 'SELECT CAST(SUBSTRING("usuario",6,len("usuario")) AS INT) as IdInterventor,usuario,password,idMesa FROM Interventor ORDER BY IdInterventor asc';
+        $sql = 'DELETE FROM Interventor WHERE IdInterventor = :idInterventor';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
+            $snt->bindValue(':idInterventor', $idInterventor);
             $snt->execute();
-            //Fetch devuelve un array
-            $fila = $snt->fetchAll(\PDO::FETCH_ASSOC);
-            return $fila;
+            if ($snt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (\PDOException $th) {
             throw $th;
         } finally {
@@ -113,7 +117,28 @@ class InterventorRepositorio
             }
         }
     }
-
+    // Devuelve un array con todos los interventores
+    public function getAllInterventores(): array
+    {
+        $sql = 'SELECT CAST(SUBSTRING("usuario",6,len("usuario")) AS INT) as IdInterventor,usuario,password,i.idMesa,nombre FROM Interventor i JOIN Mesas m ON i.idMesa = m.IdMesa ORDER BY IdInterventor asc';
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            $snt->execute();
+            //Fetch devuelve un array
+            $arrInterventores = $snt->fetchAll(\PDO::FETCH_ASSOC);
+            return $arrInterventores;
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
+    // Guarda los cambios realizados por el admin de los interventores
     public function guardarCambiosInterventores(string $usuario, string $password, int $idMesa, int $idInterventor): bool
     {
         $sql = 'UPDATE Interventor SET usuario = :usuario, password = :password, idMesa = :idMesa WHERE IdInterventor = :IdInterventor';

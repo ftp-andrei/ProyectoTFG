@@ -17,6 +17,7 @@
   <!-- CSS -->
   <script src="web/js/main.js"></script>
   <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href='web/css/general.css' />
   <link rel="stylesheet" type="text/css" href='web/css/ordenador.css' />
   <link rel="stylesheet" type="text/css" href='web/css/tablet.css' />
   <link rel="stylesheet" type="text/css" href='web/css/movil.css' />
@@ -38,7 +39,7 @@
       <a href="index.php?ctl=gestionVotantes">Votantes</a> |
       <a href="index.php?ctl=gestionAfiliados">Afiliados</a> |
       <a href="index.php?ctl=gestionInterventores">Interventores</a> |
-      <a href="index.php?ctl=panelDeControl">Panel de Control</a> |
+      <!-- <a href="index.php?ctl=panelDeControl">Panel de Control</a> | -->
       <a href="index.php?ctl=estadisticas">Estadísticas</a> |
       <a href="index.php?ctl=listadosFiltrados">Listados Filtrados</a> |
       <a href="index.php?ctl=logout">Salir</a> |

@@ -55,9 +55,10 @@ CREATE TABLE Afiliados (
 
 --Tabla Interventor, donde el admin podrá cambiar todo.
 CREATE TABLE Interventor (
+IdInterventor INT NOT NULL IDENTITY(1,1),
     "usuario" VARCHAR(50),
     "password" VARCHAR(50),
-    "idMesa" INT,
+    "idMesa" INT DEFAULT 0,
 	PRIMARY KEY ("usuario"),
     FOREIGN KEY ("idMesa") REFERENCES Mesas("idMesa") ON DELETE SET NULL
 );
