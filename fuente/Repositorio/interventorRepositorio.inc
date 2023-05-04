@@ -120,7 +120,7 @@ class InterventorRepositorio
     // Devuelve un array con todos los interventores
     public function getAllInterventores(): array
     {
-        $sql = 'SELECT CAST(SUBSTRING("usuario",6,len("usuario")) AS INT) as IdInterventor,usuario,password,i.idMesa,nombre FROM Interventor i JOIN Mesas m ON i.idMesa = m.IdMesa ORDER BY IdInterventor asc';
+        $sql = 'SELECT IdInterventor,usuario,password,i.idMesa,nombre FROM Interventor i JOIN Mesas m ON i.idMesa = m.IdMesa ORDER BY IdInterventor asc';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();

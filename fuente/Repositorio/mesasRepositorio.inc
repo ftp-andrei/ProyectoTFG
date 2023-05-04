@@ -44,7 +44,7 @@ class MesasRepositorio
     // Devuelve un array con todas las mesas
     public function getAllMesas()
     {
-        $sql = 'SELECT idMesa,nombre FROM Mesas WHERE idMesa != 0';
+        $sql = 'SELECT idMesa,nombre FROM Mesas';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();

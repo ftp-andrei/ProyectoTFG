@@ -53,13 +53,13 @@ class InterventorController
         }
         return $pass;
     }
-    // Funcion que muestra los interventores (solo para el admin)
+    // Funcion que muestra los interventores (solo para el admin). 
+    // Contiene los metodos de añadir, borrar y modificar interventores.
     public function verInterventores()
     {
         $titulo = (new TitleController())->setTitle('Interventores - ANPE');
-
+        $mesas = (new MesasController())->getAllMesas();
         $interventores = (new InterventorRepositorio())->getAllInterventores();
-        $tamano = sizeof($interventores);
         // Boton de añadir interventor
         if (isset($_POST['anadirInterventor']) || isset($_POST['crearInterventor'])) {
             // Creo una instancia del controlador
@@ -70,30 +70,44 @@ class InterventorController
             // Hace header hacia la misma pagina para refrescar, y asi evitar que al hacer F5 se creen mas interventores.
             header('Location: index.php?ctl=gestionInterventores');
         }
-        // TODO: ELIMINAR INTERVENTORES
-        for ($i = 0; $i < $tamano; $i++) {
-            if (isset($_POST["remove_{$interventores[$i]['usuario']}"])) {
-                var_dump("remove_{$interventores[$i]['usuario']}");
-                $eliminar = $interventores[$i]['IdInterventor'];
-                $interventor = (new InterventorRepositorio())->borraInterventor($eliminar);
+        foreach ($interventores as $interventor) {
+            // Elimina interventores
+            if (isset($_POST["remove_{$interventor['usuario']}"])) {
+                $interventor = (new InterventorRepositorio())->borraInterventor($interventor['IdInterventor']);
                 header('Location: index.php?ctl=gestionInterventores');
             }
+            // Modifica interventores
         }
         // TODO: GUARDAR CAMBIOS DE LOS INTERVENTORES
         if (isset($_POST["guardarCambios"])) {
-            for ($i = 0; $i < count($interventores); $i++) {
-                $arrInterventores[$i]['IdInterventor'] = $interventores[$i]['IdInterventor'];
-                $arrInterventores[$i]['usuario'] = $interventores[$i]['usuario'];
-                $arrInterventores[$i]['password'] = $interventores[$i]['password'];
-                $arrInterventores[$i]['idMesa'] = $interventores[$i]['idMesa'];
-            }
-            foreach ($arrInterventores as $interventor) {
-                if ($insertarInterventores = (new InterventorRepositorio())->guardarCambiosInterventores($interventor['usuario'], $interventor['password'], $interventor['idMesa'], $interventor['IdInterventor'])) {
+            foreach ($interventores as $interventor) {
+                $user = $user = $interventor['usuario'];
+                $contrasena = $interventor['password'];
+                $mesa = $interventor['idMesa'];;
+                // POST user
+                if (isset($_POST["user_{$interventor['usuario']}"])) {
+                    $user = $_POST["user_{$interventor['usuario']}"];
+                }
+                // POST contrasena
+                if (isset($_POST["password_{$interventor['usuario']}"])) {
+                    $contrasena = $_POST["password_{$interventor['usuario']}"];
+                }
+                // POST Mesa
+                if (isset($_POST["optSelect_{$interventor['usuario']}"])) {
+                    $mesa = $_POST["optSelect_{$interventor['usuario']}"];
+                }
+                var_dump($user);
+                var_dump($contrasena);
+                var_dump($mesa);
+
+
+                if ($insertarInterventores = (new InterventorRepositorio())->guardarCambiosInterventores($user, $contrasena, $mesa, $interventor['IdInterventor'])) {
                     continue;
                 } else {
                     $error = "Error al guardar los cambios";
                 }
             }
+            header('Location: index.php?ctl=gestionInterventores');
         }
         require __DIR__ . '/../../app/plantillas/gestionInterventores.inc';
     }

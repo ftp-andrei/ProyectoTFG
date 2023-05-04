@@ -25,15 +25,24 @@ if (isset($_SESSION['admin'])) {
                 <tbody>
                     <?php foreach ($interventores as $interventor) { ?>
                         <tr>
-                            <td><input type="text" name="user_<?= $interventor['usuario']; ?>" id="user_<?= $interventor['usuario']; ?>" value="<?= $interventor['usuario']; ?>" disabled></td>
+                            <td><input type="text" name="user_<?= $interventor['usuario']; ?>" value="<?= $interventor['usuario']; ?>" disabled></td>
                             <td><input type="password" class="ocultarPass" name="password_<?= $interventor['usuario']; ?>" id="pass_<?= $interventor['usuario']; ?>" value="<?= $interventor['password']; ?>" disabled></td>
                             <td class="centrar"><i class="fa fa-eye-slash ocultar" id="ocultar_<?= $interventor['usuario']; ?>"></i></td>
                             <td class="centrar"><i class="fa-solid fa-copy copiar" id="copiar_<?= $interventor['usuario']; ?>"></i></td>
-                            <td><select name="opcionSelect" class="optSelect" id="optSelect_<?= $interventor['usuario']; ?>" disabled>
-                                    <option value="<?= $interventor['nombre'] ?>" id="opt_<?= $interventor['nombre'] ?>" selected="selected"><?= $interventor['nombre'] ?> </option>
+                            <td><select name="optSelect_<?= $interventor['usuario']; ?>" class="optSelect" id="optSelect_<?= $interventor['usuario']; ?>" disabled>
+                                    <?php
+                                    foreach ($mesas as $mesa) {
+                                        if ($mesa['idMesa'] == $interventor['idMesa']) { ?>
+                                            <option value="<?= $mesa['idMesa'] ?>" selected="selected"><?= $mesa['nombre'] ?> </option>
+                                        <?php
+                                        } else { ?>
+                                            <option value="<?= $mesa['idMesa'] ?>"><?= $mesa['nombre'] ?> </option>
+                                    <?php   }
+                                    }
+                                    ?>
                                 </select>
                             </td>
-                            <td class="centrar"><i class="fas fa-edit editar" id="editar_<?= $interventor['usuario']; ?>" name="editar_<?= $interventor['usuario']; ?>"></i></td>
+                            <td class="centrar"><i class="fas fa-edit editar" name="editar_<?= $interventor['usuario']; ?>"></i></td>
                             <td class="centrar">
                                 <button type="submit" name="remove_<?= $interventor['usuario']; ?>">
                                     <i class="fa fa-trash remove"></i>
