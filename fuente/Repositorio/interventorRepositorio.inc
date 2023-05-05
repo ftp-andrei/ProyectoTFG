@@ -46,11 +46,7 @@ class InterventorRepositorio
             $snt->execute();
             //Fetch devuelve un array con el numero maximo del interventor
             $fila = $snt->fetch(\PDO::FETCH_ASSOC);
-            if ($fila['mayor_numero_usuario'] == null) {
-                $fila['mayor_numero_usuario'] = 0;
-            }
 
-            // Preparamos la siguiente sentencia
             $snt = $con->prepare($sql2);
             $snt->bindValue(':usuario', 'inter' . $fila['mayor_numero_usuario'] + 1);
             $snt->bindValue(':password', $password);
@@ -69,7 +65,7 @@ class InterventorRepositorio
             }
         }
     }
-    // Metodo que borra todos los interventores
+    // Borra todos los interventores
     public function borraTodosInterventores(): bool
     {
         $sql = 'DELETE FROM Interventor';
@@ -80,9 +76,8 @@ class InterventorRepositorio
             $snt->execute();
             if ($snt->execute()) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } catch (\PDOException $th) {
             throw $th;
         } finally {
@@ -93,7 +88,7 @@ class InterventorRepositorio
         }
     }
 
-    // Metodo que borra todos los interventores
+    // Borra un interventor por id
     public function borraInterventor(int $idInterventor): bool
     {
         $sql = 'DELETE FROM Interventor WHERE IdInterventor = :idInterventor';
@@ -105,9 +100,8 @@ class InterventorRepositorio
             $snt->execute();
             if ($snt->execute()) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } catch (\PDOException $th) {
             throw $th;
         } finally {
@@ -153,9 +147,8 @@ class InterventorRepositorio
             $snt->execute();
             if ($snt->execute()) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } catch (\PDOException $th) {
             throw $th;
         } finally {

@@ -26,6 +26,41 @@ class MesasController
         $titulo = (new TitleController())->setTitle('Mesas - ANPE');
 
         $mesas = (new MesasController())->getAllMesas();
+        // Crea mesas
+        if (isset($_POST['anadirMesa']) || isset($_POST['crearMesa'])) {
+            if ($mesaGenerada = (new MesasRepositorio())->generaMesa()) {
+                // Hace header hacia la misma pagina para refrescar, y asi evitar que al hacer F5 se creen mas interventores.
+                header('Location: index.php?ctl=gestionMesas');
+            } else {
+                $error = "Error al generar mesa";
+            }
+        }
+        // Elimina una mesa
+        foreach ($mesas as $mesa) {
+            if (isset($_POST["remove_{$mesa['idMesa']}"])) {
+                $mesa = (new MesasRepositorio())->borraMesa($mesa['idMesa']);
+                header('Location: index.php?ctl=gestionMesas');
+            }
+        }
+        // Guardar cambios
+        if (isset($_POST["guardarCambios"])) {
+            foreach ($mesas as $mesa) {
+                $nombre = $mesa['nombre'];
+                // POST user
+                if (isset($_POST["nombre_{$mesa['idMesa']}"])) {
+                    $nombre = $_POST["nombre_{$mesa['idMesa']}"];
+                }
+
+
+                if ($insertarMesa = (new MesasRepositorio())->guardarCambiosMesa($nombre, $mesa['idMesa'])) {
+                    continue;
+                } else {
+                    $error = "Error al guardar los cambios";
+                }
+            }
+            header('Location: index.php?ctl=gestionMesas');
+        }
+
         require __DIR__ . '/../../app/plantillas/gestionMesas.inc';
     }
     // Funcion que retorna todas las mesas

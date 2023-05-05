@@ -15,7 +15,8 @@
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" href="web/imagenes/favicon.ico" />
   <!-- CSS -->
-  <script src="web/js/main.js"></script>
+  <script src="web/js/interventor.js"></script>
+  <script src="web/js/mesa.js"></script>
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href='web/css/general.css' />
   <link rel="stylesheet" type="text/css" href='web/css/ordenador.css' />

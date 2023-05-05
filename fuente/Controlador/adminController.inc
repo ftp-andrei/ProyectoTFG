@@ -33,11 +33,4 @@ class AdminController
         }
         require __DIR__ . '/../../app/plantillas/deseaInterventoresAdmin.inc';
     }
-    // Le muestra al admin la pagina de votantes
-    public function gestionVotantes()
-    {
-        $titulo = (new TitleController())->setTitle('Votantes - ANPE');
-
-        require __DIR__ . '/../../app/plantillas/gestionVotantes.inc';
-    }
 }

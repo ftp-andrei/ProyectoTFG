@@ -49,16 +49,17 @@ if (isset($_SESSION['admin'])) {
                                 </button>
                             </td>
                         </tr>
-
-                    <?php }
-                    ?>
+                    <?php } ?>
                 </tbody>
             </table>
-            <input type="submit" name="guardarCambios" value="Guardar cambios" id="hidden">
+            <input type="submit" name="guardarCambios" value="Guardar cambios">
             <input type="submit" name="anadirInterventor" value="Añadir Interventor">
+            <?= isset($insertarInterventores) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
         </form>
         <!-- En caso de que no existan interventores, le saldrá un mensaje y un boton para añadir de 1 en 1 -->
-    <?php } else { ?>
+    <?php
+
+    } else { ?>
         <form method="post">
             <p>No existen interventores, ¿desea añadirlos?</p>
             <input type="submit" name="crearInterventor" value="Crear un Interventor">

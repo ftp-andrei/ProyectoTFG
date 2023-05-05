@@ -1,3 +1,5 @@
+// JS Gestion Interventor (Admin)
+
 document.addEventListener("DOMContentLoaded", function () {
   const idVerImgs = document.getElementsByClassName("ocultar");
   const idVerPass = document.getElementsByClassName("ocultarPass");
@@ -60,6 +62,7 @@ function editarInterventorInterventor(idPass, idMesa, idVerImg) {
     contrasena.type = "text";
     contrasena.disabled = false;
     mesa.disabled = false;
+    contrasena.select();
   } else {
     img.className = "fa fa-eye-slash ocultar";
     contrasena.type = "password";

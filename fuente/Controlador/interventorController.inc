@@ -60,7 +60,7 @@ class InterventorController
         $titulo = (new TitleController())->setTitle('Interventores - ANPE');
         $mesas = (new MesasController())->getAllMesas();
         $interventores = (new InterventorRepositorio())->getAllInterventores();
-        // Boton de añadir interventor
+        // Añadir interventores
         if (isset($_POST['anadirInterventor']) || isset($_POST['crearInterventor'])) {
             // Creo una instancia del controlador
             $obj = new InterventorController();
@@ -70,18 +70,17 @@ class InterventorController
             // Hace header hacia la misma pagina para refrescar, y asi evitar que al hacer F5 se creen mas interventores.
             header('Location: index.php?ctl=gestionInterventores');
         }
+        // Elimina interventores
         foreach ($interventores as $interventor) {
-            // Elimina interventores
             if (isset($_POST["remove_{$interventor['usuario']}"])) {
                 $interventor = (new InterventorRepositorio())->borraInterventor($interventor['IdInterventor']);
                 header('Location: index.php?ctl=gestionInterventores');
             }
-            // Modifica interventores
         }
-        // TODO: GUARDAR CAMBIOS DE LOS INTERVENTORES
+        // Guardar los cambios
         if (isset($_POST["guardarCambios"])) {
             foreach ($interventores as $interventor) {
-                $user = $user = $interventor['usuario'];
+                $user = $interventor['usuario'];
                 $contrasena = $interventor['password'];
                 $mesa = $interventor['idMesa'];;
                 // POST user
@@ -96,10 +95,6 @@ class InterventorController
                 if (isset($_POST["optSelect_{$interventor['usuario']}"])) {
                     $mesa = $_POST["optSelect_{$interventor['usuario']}"];
                 }
-                var_dump($user);
-                var_dump($contrasena);
-                var_dump($mesa);
-
 
                 if ($insertarInterventores = (new InterventorRepositorio())->guardarCambiosInterventores($user, $contrasena, $mesa, $interventor['IdInterventor'])) {
                     continue;
