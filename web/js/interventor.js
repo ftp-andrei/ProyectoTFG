@@ -1,6 +1,8 @@
 // JS Gestion Interventor (Admin)
 
 document.addEventListener("DOMContentLoaded", function () {
+  const guardarCambios = document.getElementById("guardarCambios");
+
   const idVerImgs = document.getElementsByClassName("ocultar");
   const idVerPass = document.getElementsByClassName("ocultarPass");
   const idCopy = document.getElementsByClassName("copiar");
@@ -25,6 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
       editarInterventorInterventor(idPass.id, idMesa.id, idVerImg.id);
     });
   }
+
+  guardarCambios.addEventListener("click", function () {
+    guardadoExitoso();
+  });
 });
 // Funcion que muestra y oculta las contraseñas
 function mostrarContrasena(idVerImg, idPass) {
@@ -46,11 +52,21 @@ function copiarContrasena(idPass) {
   navigator.clipboard
     .writeText(contrasena)
     .then(() => {
-      alert("Contraseña copiada al portapapeles: " + contrasena);
+      let span = document.getElementById("copiado");
+      span.textContent = "¡Contraseña copiada al portapapeles!";
+      setTimeout(function cambiarTexto() {
+        span.textContent = "";
+      }, 2000);
     })
     .catch((error) => {
       console.error("Error al copiar al portapapeles: ", error);
     });
+}
+
+// Guardado con éxito
+function guardadoExitoso() {
+  let span = document.getElementById("copiado");
+  span.textContent = "Guardado con éxito";
 }
 
 function editarInterventorInterventor(idPass, idMesa, idVerImg) {

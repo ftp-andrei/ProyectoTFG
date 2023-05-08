@@ -28,8 +28,7 @@ class MesasController
         $mesas = (new MesasController())->getAllMesas();
         // Crea mesas
         if (isset($_POST['anadirMesa']) || isset($_POST['crearMesa'])) {
-            if ($mesaGenerada = (new MesasRepositorio())->generaMesa()) {
-                // Hace header hacia la misma pagina para refrescar, y asi evitar que al hacer F5 se creen mas interventores.
+            if ($nuevaMesa = (new MesasRepositorio())->generaMesa()) {
                 header('Location: index.php?ctl=gestionMesas');
             } else {
                 $error = "Error al generar mesa";
@@ -38,8 +37,11 @@ class MesasController
         // Elimina una mesa
         foreach ($mesas as $mesa) {
             if (isset($_POST["remove_{$mesa['idMesa']}"])) {
-                $mesa = (new MesasRepositorio())->borraMesa($mesa['idMesa']);
-                header('Location: index.php?ctl=gestionMesas');
+                if ($borraMesa = (new MesasRepositorio())->borraMesa($mesa['idMesa'])) {
+                    header('Location: index.php?ctl=gestionMesas');
+                } else {
+                    $error = "Error al borrar mesa";
+                }
             }
         }
         // Guardar cambios
@@ -52,7 +54,7 @@ class MesasController
                 }
 
 
-                if ($insertarMesa = (new MesasRepositorio())->guardarCambiosMesa($nombre, $mesa['idMesa'])) {
+                if ($guardaMesa = (new MesasRepositorio())->guardarCambiosMesa($nombre, $mesa['idMesa'])) {
                     continue;
                 } else {
                     $error = "Error al guardar los cambios";

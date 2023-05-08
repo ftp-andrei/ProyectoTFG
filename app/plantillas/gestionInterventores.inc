@@ -1,16 +1,21 @@
 <?php
 /*´ Pagina ver y gestionar interventores admin
 */
-// TODO: Añadir campo select con las opciones de las mesas.
+// Hecho: Añadir campos con posibles errores al añadir/borrar/modificar
+// Hecho: Añadir campo select con las opciones de las mesas.
 // Hecho: Editar los interventores (pass + mesa)
+// TODO: Refactorizar
 // ARREGLADO: Interventor puede acceder por URL a las paginas del admin. Averiguar como quitarlo.
 ?>
 <?php ob_start();
 if (isset($_SESSION['admin'])) {
-    if (!empty($interventores)) { ?>
+    if (!empty($interventores)) {
+?>
         <form method="post">
+            <span id="copiado"></span>
+            <br>
             <table>
-                <caption>Interventores</caption>
+                <caption>Gestión de interventores</caption>
                 <thead>
                     <tr>
                         <th>Usuario</th>
@@ -27,8 +32,8 @@ if (isset($_SESSION['admin'])) {
                         <tr>
                             <td><input type="text" name="user_<?= $interventor['usuario']; ?>" value="<?= $interventor['usuario']; ?>" disabled></td>
                             <td><input type="password" class="ocultarPass" name="password_<?= $interventor['usuario']; ?>" id="pass_<?= $interventor['usuario']; ?>" value="<?= $interventor['password']; ?>" disabled></td>
-                            <td class="centrar"><i class="fa fa-eye-slash ocultar" id="ocultar_<?= $interventor['usuario']; ?>"></i></td>
-                            <td class="centrar"><i class="fa-solid fa-copy copiar" id="copiar_<?= $interventor['usuario']; ?>"></i></td>
+                            <td><i class="fa fa-eye-slash ocultar" id="ocultar_<?= $interventor['usuario']; ?>"></i></td>
+                            <td><i class="fa-solid fa-copy copiar" id="copiar_<?= $interventor['usuario']; ?>"></i></td>
                             <td><select name="optSelect_<?= $interventor['usuario']; ?>" class="optSelect" id="optSelect_<?= $interventor['usuario']; ?>" disabled>
                                     <?php
                                     foreach ($mesas as $mesa) {
@@ -42,9 +47,9 @@ if (isset($_SESSION['admin'])) {
                                     ?>
                                 </select>
                             </td>
-                            <td class="centrar"><i class="fas fa-edit editar" name="editar_<?= $interventor['usuario']; ?>"></i></td>
-                            <td class="centrar">
-                                <button type="submit" name="remove_<?= $interventor['usuario']; ?>">
+                            <td><i class="fas fa-edit editar" name="editar_<?= $interventor['usuario']; ?>"></i></td>
+                            <td>
+                                <button type="submit" name="remove_<?= $interventor['usuario']; ?>" class="eliminar">
                                     <i class="fa fa-trash remove"></i>
                                 </button>
                             </td>
@@ -52,9 +57,12 @@ if (isset($_SESSION['admin'])) {
                     <?php } ?>
                 </tbody>
             </table>
-            <input type="submit" name="guardarCambios" value="Guardar cambios">
-            <input type="submit" name="anadirInterventor" value="Añadir Interventor">
-            <?= isset($insertarInterventores) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
+            <br>
+            <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
+            <input type="submit" name="anadirInterventor" value="Añadir Interventor" class="boton">
+            <?= isset($guardaInterventor) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
+            <?= isset($nuevoInterventor) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
+            <?= isset($borraInterventor) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
         </form>
         <!-- En caso de que no existan interventores, le saldrá un mensaje y un boton para añadir de 1 en 1 -->
     <?php
@@ -62,7 +70,7 @@ if (isset($_SESSION['admin'])) {
     } else { ?>
         <form method="post">
             <p>No existen interventores, ¿desea añadirlos?</p>
-            <input type="submit" name="crearInterventor" value="Crear un Interventor">
+            <input type="submit" name="crearInterventor" value="Crear un Interventor" class="boton">
         </form>
     <?php
     }

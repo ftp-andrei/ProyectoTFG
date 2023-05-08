@@ -69,6 +69,7 @@ class InterventorRepositorio
     public function borraTodosInterventores(): bool
     {
         $sql = 'DELETE FROM Interventor';
+        // Crear una nueva tabla para el IdInterventor =0;
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
@@ -114,13 +115,13 @@ class InterventorRepositorio
     // Devuelve un array con todos los interventores
     public function getAllInterventores(): array
     {
-        $sql = 'SELECT IdInterventor,usuario,password,i.idMesa,nombre FROM Interventor i JOIN Mesas m ON i.idMesa = m.IdMesa ORDER BY IdInterventor asc';
+        $sql = 'SELECT IdInterventor,usuario,password,i.idMesa FROM Interventor i JOIN Mesas m ON i.idMesa = m.IdMesa ORDER BY IdInterventor asc';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
             $snt->execute();
-            //Fetch devuelve un array
+
             $arrInterventores = $snt->fetchAll(\PDO::FETCH_ASSOC);
             return $arrInterventores;
         } catch (\PDOException $th) {

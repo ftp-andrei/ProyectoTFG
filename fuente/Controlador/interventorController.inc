@@ -22,16 +22,18 @@ class InterventorController
 
         if (isset($_POST['okGenerarInterventores'])) {
             if ($borra = (new InterventorRepositorio())->borraTodosInterventores()) {
-                // Cojo el numero de interventores a crear
                 $numeroInterventores = $_POST['numeroInterventores'];
                 for ($i = 0; $i < $numeroInterventores; $i++) {
                     // Creo una instancia del controlador
                     $obj = new InterventorController();
                     $pass = $obj->randomPassword();
                     // Devuelve true o false.
-                    $interventor = (new InterventorRepositorio())->generaInterventorAdmin($pass);
+                    if ($genInterventor = (new InterventorRepositorio())->generaInterventorAdmin($pass)) {
+                        continue;
+                    } else {
+                        $error = "Error al generar los interventores";
+                    }
                 }
-                // Al generar te lleva a la pagina de votantes del admin (¿Quizás hacer una pagina de inicio?)
                 header('Location: index.php?ctl=gestionVotantes');
             } else {
                 $error = "Error al borrar los interventores";
@@ -58,6 +60,7 @@ class InterventorController
     public function verInterventores()
     {
         $titulo = (new TitleController())->setTitle('Interventores - ANPE');
+        // Mesas para el select
         $mesas = (new MesasController())->getAllMesas();
         $interventores = (new InterventorRepositorio())->getAllInterventores();
         // Añadir interventores
@@ -65,16 +68,34 @@ class InterventorController
             // Creo una instancia del controlador
             $obj = new InterventorController();
             $pass = $obj->randomPassword();
-            // Devuelve true o false.
-            $interventor = (new InterventorRepositorio())->generaInterventorAdmin($pass);
-            // Hace header hacia la misma pagina para refrescar, y asi evitar que al hacer F5 se creen mas interventores.
-            header('Location: index.php?ctl=gestionInterventores');
+
+            // Hashear password, para introducirlo en la bbdd
+            // $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
+
+            // Verificar que es la misma password
+            // if (password_verify($pass, $hashed_password)) {
+            //     echo "La contraseña es válida.";
+            // } else {
+            //     echo "La contraseña no es válida.";
+            // }
+
+
+            // // Devuelve true o false.
+            if ($nuevoInterventor = (new InterventorRepositorio())->generaInterventorAdmin($pass)) {
+                header('Location: index.php?ctl=gestionInterventores');
+            } else {
+                $error = "<br>Error al crear el interventor";
+            }
         }
         // Elimina interventores
         foreach ($interventores as $interventor) {
             if (isset($_POST["remove_{$interventor['usuario']}"])) {
-                $interventor = (new InterventorRepositorio())->borraInterventor($interventor['IdInterventor']);
-                header('Location: index.php?ctl=gestionInterventores');
+                // Devuelve true o false.
+                if ($borraInterventor = (new InterventorRepositorio())->borraInterventor($interventor['IdInterventor'])) {
+                    header('Location: index.php?ctl=gestionInterventores');
+                } else {
+                    $error = "<br>Error al borrar el interventor";
+                }
             }
         }
         // Guardar los cambios
@@ -96,10 +117,10 @@ class InterventorController
                     $mesa = $_POST["optSelect_{$interventor['usuario']}"];
                 }
 
-                if ($insertarInterventores = (new InterventorRepositorio())->guardarCambiosInterventores($user, $contrasena, $mesa, $interventor['IdInterventor'])) {
+                if ($guardaInterventor = (new InterventorRepositorio())->guardarCambiosInterventores($user, $contrasena, $mesa, $interventor['IdInterventor'])) {
                     continue;
                 } else {
-                    $error = "Error al guardar los cambios";
+                    $error = "<br>Error al guardar los cambios";
                 }
             }
             header('Location: index.php?ctl=gestionInterventores');

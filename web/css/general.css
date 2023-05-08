@@ -1,4 +1,93 @@
-/* Gestion Interventores (Admin) */
-.centrar {
+#contenido {
+  margin: 0 auto;
   text-align: center;
+}
+
+header img {
+  width: 110px;
+  height: 40px;
+}
+
+.conjuntoHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Copiado con exito */
+#copiado {
+  color: green;
+  font-weight: bold;
+}
+
+/* Para el h1 */
+h1 {
+  color: #598c41;
+  /* color: #0099ff; */
+  font-weight: normal;
+  font-size: 2em;
+  font-family: "Times New Roman", Times, serif;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Estilos nav */
+nav {
+  margin: 0 auto;
+  text-align: center;
+}
+nav a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.9em;
+  display: inline-block;
+  width: 10%;
+  padding: 5px 10px;
+  background-color: #3c763d;
+  border: 1px solid #3c763d;
+  text-align: center;
+  color: #fff;
+  border-radius: 1em;
+}
+nav a:hover {
+  background-color: #418c57;
+  color: #f2e9e4;
+  font-weight: bold;
+}
+
+/* Formulario */
+table,
+form {
+  text-align: center;
+  display: inline-block;
+}
+
+caption {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+form fieldset {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+/* Botones fuera del form (guardar/añadir) */
+.boton {
+  background-color: #3c763d;
+  border: 1px solid #3c763d;
+  text-align: center;
+  color: #fff;
+  border-radius: 1em;
+}
+
+.boton:hover {
+  background-color: #418c57;
+  color: #f2e9e4;
+}
+/* Boton eliminar */
+
+.eliminar {
+  background-color: #e82c0c;
+  border-color: #e82c0c;
+  border-radius: 0.4em;
 }
