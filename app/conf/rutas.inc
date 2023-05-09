@@ -34,6 +34,8 @@ $mapeoRutas = [
     'gestionMesas' => ['controller' => 'app\EleccionesSindicales\controlador\MesasController', 'action' => 'verMesas'],
     // Gestion Interventores - Lista de Interventores
     'gestionAfiliados' => ['controller' => 'app\EleccionesSindicales\controlador\AfiliadosController', 'action' => 'verAfiliados'],
+    // Estadisticas (admin)
+    'estadisticas' => ['controller' => 'app\EleccionesSindicales\controlador\AdminController', 'action' => 'verEstadisticas'],
     // Pagina Inicial Interventores
     'inicioInterventor' => ['controller' => 'app\EleccionesSindicales\controlador\InterventorController', 'action' => 'inicioInterventor'],
     // Funciones interventor

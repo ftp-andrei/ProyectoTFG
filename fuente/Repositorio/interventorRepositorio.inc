@@ -52,10 +52,7 @@ class InterventorRepositorio
             $snt->bindValue(':password', $password);
             // No pongo la mesa ya que por default es 0.
 
-            if ($snt->execute()) {
-                return true;
-            }
-            return false;
+            return $snt->execute();
         } catch (\PDOException $th) {
             throw $th;
         } finally {
@@ -74,11 +71,7 @@ class InterventorRepositorio
         try {
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
-            $snt->execute();
-            if ($snt->execute()) {
-                return true;
-            }
-            return false;
+            return $snt->execute();
         } catch (\PDOException $th) {
             throw $th;
         } finally {
@@ -98,11 +91,7 @@ class InterventorRepositorio
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
             $snt->bindValue(':idInterventor', $idInterventor);
-            $snt->execute();
-            if ($snt->execute()) {
-                return true;
-            }
-            return false;
+            return $snt->execute();
         } catch (\PDOException $th) {
             throw $th;
         } finally {
@@ -145,11 +134,7 @@ class InterventorRepositorio
             $snt->bindValue(':usuario', $usuario);
             $snt->bindValue(':password', $password);
             $snt->bindValue(':idMesa', $idMesa);
-            $snt->execute();
-            if ($snt->execute()) {
-                return true;
-            }
-            return false;
+            return $snt->execute();
         } catch (\PDOException $th) {
             throw $th;
         } finally {

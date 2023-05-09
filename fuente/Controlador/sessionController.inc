@@ -4,7 +4,7 @@ namespace app\EleccionesSindicales\controlador;
 
 use app\EleccionesSindicales\repositorio\AdminRepositorio;
 use app\EleccionesSindicales\repositorio\InterventorRepositorio;
-// Ejemplo de controlador para página home de la aplicación
+
 class SessionController
 {
   public function login()

@@ -1,6 +1,8 @@
 // JS Gestion Votantes (Admin)
 
 document.addEventListener("DOMContentLoaded", function () {
+  const guardarCambios = document.getElementById("guardarCambios");
+
   const idEditarMesa = document.getElementsByClassName("editar");
   const nombre = document.getElementsByClassName("nombreVotante");
   const apellido1 = document.getElementsByClassName("apellido1Votante");
@@ -16,8 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
       editarVotante(nifVotante[i], mesaNombre[i], voto[i], nombreCentro[i], codCentro[i], nombre[i], apellido1[i], apellido2[i]);
     });
   }
-});
 
+  guardarCambios.addEventListener("click", function () {
+    guardadoExitoso();
+  });
+});
+// Funcion que habilita los campos para editar el votante
 function editarVotante(nif, idMesa, idVoto, nombreCentro, codCentro, nombre, apellido1, apellido2) {
   if (nif.disabled) {
     nif.disabled = false;
@@ -38,4 +44,16 @@ function editarVotante(nif, idMesa, idVoto, nombreCentro, codCentro, nombre, ape
     apellido1.disabled = true;
     apellido2.disabled = true;
   }
+}
+
+// Guardado con éxito
+function guardadoExitoso() {
+  let span = document.getElementById("copiado");
+  span.textContent = "Guardado con éxito";
+}
+
+// Borrado con éxito SIN USAR TODAVIA
+function borradoExitoso() {
+  let span = document.getElementById("copiado");
+  span.textContent = "Borrando..";
 }

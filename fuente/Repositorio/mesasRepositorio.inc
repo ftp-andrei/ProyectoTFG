@@ -29,9 +29,8 @@ class MesasRepositorio
                     $snt->execute();
                 }
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } catch (\PDOException $th) {
             throw $th;
         } finally {

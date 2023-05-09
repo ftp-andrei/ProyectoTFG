@@ -3,7 +3,7 @@
 namespace app\EleccionesSindicales\controlador;
 
 use app\EleccionesSindicales\repositorio\VotantesRepositorio;
-// Ejemplo de controlador para página home de la aplicación
+
 class VotantesController
 {
 
@@ -14,58 +14,93 @@ class VotantesController
         $votantes = (new VotantesRepositorio())->getVotantes();
         $mesas = (new MesasController())->getAllMesas();
         // Guardar cambios
+
         if (isset($_POST["guardarCambios"])) {
-            foreach ($votantes as $votante) {
-                $nombre = $votante['Nombre'];
-                $apellido1 = $votante['Apellido1'];
-                $apellido2 = $votante['Apellido2'];
-                $nif = $votante['NIF'];
-                $codCentro = $votante['CodCentro'];
-                $nombreCentro = $votante['NombreCentro'];
-                $mesa = $votante['idMesa'];
-                $voto = $votante['Voto'];
+            $arr = [];
+            $tamano = sizeof($votantes);
+            for ($i = 0; $i < $tamano; $i++) {
+                $nombre = $votantes[$i]['Nombre'];
+                $apellido1 = $votantes[$i]['Apellido1'];
+                $apellido2 = $votantes[$i]['Apellido2'];
+                $nif = $votantes[$i]['NIF'];
+                $codCentro = $votantes[$i]['CodCentro'];
+                $nombreCentro = $votantes[$i]['NombreCentro'];
+                $mesa = $votantes[$i]['idMesa'];
+                $voto = $votantes[$i]['Voto'];
+                $fecha = $votantes[$i]['Fecha'];
                 // POST nombre
-                if (isset($_POST["nombre_{$votante['IdVotante']}"])) {
-                    $nombre = $_POST["nombre_{$votante['IdVotante']}"];
+                if (isset($_POST["nombre_{$votantes[$i]['IdVotante']}"])) {
+                    $nombre = $_POST["nombre_{$votantes[$i]['IdVotante']}"];
                 }
                 // POST apellido1
-                if (isset($_POST["apellido1_{$votante['IdVotante']}"])) {
-                    $apellido1 = $_POST["apellido1_{$votante['IdVotante']}"];
+                if (isset($_POST["apellido1_{$votantes[$i]['IdVotante']}"])) {
+                    $apellido1 = $_POST["apellido1_{$votantes[$i]['IdVotante']}"];
                 }
                 // POST apellido2
-                if (isset($_POST["apellido2_{$votante['IdVotante']}"])) {
-                    $apellido2 = $_POST["apellido2_{$votante['IdVotante']}"];
+                if (isset($_POST["apellido2_{$votantes[$i]['IdVotante']}"])) {
+                    $apellido2 = $_POST["apellido2_{$votantes[$i]['IdVotante']}"];
                 }
                 // POST nif
-                if (isset($_POST["NIF_{$votante['IdVotante']}"])) {
-                    $nif = $_POST["NIF_{$votante['IdVotante']}"];
+                if (isset($_POST["NIF_{$votantes[$i]['IdVotante']}"])) {
+                    $nif = $_POST["NIF_{$votantes[$i]['IdVotante']}"];
                 }
                 // POST Cod centro
-                if (isset($_POST["CodCentro_{$votante['IdVotante']}"])) {
-                    $codCentro = $_POST["CodCentro_{$votante['IdVotante']}"];
+                if (isset($_POST["CodCentro_{$votantes[$i]['IdVotante']}"])) {
+                    $codCentro = $_POST["CodCentro_{$votantes[$i]['IdVotante']}"];
                 }
                 // POST Nombre centro
-                if (isset($_POST["NombreCentro_{$votante['IdVotante']}"])) {
-                    $nombreCentro = $_POST["NombreCentro_{$votante['IdVotante']}"];
+                if (isset($_POST["NombreCentro_{$votantes[$i]['IdVotante']}"])) {
+                    $nombreCentro = $_POST["NombreCentro_{$votantes[$i]['IdVotante']}"];
                 }
                 // POST Mesa
-                if (isset($_POST["optSelectMesa_{$votante['IdVotante']}"])) {
-                    $mesa = $_POST["optSelectMesa_{$votante['IdVotante']}"];
+                if (isset($_POST["optSelectMesa_{$votantes[$i]['IdVotante']}"])) {
+                    $mesa = $_POST["optSelectMesa_{$votantes[$i]['IdVotante']}"];
                 }
                 // POST Voto
-                if (isset($_POST["optSelectVoto_{$votante['IdVotante']}"])) {
-                    $voto = $_POST["optSelectVoto_{$votante['IdVotante']}"];
+
+                if (isset($_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"])) {
+                    $voto = $_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"];
+                    if (intval($voto)) {
+                        $fecha = date("Y-m-d H:i:s");
+                    } else {
+                        $fecha = "";
+                    }
                 }
-
-
-                // if ($guardarVotante = (new VotanteRepositorio())->guardarCambiosVotantes($user, $contrasena, $mesa, $votante['IdVotante'],$votante['Fecha'])) {
-                //     continue;
-                // } else {
-                //     $error = "<br>Error al guardar los cambios";
-                // }
+                $arr[$i]["IdVotante"] = $votantes[$i]['IdVotante'];
+                $arr[$i]["Nombre"] = $nombre;
+                $arr[$i]["Apellido1"] = $apellido1;
+                $arr[$i]["Apellido2"] = $apellido2;
+                $arr[$i]["NIF"] = $nif;
+                $arr[$i]["CodCentro"] = $codCentro;
+                $arr[$i]["NombreCentro"] = $nombreCentro;
+                $arr[$i]["idMesa"] = $mesa;
+                $arr[$i]["Voto"] = $voto;
+                $arr[$i]["Fecha"] = $fecha;
             }
-            // header('Location: index.php?ctl=gestionVotantes');
+            // Si es igual no va a guardar nada. PONERLO EN !=
+            if ($arr == $votantes) {
+                var_dump("Fecha Despues Votantes: " . $votantes[1]['Fecha']);
+                var_dump("Fecha Array Antes de Repo: " . $arr[1]["Fecha"]);
+                // CUANDO ESTÉ ARREGLADO QUITAR EL !
+                if (!$guardarVotante = (new VotantesRepositorio())->guardarCambiosVotantes($arr)) {
+                    // header('Location: index.php?ctl=gestionVotantes');
+                } else {
+                    $error = "<br>Error al guardar los cambios";
+                }
+            }
         }
+
+        // Elimina un votante
+        foreach ($votantes as $votante) {
+            if (isset($_POST["remove_{$votante['IdVotante']}"])) {
+                if ($borraVotante = (new VotantesRepositorio())->borraVotante($votante['IdVotante'])) {
+                    header('Location: index.php?ctl=gestionVotantes');
+                } else {
+                    $error = "Error al borrar votante";
+                }
+            }
+        }
+
         require __DIR__ . '/../../app/plantillas/gestionVotantes.inc';
     }
 }

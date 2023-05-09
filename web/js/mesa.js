@@ -2,10 +2,12 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   const guardarCambios = document.getElementById("guardarCambios");
-
+  const anadirMesa = document.getElementById("anadir");
+  const eliminaMesa = document.getElementsByClassName("eliminar");
   const idEditarMesa = document.getElementsByClassName("editar");
   const idCopy = document.getElementsByClassName("copiar");
   const nombreMesas = document.getElementsByClassName("nombreMesa");
+
   for (let i = 0; i < nombreMesas.length; i++) {
     // Copia el nombre de mesa al portapapeles
     idCopy[i].addEventListener("click", function () {
@@ -15,10 +17,18 @@ document.addEventListener("DOMContentLoaded", function () {
     idEditarMesa[i].addEventListener("click", function () {
       editarNombreMesa(nombreMesas[i]);
     });
+
+    eliminaMesa[i].addEventListener("click", function () {
+      borradoExitoso();
+    });
   }
 
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
+  });
+
+  anadirMesa.addEventListener("click", function () {
+    AnadidoExitoso();
   });
 });
 // Copia la contrasena al portapapeles
@@ -38,6 +48,7 @@ function copiarNombreMesa(nombre) {
     });
 }
 
+// Funcion que habilita los campos para editar la Mesa
 function editarNombreMesa(nombre) {
   if (nombre.disabled) {
     nombre.disabled = false;
@@ -50,5 +61,16 @@ function editarNombreMesa(nombre) {
 // Guardado con éxito
 function guardadoExitoso() {
   let span = document.getElementById("copiado");
-  span.textContent = "Guardado con éxito";
+  span.textContent = "Guardado...";
+}
+// Borrado con éxito
+function borradoExitoso() {
+  let span = document.getElementById("copiado");
+  span.style.color = "red";
+  span.textContent = "Borrando...";
+}
+// Añadido con exito
+function AnadidoExitoso() {
+  let span = document.getElementById("copiado");
+  span.textContent = "Añadiendo...";
 }

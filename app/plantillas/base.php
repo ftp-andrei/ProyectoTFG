@@ -15,9 +15,9 @@
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" href="web/imagenes/favicon.ico" />
   <!-- CSS -->
-  <script src="web/js/interventor.js"></script>
-  <script src="web/js/mesa.js"></script>
-  <script src="web/js/votante.js"></script>
+
+
+
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href='web/css/general.css' />
   <link rel="stylesheet" type="text/css" href='web/css/ordenador.css' />
@@ -47,13 +47,13 @@
       <!-- <a href="index.php?ctl=panelDeControl">Panel de Control</a> | -->
       <a href="index.php?ctl=estadisticas">Estadísticas</a>
       <a href="index.php?ctl=listadosFiltrados">Listados Filtrados</a>
-      <a href="index.php?ctl=logout">Salir</a>
+      <a href="index.php?ctl=logout" class="salir">Salir</a>
       <hr>
     <?php  } ?>
 
     <?php if (isset($_SESSION['interventor'])) { ?>
       <a href="index.php?ctl=inicioInterventor">Votos de la mesa</a>
-      <a href="index.php?ctl=logout">Salir</a>
+      <a href="index.php?ctl=logout" class="salir">Salir</a>
       <hr>
     <?php  } ?>
   </nav>

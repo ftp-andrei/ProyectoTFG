@@ -1,6 +1,8 @@
 <?php
 /*´ Pagina ver y gestionar mesa admin
 */
+
+echo "<script src='web/js/mesa.js'></script>";
 ?>
 <?php ob_start(); ?>
 
@@ -14,8 +16,8 @@ if (isset($_SESSION['admin'])) {
                 <caption>Gestión de mesas</caption>
                 <thead>
                     <tr>
-                        <td>idMesa</td>
-                        <td>Nombre</td>
+                        <th>idMesa</th>
+                        <th>Nombre</th>
                         <th>Copiar</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
@@ -40,12 +42,11 @@ if (isset($_SESSION['admin'])) {
                     } ?>
                 </tbody>
             </table>
-            <br>
             <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
-            <input type="submit" name="anadirMesa" value="Añadir mesa" class="boton">
-            <?= isset($nuevaMesa) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
-            <?= isset($guardaMesa) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
-            <?= isset($borraMesa) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
+            <input type="submit" name="anadirMesa" value="Añadir mesa" class="boton" id="anadir">
+            <?= isset($nuevaMesa) ? "<span>" . $error . "</span>" : "" ?>
+            <?= isset($guardaMesa) ? "<span>" . $error . "</span>" : "" ?>
+            <?= isset($borraMesa) ? "<span>" . $error . "</span>" : "" ?>
 
         </form>
         <!-- En caso de que no existan mesas, le saldrá un mensaje y un boton para añadir de 1 en 1 -->

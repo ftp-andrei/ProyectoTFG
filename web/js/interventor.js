@@ -2,7 +2,8 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   const guardarCambios = document.getElementById("guardarCambios");
-
+  const anadirInter = document.getElementById("anadir");
+  const eliminarInter = document.getElementsByClassName("eliminar");
   const idVerImgs = document.getElementsByClassName("ocultar");
   const idVerPass = document.getElementsByClassName("ocultarPass");
   const idCopy = document.getElementsByClassName("copiar");
@@ -26,27 +27,35 @@ document.addEventListener("DOMContentLoaded", function () {
     editarInterventor.addEventListener("click", function () {
       editarInterventorInterventor(idPass.id, idMesa.id, idVerImg.id);
     });
+
+    eliminarInter[i].addEventListener("click", function () {
+      borradoExitoso();
+    });
   }
 
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
   });
+
+  anadirInter.addEventListener("click", function () {
+    AnadidoExitoso();
+  });
 });
-// Funcion que muestra y oculta las contraseñas
+// Funcion que muestra la contraseña (sin editarla)
 function mostrarContrasena(idVerImg, idPass) {
   let img = document.getElementById(idVerImg);
   let pass = document.getElementById(idPass);
   if (pass.type === "password") {
     img.className = "fa fa-eye mostrar";
     pass.type = "text";
-    // pass.disabled = false;
+    // pass.disabled = false; // Evita editar la contraseña
   } else {
     img.className = "fa fa-eye-slash ocultar";
     pass.type = "password";
     pass.disabled = true;
   }
 }
-// Copia la contrasena al portapapeles
+// Copia la contraseña al portapapeles y muestra un mensaje en la pantalla
 function copiarContrasena(idPass) {
   let contrasena = document.getElementById(idPass).value;
   navigator.clipboard
@@ -63,12 +72,7 @@ function copiarContrasena(idPass) {
     });
 }
 
-// Guardado con éxito
-function guardadoExitoso() {
-  let span = document.getElementById("copiado");
-  span.textContent = "Guardado con éxito";
-}
-
+// Funcion que habilita los campos para editar el interventor
 function editarInterventorInterventor(idPass, idMesa, idVerImg) {
   let img = document.getElementById(idVerImg);
   let contrasena = document.getElementById(idPass);
@@ -85,4 +89,21 @@ function editarInterventorInterventor(idPass, idMesa, idVerImg) {
     contrasena.disabled = true;
     mesa.disabled = true;
   }
+}
+
+// Mensaje de que se ha guardado con éxito el interventor
+function guardadoExitoso() {
+  let span = document.getElementById("copiado");
+  span.textContent = "Guardando...";
+}
+// Borrado con éxito
+function borradoExitoso() {
+  let span = document.getElementById("copiado");
+  span.style.color = "red";
+  span.textContent = "Borrando...";
+}
+// Añadido con exito
+function AnadidoExitoso() {
+  let span = document.getElementById("copiado");
+  span.textContent = "Añadiendo...";
 }

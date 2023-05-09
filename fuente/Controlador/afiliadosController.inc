@@ -3,14 +3,15 @@
 namespace app\EleccionesSindicales\controlador;
 
 use app\EleccionesSindicales\repositorio\AfiliadosRepositorio;
-// Ejemplo de controlador para página home de la aplicación
+
 class AfiliadosController
 {
 
-    // Le muestra al admin la pagina de votantes
+    // Le muestra al admin la pagina de afiliados
     public function verAfiliados()
     {
         $titulo = (new TitleController())->setTitle('Afiliados - ANPE');
+        $votantes = (new AfiliadosRepositorio())->getAfiliados();
 
         require __DIR__ . '/../../app/plantillas/gestionAfiliados.inc';
     }

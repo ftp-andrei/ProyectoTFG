@@ -1,6 +1,9 @@
 <?php
 /*´ Pagina ver y gestionar interventores admin
 */
+
+echo "<script src='web/js/interventor.js'></script>"; // código JavaScript aquí
+
 // Hecho: Añadir campos con posibles errores al añadir/borrar/modificar
 // Hecho: Añadir campo select con las opciones de las mesas.
 // Hecho: Editar los interventores (pass + mesa)
@@ -57,12 +60,11 @@ if (isset($_SESSION['admin'])) {
                     <?php } ?>
                 </tbody>
             </table>
-            <br>
             <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
-            <input type="submit" name="anadirInterventor" value="Añadir Interventor" class="boton">
-            <?= isset($guardaInterventor) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
-            <?= isset($nuevoInterventor) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
-            <?= isset($borraInterventor) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
+            <input type="submit" name="anadirInterventor" value="Añadir Interventor" class="boton" id="anadir">
+            <?= isset($guardaInterventor) ? "<span>" . $error . "</span>" : "" ?>
+            <?= isset($nuevoInterventor) ? "<span>" . $error . "</span>" : "" ?>
+            <?= isset($borraInterventor) ? "<span>" . $error . "</span>" : "" ?>
         </form>
         <!-- En caso de que no existan interventores, le saldrá un mensaje y un boton para añadir de 1 en 1 -->
     <?php

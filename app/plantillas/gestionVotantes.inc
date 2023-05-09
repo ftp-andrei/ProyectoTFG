@@ -1,6 +1,10 @@
 <?php
-/*´ Pagina crear mesas inicio sesion admin
+/*´ Pagina ver y gestionar votantes admin
 */
+// TODO: Solucionar fechas al guardar
+// Hecho: Eliminar votantes
+// TODO: Revisar posibles errores (Mismo NIF)
+echo "<script src='web/js/votante.js'></script>"
 ?>
 <?php ob_start();
 if (isset($_SESSION['admin'])) {
@@ -27,8 +31,7 @@ if (isset($_SESSION['admin'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($votantes as $votante) {
-                    ?>
+                    <?php foreach ($votantes as $votante) { ?>
                         <tr>
                             <td><input type="text" name="nombre_<?= $votante['IdVotante']; ?>" value="<?= $votante['Nombre']; ?>" class="nombreVotante" disabled></td>
                             <td><input type="text" name="apellido1_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido1']; ?>" class="apellido1Votante" disabled></td>
@@ -49,14 +52,21 @@ if (isset($_SESSION['admin'])) {
                             <td><select name="optSelectVoto_<?= $votante['IdVotante']; ?>" class="optSelectVoto" id="optSelectVoto_<?= $votante['IdVotante']; ?>" disabled>
                                     <?php
                                     if ($votante['Voto']) { ?>
-                                        <option value="<?= $votante['Voto'] ?>" selected="selected">Sí ha votado </option>
-                                        <option value="<?= !$votante['Voto'] ?>">No ha votado </option>
+                                        <option value="1" selected="selected">Sí ha votado </option>
+                                        <option value="0">No ha votado </option>
                                     <?php } else { ?>
-                                        <option value="<?= $votante['Voto'] ?>" selected="selected">No ha votado </option>
-                                        <option value="<?= !$votante['Voto'] ?>">Sí ha votado </option>
-                                    <?php  }  ?>
+                                        <option value="0" selected="selected">No ha votado </option>
+                                        <option value="1">Sí ha votado </option>
+                                    <?php  } ?>
                             </td>
-                            <td><input type="text" name="Fecha_<?= $votante['IdVotante']; ?>" value="<?= isset($votante['Fecha']) ? $votante['Fecha'] : "Vacio" ?>" class="FechaVotante" disabled></td>
+                            <td><input type="text" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php
+                                                                                                                            if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
+                                                                                                                                echo substr($votante['Fecha'], 0, -4);
+                                                                                                                            } else {
+                                                                                                                                echo "Vacio";
+                                                                                                                            }
+                                                                                                                            ?>" disabled>
+                            </td>
                             <td><i class="fas fa-edit editar" name="editar_<?= $votante['IdVotante']; ?>"></i></td>
                             <td>
                                 <button type="submit" name="remove_<?= $votante['IdVotante']; ?>" class="eliminar">
@@ -67,10 +77,9 @@ if (isset($_SESSION['admin'])) {
                     <?php } ?>
                 </tbody>
             </table>
-            <br>
-            <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton">
-            <?= isset($guardarVotante) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
-            <?= isset($borraMesa) ? "<span style='color:red'>" . $error . "</span>" : "" ?>
+            <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
+            <?= isset($guardarVotante) ? "<span>" . $error . "</span>" : "" ?>
+            <?= isset($borraVotante) ? "<span>" . $error . "</span>" : "" ?>
 
         </form>
 

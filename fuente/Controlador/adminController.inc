@@ -33,4 +33,9 @@ class AdminController
         }
         require __DIR__ . '/../../app/plantillas/deseaInterventoresAdmin.inc';
     }
+
+    public function verEstadisticas()
+    {
+        require __DIR__ . '/../../app/plantillas/estadisticas.inc';
+    }
 }
