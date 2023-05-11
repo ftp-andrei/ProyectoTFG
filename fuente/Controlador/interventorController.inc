@@ -100,31 +100,45 @@ class InterventorController
         }
         // Guardar los cambios
         if (isset($_POST["guardarCambios"])) {
-            foreach ($interventores as $interventor) {
-                $user = $interventor['usuario'];
-                $contrasena = $interventor['password'];
-                $mesa = $interventor['idMesa'];;
+            $arr = [];
+            $tamano = sizeof($interventores);
+            for ($i = 0; $i < $tamano; $i++) {
+                $user = $interventores[$i]['usuario'];
+                $contrasena = $interventores[$i]['password'];
+                $mesa = $interventores[$i]['idMesa'];
                 // POST user
-                if (isset($_POST["user_{$interventor['usuario']}"])) {
-                    $user = $_POST["user_{$interventor['usuario']}"];
+                if (isset($_POST["user_{$interventores[$i]['usuario']}"])) {
+                    if ($_POST["user_{$interventores[$i]['usuario']}"] !=  $user) {
+                        if ($existe = (new InterventorRepositorio())->existeInterventor($_POST["user_{$interventores[$i]['usuario']}"])) {
+                            $user = $_POST["user_{$interventores[$i]['usuario']}"];
+                        } else {
+                            $error = "<br>Ha habido errores en el nombre de usuario: El nombre de usuario ya existe o es duplicado";
+                        }
+                    }
                 }
                 // POST contrasena
-                if (isset($_POST["password_{$interventor['usuario']}"])) {
-                    $contrasena = $_POST["password_{$interventor['usuario']}"];
+                if (isset($_POST["password_{$interventores[$i]['usuario']}"])) {
+                    $contrasena = $_POST["password_{$interventores[$i]['usuario']}"];
                 }
                 // POST Mesa
-                if (isset($_POST["optSelect_{$interventor['usuario']}"])) {
-                    $mesa = $_POST["optSelect_{$interventor['usuario']}"];
+                if (isset($_POST["optSelect_{$interventores[$i]['usuario']}"])) {
+                    $mesa = $_POST["optSelect_{$interventores[$i]['usuario']}"];
                 }
-
-                if ($guardaInterventor = (new InterventorRepositorio())->guardarCambiosInterventores($user, $contrasena, $mesa, $interventor['IdInterventor'])) {
-                    continue;
+                $arr[$i]['IdInterventor'] = $interventores[$i]['IdInterventor'];
+                $arr[$i]['usuario'] = $user;
+                $arr[$i]['password'] = $contrasena;
+                $arr[$i]['idMesa'] = $mesa;
+            }
+            // Guarda los cambios y redirige a la pagina de gestion de interventores
+            if ($arr != $interventores) {
+                if ($guardaInterventor = (new InterventorRepositorio())->guardarCambiosInterventores($arr)) {
+                    header('Location: index.php?ctl=gestionInterventores');
                 } else {
                     $error = "<br>Error al guardar los cambios";
                 }
             }
-            header('Location: index.php?ctl=gestionInterventores');
         }
+
         require __DIR__ . '/../../app/plantillas/gestionInterventores.inc';
     }
 }

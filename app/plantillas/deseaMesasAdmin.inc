@@ -1,15 +1,14 @@
 <?php
 /*´ Página al iniciar sesion el admin. Le pregunta si desea generar mesas
 */
-?>
-<?php ob_start();
+ob_start();
 if (isset($_SESSION['admin'])) {
 ?>
-    <form method="post">
+    <form method="post" id="desea">
         <fieldset>
             <legend>¿Desea generar mesas?</legend>
-            <input type="submit" name="Si" value="Si">
-            <input type="submit" name="No" value="No">
+            <input type="submit" name="Si" value="Si" id="si">
+            <input type="submit" name="No" value="No" id="no">
         </fieldset>
     </form>
 

@@ -1,8 +1,7 @@
 <?php
 /*´ Página de estadísticas del admin
 */
-?>
-<?php ob_start();
+ob_start();
 if (isset($_SESSION['admin'])) {
 ?>
 

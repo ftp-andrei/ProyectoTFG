@@ -31,6 +31,32 @@ class InterventorRepositorio
         }
     }
 
+    public function existeInterventor(string $user): bool
+    {
+        // Coge el numero mayor de interventores
+        $sql = 'SELECT count(usuario) as "usuarios" FROM Interventor WHERE usuario = :usuario';
+        // SQL inserta Interventores
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            $snt->bindValue(':usuario', $user);
+            $snt->execute();
+            $fila = $snt->fetch(\PDO::FETCH_ASSOC);
+            if ($fila['usuarios'] == 0) {
+                return true;
+            }
+            return false;
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
+
     // Metodo que genera interventores al iniciar sesion el admin
     public function generaInterventorAdmin(string $password): bool
     {
@@ -123,17 +149,20 @@ class InterventorRepositorio
         }
     }
     // Guarda los cambios realizados por el admin de los interventores
-    public function guardarCambiosInterventores(string $usuario, string $password, int $idMesa, int $idInterventor): bool
+    public function guardarCambiosInterventores(array $arr): bool
     {
         $sql = 'UPDATE Interventor SET usuario = :usuario, password = :password, idMesa = :idMesa WHERE IdInterventor = :IdInterventor';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
-            $snt = $con->prepare($sql);
-            $snt->bindValue(':IdInterventor', $idInterventor);
-            $snt->bindValue(':usuario', $usuario);
-            $snt->bindValue(':password', $password);
-            $snt->bindValue(':idMesa', $idMesa);
+            foreach ($arr as $interventor) {
+                $snt = $con->prepare($sql);
+                $snt->bindValue(':IdInterventor', $interventor['IdInterventor']);
+                $snt->bindValue(':usuario', $interventor['usuario']);
+                $snt->bindValue(':password', $interventor['password']);
+                $snt->bindValue(':idMesa', $interventor['idMesa']);
+                $snt->execute();
+            }
             return $snt->execute();
         } catch (\PDOException $th) {
             throw $th;

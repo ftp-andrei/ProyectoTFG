@@ -13,11 +13,13 @@ class VotantesController
         $titulo = (new TitleController())->setTitle('Votantes - ANPE');
         $votantes = (new VotantesRepositorio())->getVotantes();
         $mesas = (new MesasController())->getAllMesas();
+        var_dump(date_default_timezone_get());
         // Guardar cambios
 
         if (isset($_POST["guardarCambios"])) {
             $arr = [];
             $tamano = sizeof($votantes);
+            var_dump("Antes de For: " . $votantes[0]['Fecha']);
             for ($i = 0; $i < $tamano; $i++) {
                 $nombre = $votantes[$i]['Nombre'];
                 $apellido1 = $votantes[$i]['Apellido1'];
@@ -61,7 +63,9 @@ class VotantesController
                 if (isset($_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"])) {
                     $voto = $_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"];
                     if (intval($voto)) {
-                        $fecha = date("Y-m-d H:i:s");
+                        var_dump("Antes de formateo: " . $fecha);
+                        $fecha = date("Y/m/d H:i:s");
+                        var_dump("Despues de formateo: " . $fecha);
                     } else {
                         $fecha = "";
                     }
@@ -77,12 +81,11 @@ class VotantesController
                 $arr[$i]["Voto"] = $voto;
                 $arr[$i]["Fecha"] = $fecha;
             }
-            // Si es igual no va a guardar nada. PONERLO EN !=
+            // Si es igual no va a guardar nada. PONERLO EN != CUANDO SE SOLUCIONE
             if ($arr == $votantes) {
-                var_dump("Fecha Despues Votantes: " . $votantes[1]['Fecha']);
-                var_dump("Fecha Array Antes de Repo: " . $arr[1]["Fecha"]);
-                // CUANDO ESTÉ ARREGLADO QUITAR EL !
-                if (!$guardarVotante = (new VotantesRepositorio())->guardarCambiosVotantes($arr)) {
+                var_dump("Antes de RepoA: " . $arr[0]['Fecha']);
+                var_dump("Antes de RepoV: " . $votantes[0]['Fecha']);
+                if ($guardarVotante = (new VotantesRepositorio())->guardarCambiosVotantes($arr)) {
                     // header('Location: index.php?ctl=gestionVotantes');
                 } else {
                     $error = "<br>Error al guardar los cambios";
@@ -94,7 +97,7 @@ class VotantesController
         foreach ($votantes as $votante) {
             if (isset($_POST["remove_{$votante['IdVotante']}"])) {
                 if ($borraVotante = (new VotantesRepositorio())->borraVotante($votante['IdVotante'])) {
-                    header('Location: index.php?ctl=gestionVotantes');
+                    // header('Location: index.php?ctl=gestionVotantes');
                 } else {
                     $error = "Error al borrar votante";
                 }

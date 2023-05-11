@@ -31,7 +31,7 @@ CREATE TABLE Votantes (
   NombreCentro VARCHAR(50) NOT NULL,
   idMesa INT,
   Voto TINYINT NOT NULL DEFAULT 0,
-  Fecha DATETIME DEFAULT NULL, --AAAA-MM-DD HH:MM:SS
+  Fecha DATETIME DEFAULT 0, --AAAA-MM-DD HH:MM:SS
   PRIMARY KEY (NIF),
   FOREIGN KEY (idMesa) REFERENCES Mesas(idMesa)
 );
@@ -49,7 +49,7 @@ CREATE TABLE Afiliados (
   CodCentro VARCHAR(10) NOT NULL,
   NombreCentro VARCHAR(50) NOT NULL,
   Voto TINYINT NOT NULL DEFAULT 0,
-  Fecha DATETIME DEFAULT NULL, --AAAA-MM-DD HH:MM:SS
+  Fecha DATETIME DEFAULT 0, --AAAA-MM-DD HH:MM:SS
   PRIMARY KEY (NIF),
 );
 
@@ -114,9 +114,7 @@ Desea generar interventores?
 Si > Cuantos? > Genera automaticamente InterventorX + randomPass
 No > Default los que hayan
 
-Cuando responda, se le mostrará el menú y abajo un mensaje de:
-
--Bienvenido de nuevo Admin!-
+Pagina default admin: Votantes
 
 El menú constará de:
 	-Gestion
@@ -130,7 +128,3 @@ El menú constará de:
 
 
 
-Bibliografía
----
-Imagen/es ANPE -> Dieron permiso (Victor) de usar las imagenes (https://anperioja.es/)
-AwesomeFonts (v. 6.4.0) -> Framework de iconos vectoriales y estilos CSS (https://fontawesome.com/icons)

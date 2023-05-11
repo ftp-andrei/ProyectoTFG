@@ -61,7 +61,7 @@ function editarNombreMesa(nombre) {
 // Guardado con éxito
 function guardadoExitoso() {
   let span = document.getElementById("copiado");
-  span.textContent = "Guardado...";
+  span.textContent = "Guardando...";
 }
 // Borrado con éxito
 function borradoExitoso() {

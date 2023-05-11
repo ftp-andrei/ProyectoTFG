@@ -9,8 +9,12 @@ echo "<script src='web/js/interventor.js'></script>"; // código JavaScript aqu�
 // Hecho: Editar los interventores (pass + mesa)
 // TODO: Refactorizar
 // ARREGLADO: Interventor puede acceder por URL a las paginas del admin. Averiguar como quitarlo.
-?>
-<?php ob_start();
+// Hecho: Poder editar campo nombre
+// Hecho: Mostrar errores en caso de fallo en usuario
+// Hecho: Minimo 8 caracteres en pass
+// Hecho: Minimo 5 caracteres en nombre
+ob_start();
+
 if (isset($_SESSION['admin'])) {
     if (!empty($interventores)) {
 ?>
@@ -33,8 +37,8 @@ if (isset($_SESSION['admin'])) {
                 <tbody>
                     <?php foreach ($interventores as $interventor) { ?>
                         <tr>
-                            <td><input type="text" name="user_<?= $interventor['usuario']; ?>" value="<?= $interventor['usuario']; ?>" disabled></td>
-                            <td><input type="password" class="ocultarPass" name="password_<?= $interventor['usuario']; ?>" id="pass_<?= $interventor['usuario']; ?>" value="<?= $interventor['password']; ?>" disabled></td>
+                            <td><input type="text" class="usuario" name="user_<?= $interventor['usuario']; ?>" id="user_<?= $interventor['usuario']; ?>" value="<?= $interventor['usuario']; ?>" disabled minlength="5"></td>
+                            <td><input type="password" class="ocultarPass" name="password_<?= $interventor['usuario']; ?>" id="pass_<?= $interventor['usuario']; ?>" value="<?= $interventor['password']; ?>" disabled minlength="8"></td>
                             <td><i class="fa fa-eye-slash ocultar" id="ocultar_<?= $interventor['usuario']; ?>"></i></td>
                             <td><i class="fa-solid fa-copy copiar" id="copiar_<?= $interventor['usuario']; ?>"></i></td>
                             <td><select name="optSelect_<?= $interventor['usuario']; ?>" class="optSelect" id="optSelect_<?= $interventor['usuario']; ?>" disabled>
@@ -65,6 +69,7 @@ if (isset($_SESSION['admin'])) {
             <?= isset($guardaInterventor) ? "<span>" . $error . "</span>" : "" ?>
             <?= isset($nuevoInterventor) ? "<span>" . $error . "</span>" : "" ?>
             <?= isset($borraInterventor) ? "<span>" . $error . "</span>" : "" ?>
+            <?= isset($existe) ? "<span>" . $error . "</span>" : "" ?>
         </form>
         <!-- En caso de que no existan interventores, le saldrá un mensaje y un boton para añadir de 1 en 1 -->
     <?php

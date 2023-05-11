@@ -31,7 +31,6 @@ class VotantesRepositorio
     public function guardarCambiosVotantes(array $arr): bool
     {
         $tamano = sizeof($arr);
-        var_dump("Repo Antes de Insertar: " . $arr[1]["Fecha"]);
         $sql = 'UPDATE votantes SET Nombre=:Nombre,Apellido1=:Apellido1,Apellido2=:Apellido2,NIF=:NIF,
         CodCentro=:CodCentro,NombreCentro=:NombreCentro,idMesa=:idMesa,Voto=:Voto,Fecha=:Fecha WHERE IdVotante=:IdVotante';
 

@@ -1,8 +1,7 @@
 <?php
 /*´ Página de Login
 */
-?>
-<?php ob_start(); ?>
+ob_start(); ?>
 
 <form method="post">
   <fieldset>

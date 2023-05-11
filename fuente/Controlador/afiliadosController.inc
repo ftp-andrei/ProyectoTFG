@@ -12,7 +12,6 @@ class AfiliadosController
     {
         $titulo = (new TitleController())->setTitle('Afiliados - ANPE');
         $votantes = (new AfiliadosRepositorio())->getAfiliados();
-
         require __DIR__ . '/../../app/plantillas/gestionAfiliados.inc';
     }
 }

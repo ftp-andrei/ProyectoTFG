@@ -49,7 +49,7 @@ function editarVotante(nif, idMesa, idVoto, nombreCentro, codCentro, nombre, ape
 // Guardado con éxito
 function guardadoExitoso() {
   let span = document.getElementById("copiado");
-  span.textContent = "Guardado con éxito";
+  span.textContent = "Guardando...";
 }
 
 // Borrado con éxito SIN USAR TODAVIA

@@ -8,24 +8,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const idVerPass = document.getElementsByClassName("ocultarPass");
   const idCopy = document.getElementsByClassName("copiar");
   const idEditarInterventor = document.getElementsByClassName("editar");
+  const user = document.getElementsByClassName("usuario");
   const idMesaInterventor = document.getElementsByClassName("optSelect");
   for (let i = 0; i < idVerImgs.length; i++) {
     const idVerImg = idVerImgs[i];
-    const idPass = idVerPass[i];
-    const clickCopy = idCopy[i];
-    const editarInterventor = idEditarInterventor[i];
     const idMesa = idMesaInterventor[i];
     // Agregar un evento click para mostrar las contraseñas
     idVerImg.addEventListener("click", function () {
-      mostrarContrasena(idVerImg.id, idPass.id);
+      mostrarContrasena(idVerImg.id, idVerPass[i].id);
     });
     // Copia la contrasena al portapapeles
-    clickCopy.addEventListener("click", function () {
-      copiarContrasena(idPass.id);
+    idCopy[i].addEventListener("click", function () {
+      copiarContrasena(idVerPass[i].id);
     });
     // Habilita los campos para editar el interventor
-    editarInterventor.addEventListener("click", function () {
-      editarInterventorInterventor(idPass.id, idMesa.id, idVerImg.id);
+    idEditarInterventor[i].addEventListener("click", function () {
+      editarInterventorInterventor(idVerPass[i].id, idMesa.id, idVerImg.id, user[i].id);
     });
 
     eliminarInter[i].addEventListener("click", function () {
@@ -73,21 +71,25 @@ function copiarContrasena(idPass) {
 }
 
 // Funcion que habilita los campos para editar el interventor
-function editarInterventorInterventor(idPass, idMesa, idVerImg) {
+function editarInterventorInterventor(idPass, idMesa, idVerImg, usuario) {
   let img = document.getElementById(idVerImg);
   let contrasena = document.getElementById(idPass);
   let mesa = document.getElementById(idMesa);
+  let user = document.getElementById(usuario);
+  console.log(user);
   if (contrasena.type === "password") {
     img.className = "fa fa-eye mostrar";
     contrasena.type = "text";
     contrasena.disabled = false;
     mesa.disabled = false;
+    user.disabled = false;
     contrasena.select();
   } else {
     img.className = "fa fa-eye-slash ocultar";
     contrasena.type = "password";
     contrasena.disabled = true;
     mesa.disabled = true;
+    user.disabled = true;
   }
 }
 

@@ -1,8 +1,7 @@
 <?php
 /*´ Pagina de inicio del interventor
 */
-?>
-<?php ob_start();
+ob_start();
 if (isset($_SESSION['interventor'])) { ?>
     <h1>Inicio Interventor</h1>
 

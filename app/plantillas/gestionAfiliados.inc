@@ -1,8 +1,11 @@
 <?php
 /*´ Pagina ver y gestionar afiliados admin
 */
-?>
-<?php ob_start();
+
+echo "<script src='web/js/afiliados.js'></script>"; // código JavaScript aquí
+
+ob_start();
+
 if (isset($_SESSION['admin'])) {
     if (!empty($votantes)) {
 ?>
@@ -10,16 +13,18 @@ if (isset($_SESSION['admin'])) {
             <span id="copiado"></span>
             <br>
             <table>
-                <caption>Gestión de votantes</caption>
+                <caption>Gestión de afiliados</caption>
                 <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Primer Apellido</th>
                         <th>Segundo Apellido</th>
                         <th>NIF</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Email</th>
                         <th>Codigo Centro</th>
                         <th>Nombre del Centro</th>
-                        <th>Mesa</th>
                         <th>Voto</th>
                         <th>Fecha</th>
                         <th>Editar</th>
@@ -33,18 +38,11 @@ if (isset($_SESSION['admin'])) {
                             <td><input type="text" name="apellido1_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido1']; ?>" class="apellido1Votante" disabled></td>
                             <td><input type="text" name="apellido2_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido2']; ?>" class="apellido2Votante" disabled></td>
                             <td><input type="text" name="NIF_<?= $votante['IdVotante']; ?>" value="<?= $votante['NIF']; ?>" class="NIFVotante" disabled></td>
+                            <td><input type="tel" name="Telefono_<?= $votante['IdVotante']; ?>" value="<?= $votante['Telefono']; ?>" class="TelefonoVotante" disabled></td>
+                            <td><input type="text" name="Direccion_<?= $votante['IdVotante']; ?>" value="<?= $votante['Direccion']; ?>" class="DireccionVotante" disabled></td>
+                            <td><input type="mail" name="Email_<?= $votante['IdVotante']; ?>" value="<?= $votante['Email']; ?>" class="EmailVotante" disabled></td>
                             <td><input type="text" name="CodCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['CodCentro']; ?>" class="CodCentroVotante" disabled></td>
                             <td><input type="text" name="NombreCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['NombreCentro']; ?>" class="NombreCentroVotante" disabled></td>
-                            <td><select name="optSelectMesa_<?= $votante['IdVotante']; ?>" class="optSelectMesa" id="optSelectMesa_<?= $votante['IdVotante']; ?>" disabled>
-                                    <?php foreach ($mesas as $mesa) {
-                                        if ($mesa['idMesa'] == $votante['idMesa']) { ?>
-                                            <option value="<?= $mesa['idMesa'] ?>" selected="selected"><?= $mesa['nombre'] ?> </option>
-                                        <?php } else { ?>
-                                            <option value="<?= $mesa['idMesa'] ?>"><?= $mesa['nombre'] ?> </option>
-                                    <?php }
-                                    } ?>
-                                </select>
-                            </td>
                             <td><select name="optSelectVoto_<?= $votante['IdVotante']; ?>" class="optSelectVoto" id="optSelectVoto_<?= $votante['IdVotante']; ?>" disabled>
                                     <?php
                                     if ($votante['Voto']) { ?>
@@ -55,13 +53,13 @@ if (isset($_SESSION['admin'])) {
                                         <option value="1">Sí ha votado </option>
                                     <?php  } ?>
                             </td>
-                            <td><input type="text" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php
-                                                                                                                            if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
-                                                                                                                                echo substr($votante['Fecha'], 0, -4);
-                                                                                                                            } else {
-                                                                                                                                echo "Vacio";
-                                                                                                                            }
-                                                                                                                            ?>" disabled>
+                            <td><input type="datetime" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php
+                                                                                                                                if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
+                                                                                                                                    echo substr($votante['Fecha'], 0, -4);
+                                                                                                                                } else {
+                                                                                                                                    echo "Vacio";
+                                                                                                                                }
+                                                                                                                                ?>" disabled>
                             </td>
                             <td><i class="fas fa-edit editar" name="editar_<?= $votante['IdVotante']; ?>"></i></td>
                             <td>

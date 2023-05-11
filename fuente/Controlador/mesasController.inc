@@ -53,7 +53,6 @@ class MesasController
                     $nombre = $_POST["nombre_{$mesa['idMesa']}"];
                 }
 
-
                 if ($guardaMesa = (new MesasRepositorio())->guardarCambiosMesa($nombre, $mesa['idMesa'])) {
                     continue;
                 } else {

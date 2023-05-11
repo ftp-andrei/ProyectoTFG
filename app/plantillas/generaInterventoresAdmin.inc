@@ -1,8 +1,8 @@
 <?php
 /*´ Pagina para generar interventores al iniciar sesion el admin
 */
-?>
-<?php ob_start();
+
+ob_start();
 if (isset($_SESSION['admin'])) {
 ?>
     <form method="post">
@@ -10,9 +10,11 @@ if (isset($_SESSION['admin'])) {
             <legend>¿Cuantos interventores desea generar? (Borra los anteriores)</legend>
             <label for="interventores">Numero de Interventores: </label>
             <input type="number" name="numeroInterventores" id="interventores" min="1" required>
-            <input type="submit" name="okGenerarInterventores" value="Generar">
+            <input type="submit" name="okGenerarInterventores" value="Generar" id="okGenerar">
         </fieldset>
     </form>
+    <?= isset($borra) ? "<span>" . $error . "</span>" : "" ?>
+    <?= isset($genInterventor) ? "<span>" . $error . "</span>" : "" ?>
 
 <?php
 } else { ?>

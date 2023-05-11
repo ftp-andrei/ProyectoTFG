@@ -36,6 +36,7 @@ class AdminController
 
     public function verEstadisticas()
     {
+        $titulo = (new TitleController())->setTitle('Estadísticas - ANPE');
         require __DIR__ . '/../../app/plantillas/estadisticas.inc';
     }
 }

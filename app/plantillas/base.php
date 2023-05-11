@@ -15,10 +15,6 @@
   <!-- Favicon -->
   <link rel="icon" type="image/jpg" href="web/imagenes/favicon.ico" />
   <!-- CSS -->
-
-
-
-  <!-- CSS -->
   <link rel="stylesheet" type="text/css" href='web/css/general.css' />
   <link rel="stylesheet" type="text/css" href='web/css/ordenador.css' />
   <link rel="stylesheet" type="text/css" href='web/css/tablet.css' />
@@ -68,7 +64,7 @@
   </div>
   <footer>
     <hr>
-    <p style="text-align:center">- Pie de página -</p>
+    <p id="piePagina">- Pie de página -</p>
   </footer>
 </body>
 

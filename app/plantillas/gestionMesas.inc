@@ -3,10 +3,8 @@
 */
 
 echo "<script src='web/js/mesa.js'></script>";
-?>
-<?php ob_start(); ?>
+ob_start();
 
-<?php
 if (isset($_SESSION['admin'])) {
     if (sizeof($mesas) != 1) {  ?>
         <form method="post">

@@ -1,8 +1,7 @@
 <?php
 /*´ Pagina para generar mesas al iniciar sesion el admin
 */
-?>
-<?php ob_start();
+ob_start();
 if (isset($_SESSION['admin'])) {
 ?>
     <form method="post">
@@ -10,7 +9,7 @@ if (isset($_SESSION['admin'])) {
             <legend>¿Cuantas mesas desea generar? (Borra las anteriores)</legend>
             <label for="mesas">Numero de Mesas: </label>
             <input type="number" name="numeroMesas" id="mesas" min="1" required>
-            <input type="submit" name="okGenerarMesas" value="Generar">
+            <input type="submit" name="okGenerarMesas" value="Generar" id="okGenerar">
         </fieldset>
     </form>
 <?php

@@ -4,11 +4,12 @@
 // TODO: Solucionar fechas al guardar
 // Hecho: Eliminar votantes
 // TODO: Revisar posibles errores (Mismo NIF)
-echo "<script src='web/js/votante.js'></script>"
-?>
-<?php ob_start();
+echo "<script src='web/js/votante.js'></script>";
+
+ob_start();
 if (isset($_SESSION['admin'])) {
     if (!empty($votantes)) {
+        var_dump($votantes);
 ?>
         <form method="post">
             <span id="copiado"></span>
@@ -59,13 +60,13 @@ if (isset($_SESSION['admin'])) {
                                         <option value="1">Sí ha votado </option>
                                     <?php  } ?>
                             </td>
-                            <td><input type="text" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php
-                                                                                                                            if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
-                                                                                                                                echo substr($votante['Fecha'], 0, -4);
-                                                                                                                            } else {
-                                                                                                                                echo "Vacio";
-                                                                                                                            }
-                                                                                                                            ?>" disabled>
+                            <td><input type="datetime" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php
+                                                                                                                                if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
+                                                                                                                                    echo substr($votante['Fecha'], 0, -4);
+                                                                                                                                } else {
+                                                                                                                                    echo "Vacio";
+                                                                                                                                }
+                                                                                                                                ?>" disabled>
                             </td>
                             <td><i class="fas fa-edit editar" name="editar_<?= $votante['IdVotante']; ?>"></i></td>
                             <td>
