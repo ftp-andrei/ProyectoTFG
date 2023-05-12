@@ -64,7 +64,7 @@ class VotantesController
                     $voto = $_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"];
                     if (intval($voto)) {
                         var_dump("Antes de formateo: " . $fecha);
-                        $fecha = date("Y/m/d H:i:s");
+                        $fecha = date("Y-m-d H:i:s");
                         var_dump("Despues de formateo: " . $fecha);
                     } else {
                         $fecha = "";
@@ -83,8 +83,8 @@ class VotantesController
             }
             // Si es igual no va a guardar nada. PONERLO EN != CUANDO SE SOLUCIONE
             if ($arr == $votantes) {
-                var_dump("Antes de RepoA: " . $arr[0]['Fecha']);
-                var_dump("Antes de RepoV: " . $votantes[0]['Fecha']);
+                var_dump($arr[0]['Fecha']);
+                var_dump($votantes[0]['Fecha']);
                 if ($guardarVotante = (new VotantesRepositorio())->guardarCambiosVotantes($arr)) {
                     // header('Location: index.php?ctl=gestionVotantes');
                 } else {

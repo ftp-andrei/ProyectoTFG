@@ -6,10 +6,15 @@ use app\EleccionesSindicales\repositorio\InterventorRepositorio;
 
 class InterventorController
 {
+    // Login interventores - Lista de votantes de su mesa
     public function inicioInterventor()
     {
         $titulo = (new TitleController())->setTitle('Inicio - ANPE');
-
+        if ($_SESSION) {
+            if (isset($_SESSION['interventor'])) {
+                $listaInterventor = (new InterventorRepositorio())->listaInterventor($_SESSION['usuInterventor']);
+            }
+        }
         require __DIR__ . '/../../app/plantillas/inicioInterventor.inc';
     }
 

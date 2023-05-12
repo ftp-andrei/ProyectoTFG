@@ -13,6 +13,7 @@ class SessionController
     if (isset($_SESSION['admin']) || isset($_SESSION['interventor'])) {
       unset($_SESSION['admin']);
       unset($_SESSION['interventor']);
+      unset($_SESSION['usuInterventor']);
     }
     // Si se ha pulsado el botón de login
     if (isset($_POST['okLogin'])) {
@@ -24,6 +25,8 @@ class SessionController
       } else {
         // Comprueba que exista usuario interventor
         if ($usuario = (new InterventorRepositorio())->loginInterventor($_POST['user'], $_POST['pass'])) {
+          // Guardo el nombre de usuario del interventor en _SESSION para luego consultar la lista de votantes
+          $_SESSION['usuInterventor'] = $_POST['user'];
           $_SESSION['interventor'] = true;
           header('Location: index.php?ctl=inicioInterventor');
         } else {
@@ -34,7 +37,7 @@ class SessionController
     }
     require __DIR__ . '/../../app/plantillas/login.inc';
   }
-
+  // Devuelve al login, y este hace el unset de los sessions
   public function logout()
   {
     header('Location: index.php?ctl=login');

@@ -173,4 +173,26 @@ class InterventorRepositorio
             }
         }
     }
+    // Devuelve un array con los votantes de una mesa, para el login de los interventores
+    public function listaInterventor(string $usuario): array
+    {
+        $sql = 'SELECT IdVotante,Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,v.idMesa,voto,Fecha FROM Votantes v 
+        JOIN Interventor i ON i.idMesa=v.idMesa WHERE usuario=:usuario ORDER BY IdVotante asc';
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            $snt->bindValue(':usuario', $usuario);
+            $snt->execute();
+            $arrVotantes = $snt->fetchAll(\PDO::FETCH_ASSOC);
+            return $arrVotantes;
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
 }
