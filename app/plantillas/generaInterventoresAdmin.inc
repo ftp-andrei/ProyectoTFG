@@ -7,7 +7,7 @@ if (isset($_SESSION['admin'])) {
 ?>
     <form method="post">
         <fieldset>
-            <legend>¿Cuantos interventores desea generar? (Borra los anteriores)</legend>
+            <legend>¿Cuantos interventores desea generar?</legend>
             <label for="interventores">Numero de Interventores: </label>
             <input type="number" name="numeroInterventores" id="interventores" min="1" required>
             <input type="submit" name="okGenerarInterventores" value="Generar" id="okGenerar">
@@ -18,7 +18,7 @@ if (isset($_SESSION['admin'])) {
 
 <?php
 } else { ?>
-    <h1 id="errPerms">No tienes los permisos suficientes para acceder a esta página</h1>
+    <h2 id="errPerms">No tienes los permisos suficientes para acceder a esta página</h2>
 <?php
 }
 $contenido = ob_get_clean();

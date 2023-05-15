@@ -13,13 +13,11 @@ class VotantesController
         $titulo = (new TitleController())->setTitle('Votantes - ANPE');
         $votantes = (new VotantesRepositorio())->getVotantes();
         $mesas = (new MesasController())->getAllMesas();
-        var_dump(date_default_timezone_get());
         // Guardar cambios
 
         if (isset($_POST["guardarCambios"])) {
             $arr = [];
             $tamano = sizeof($votantes);
-            var_dump("Antes de For: " . $votantes[0]['Fecha']);
             for ($i = 0; $i < $tamano; $i++) {
                 $nombre = $votantes[$i]['Nombre'];
                 $apellido1 = $votantes[$i]['Apellido1'];
@@ -44,7 +42,14 @@ class VotantesController
                 }
                 // POST nif
                 if (isset($_POST["NIF_{$votantes[$i]['IdVotante']}"])) {
-                    $nif = $_POST["NIF_{$votantes[$i]['IdVotante']}"];
+                    if ($_POST["NIF_{$votantes[$i]['IdVotante']}"] != $nif) {
+                        // Comprueba si existe el NIF
+                        if ($existe = (new VotantesRepositorio())->existeNIF($_POST["NIF_{$votantes[$i]['IdVotante']}"])) {
+                            $nif = $_POST["NIF_{$votantes[$i]['IdVotante']}"];
+                        } else {
+                            $error = "<br>Error: El NIF ya existe o es duplicado";
+                        }
+                    }
                 }
                 // POST Cod centro
                 if (isset($_POST["CodCentro_{$votantes[$i]['IdVotante']}"])) {
@@ -62,12 +67,12 @@ class VotantesController
 
                 if (isset($_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"])) {
                     $voto = $_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"];
-                    if (intval($voto)) {
-                        var_dump("Antes de formateo: " . $fecha);
+                    if (intval($voto) && $fecha == "1900-01-01 00:00:00.000") {
                         $fecha = date("Y-m-d H:i:s");
-                        var_dump("Despues de formateo: " . $fecha);
                     } else {
-                        $fecha = "";
+                        if (!intval($voto)) {
+                            $fecha = "";
+                        }
                     }
                 }
                 $arr[$i]["IdVotante"] = $votantes[$i]['IdVotante'];
@@ -81,12 +86,10 @@ class VotantesController
                 $arr[$i]["Voto"] = $voto;
                 $arr[$i]["Fecha"] = $fecha;
             }
-            // Si es igual no va a guardar nada. PONERLO EN != CUANDO SE SOLUCIONE
-            if ($arr == $votantes) {
-                var_dump($arr[0]['Fecha']);
-                var_dump($votantes[0]['Fecha']);
+            // Guarda cambios si es distinto
+            if ($arr != $votantes) {
                 if ($guardarVotante = (new VotantesRepositorio())->guardarCambiosVotantes($arr)) {
-                    // header('Location: index.php?ctl=gestionVotantes');
+                    header('Location: index.php?ctl=gestionVotantes');
                 } else {
                     $error = "<br>Error al guardar los cambios";
                 }
@@ -97,7 +100,7 @@ class VotantesController
         foreach ($votantes as $votante) {
             if (isset($_POST["remove_{$votante['IdVotante']}"])) {
                 if ($borraVotante = (new VotantesRepositorio())->borraVotante($votante['IdVotante'])) {
-                    // header('Location: index.php?ctl=gestionVotantes');
+                    header('Location: index.php?ctl=gestionVotantes');
                 } else {
                     $error = "Error al borrar votante";
                 }

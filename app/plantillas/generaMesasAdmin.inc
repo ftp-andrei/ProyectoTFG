@@ -6,7 +6,7 @@ if (isset($_SESSION['admin'])) {
 ?>
     <form method="post">
         <fieldset>
-            <legend>¿Cuantas mesas desea generar? (Borra las anteriores)</legend>
+            <legend>¿Cuantas mesas desea generar?</legend>
             <label for="mesas">Numero de Mesas: </label>
             <input type="number" name="numeroMesas" id="mesas" min="1" required>
             <input type="submit" name="okGenerarMesas" value="Generar" id="okGenerar">
@@ -14,7 +14,7 @@ if (isset($_SESSION['admin'])) {
     </form>
 <?php
 } else { ?>
-    <h1 id="errPerms">No tienes los permisos suficientes para acceder a esta página</h1>
+    <h2 id="errPerms">No tienes los permisos suficientes para acceder a esta página</h2>
 <?php
 }
 $contenido = ob_get_clean();

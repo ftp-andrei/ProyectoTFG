@@ -128,3 +128,33 @@ El menú constará de:
 
 
 
+
+Listados filtrados? 
+Hacer filtros en las paginas de votantes, afiliados,mesas,interventores?
+Estadisticas? Con Crud? **Tiempo real/ REFRESH **
+Crud= Le das a no votado/votado y te sale una pagina con la lista, hay que editar/eliminar/filtrar?
+Si se borra una mesa, y esta mesa tiene asignados votantes, que hacer con los votantes? Ponerlos en mesa 0(Sin asignar)? Y que pasa con el voto?.
+Hashear password de interventores? De admin no?
+Hacer otra tabla con codCentro + NombreCentro que se pueda editar cod+Nombre?
+Añadir votantes/Afiliados? O se añaden desde la bbdd?
+Regex (patron) para NIF?
+
+
+Respecto a estilos y demas:
+Posibilidad boostrap + CSS 
+Responsive
+
+JS recomendaciones?
+
+---Profe---
+
+Memoria 23 M
+Proyecto 29 M
+Presentaciones - 1 al 16 J.
+
+Se puede seguir programando hasta el 29?
+Como te entregamos el proyecto?
+Y la memoria? Pdf/ en fisico?
+
+Recomendaciones y mejoras?
+

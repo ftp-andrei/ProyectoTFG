@@ -27,32 +27,61 @@ class VotantesRepositorio
             }
         }
     }
-    // Guarda los cambios en los votantes
-    public function guardarCambiosVotantes(array $arr): bool
+    // Funcion que devuelve si existe o no el nif
+    public function existeNIF(string $nif): bool
     {
-        $tamano = sizeof($arr);
-        $sql = 'UPDATE votantes SET Nombre=:Nombre,Apellido1=:Apellido1,Apellido2=:Apellido2,NIF=:NIF,
-        CodCentro=:CodCentro,NombreCentro=:NombreCentro,idMesa=:idMesa,Voto=:Voto,Fecha=:Fecha WHERE IdVotante=:IdVotante';
-
+        // SQL para comprobar si existe el NIF
+        $sql = 'SELECT count(NIF) as "nif" FROM Votantes WHERE nif = :nif';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
-            for ($i = 0; $i < $tamano; $i++) {
+            $snt = $con->prepare($sql);
+            $snt->bindValue(':nif', $nif);
+            $snt->execute();
+            $fila = $snt->fetch(\PDO::FETCH_ASSOC);
+            return empty($fila);
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
+
+    // Guarda los cambios en los votantes
+    public function guardarCambiosVotantes(array $arr): bool
+    {
+        // 120 -> indica que el valor a convertir está en el formato 'YYYY-MM-DD'.
+        $sql = 'UPDATE votantes SET Nombre=:Nombre,Apellido1=:Apellido1,Apellido2=:Apellido2,NIF=:NIF,
+        CodCentro=:CodCentro,NombreCentro=:NombreCentro,idMesa=:idMesa,Voto=:Voto,Fecha=Convert(datetime,:Fecha,120) WHERE IdVotante=:IdVotante';
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $con->beginTransaction();
+            foreach ($arr as $votante) {
                 $snt = $con->prepare($sql);
-                $snt->bindValue(':IdVotante', $arr[$i]['IdVotante']);
-                $snt->bindValue(':Nombre', $arr[$i]['Nombre']);
-                $snt->bindValue(':Apellido1', $arr[$i]["Apellido1"]);
-                $snt->bindValue(':Apellido2', $arr[$i]["Apellido2"]);
-                $snt->bindValue(':NIF', $arr[$i]["NIF"]);
-                $snt->bindValue(':CodCentro', $arr[$i]["CodCentro"]);
-                $snt->bindValue(':NombreCentro', $arr[$i]["NombreCentro"]);
-                $snt->bindValue(':idMesa', $arr[$i]["idMesa"]);
-                $snt->bindValue(':Voto', $arr[$i]["Voto"]);
-                $snt->bindValue(':Fecha', $arr[$i]["Fecha"]);
+                $snt->bindValue(':IdVotante', $votante['IdVotante']);
+                $snt->bindValue(':Nombre', $votante['Nombre']);
+                $snt->bindValue(':Apellido1', $votante["Apellido1"]);
+                $snt->bindValue(':Apellido2', $votante["Apellido2"]);
+                $snt->bindValue(':NIF', $votante["NIF"]);
+                $snt->bindValue(':CodCentro', $votante["CodCentro"]);
+                $snt->bindValue(':NombreCentro', $votante["NombreCentro"]);
+                $snt->bindValue(':idMesa', $votante["idMesa"]);
+                $snt->bindValue(':Voto', $votante["Voto"]);
+                $snt->bindValue(':Fecha', $votante["Fecha"]);
                 $snt->execute();
             }
-            return $snt->execute();
+            if ($snt->execute()) {
+                $con->commit();
+                return true;
+            }
+            $con->rollBack();
+            return false;
         } catch (\PDOException $th) {
+            $con->rollBack();
             throw $th;
         } finally {
             if (isset($snt)) {

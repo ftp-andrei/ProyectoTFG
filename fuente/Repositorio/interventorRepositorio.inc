@@ -30,12 +30,11 @@ class InterventorRepositorio
             }
         }
     }
-
+    // Funcion que devuelve si existe o no el interventor
     public function existeInterventor(string $user): bool
     {
-        // Coge el numero mayor de interventores
+        // SQL para comprobar si existe el interventor
         $sql = 'SELECT count(usuario) as "usuarios" FROM Interventor WHERE usuario = :usuario';
-        // SQL inserta Interventores
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
@@ -63,14 +62,12 @@ class InterventorRepositorio
         // Coge el numero mayor de interventores
         $sql = 'SELECT MAX(CAST(SUBSTRING("usuario", 6, LEN("usuario")) AS INT)) AS mayor_numero_usuario
         FROM Interventor';
-        // SQL inserta Interventores
         $sql2 = 'INSERT INTO Interventor ("usuario", "password","idMesa") VALUES (:usuario,:password,0)';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
             $snt->execute();
-            //Fetch devuelve un array con el numero maximo del interventor
             $fila = $snt->fetch(\PDO::FETCH_ASSOC);
 
             $snt = $con->prepare($sql2);
@@ -92,7 +89,7 @@ class InterventorRepositorio
     public function borraTodosInterventores(): bool
     {
         $sql = 'DELETE FROM Interventor';
-        // Crear una nueva tabla para el IdInterventor =0;
+        // Crear una nueva tabla para el IdInterventor =0?;
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
@@ -155,6 +152,7 @@ class InterventorRepositorio
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
+            $con->beginTransaction();
             foreach ($arr as $interventor) {
                 $snt = $con->prepare($sql);
                 $snt->bindValue(':IdInterventor', $interventor['IdInterventor']);
@@ -163,8 +161,14 @@ class InterventorRepositorio
                 $snt->bindValue(':idMesa', $interventor['idMesa']);
                 $snt->execute();
             }
-            return $snt->execute();
+            if ($snt->execute()) {
+                $con->commit();
+                return true;
+            }
+            $con->rollBack();
+            return false;
         } catch (\PDOException $th) {
+            $con->rollBack();
             throw $th;
         } finally {
             if (isset($snt)) {

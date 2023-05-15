@@ -2,8 +2,9 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   const guardarCambios = document.getElementById("guardarCambios");
+  const eliminaVotante = document.getElementsByClassName("eliminar");
 
-  const idEditarMesa = document.getElementsByClassName("editar");
+  const idEditarVotante = document.getElementsByClassName("editar");
   const nombre = document.getElementsByClassName("nombreVotante");
   const apellido1 = document.getElementsByClassName("apellido1Votante");
   const apellido2 = document.getElementsByClassName("apellido2Votante");
@@ -14,8 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const voto = document.getElementsByClassName("optSelectVoto");
   for (let i = 0; i < nifVotante.length; i++) {
     // Edita los campos de la mesa
-    idEditarMesa[i].addEventListener("click", function () {
+    idEditarVotante[i].addEventListener("click", function () {
       editarVotante(nifVotante[i], mesaNombre[i], voto[i], nombreCentro[i], codCentro[i], nombre[i], apellido1[i], apellido2[i]);
+    });
+
+    eliminaVotante[i].addEventListener("click", function () {
+      borradoExitoso();
     });
   }
 
@@ -55,5 +60,6 @@ function guardadoExitoso() {
 // Borrado con éxito SIN USAR TODAVIA
 function borradoExitoso() {
   let span = document.getElementById("copiado");
+  span.style.color = "red";
   span.textContent = "Borrando..";
 }

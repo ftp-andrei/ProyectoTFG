@@ -117,7 +117,7 @@ class InterventorController
                         if ($existe = (new InterventorRepositorio())->existeInterventor($_POST["user_{$interventores[$i]['usuario']}"])) {
                             $user = $_POST["user_{$interventores[$i]['usuario']}"];
                         } else {
-                            $error = "<br>Ha habido errores en el nombre de usuario: El nombre de usuario ya existe o es duplicado";
+                            $error = "<br>Error: El nombre de usuario ya existe o es duplicado";
                         }
                     }
                 }
@@ -134,7 +134,7 @@ class InterventorController
                 $arr[$i]['password'] = $contrasena;
                 $arr[$i]['idMesa'] = $mesa;
             }
-            // Guarda los cambios y redirige a la pagina de gestion de interventores
+            // Guarda cambios si es distinto
             if ($arr != $interventores) {
                 if ($guardaInterventor = (new InterventorRepositorio())->guardarCambiosInterventores($arr)) {
                     header('Location: index.php?ctl=gestionInterventores');

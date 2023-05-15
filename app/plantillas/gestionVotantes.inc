@@ -1,15 +1,17 @@
 <?php
 /*´ Pagina ver y gestionar votantes admin
 */
-// TODO: Solucionar fechas al guardar
+// Solucionado: Solucionar fechas al guardar
+// Solucionado: Error al editar cualquier campo modificaba la fecha
 // Hecho: Eliminar votantes
 // TODO: Revisar posibles errores (Mismo NIF)
+// Solucionado: Minimo y maximo de caracteres en NIF, CodCentro,NombreCentro,
+// TODO: Poner mensaje borrando
 echo "<script src='web/js/votante.js'></script>";
 
 ob_start();
 if (isset($_SESSION['admin'])) {
     if (!empty($votantes)) {
-        var_dump($votantes);
 ?>
         <form method="post">
             <span id="copiado"></span>
@@ -37,9 +39,9 @@ if (isset($_SESSION['admin'])) {
                             <td><input type="text" name="nombre_<?= $votante['IdVotante']; ?>" value="<?= $votante['Nombre']; ?>" class="nombreVotante" disabled></td>
                             <td><input type="text" name="apellido1_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido1']; ?>" class="apellido1Votante" disabled></td>
                             <td><input type="text" name="apellido2_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido2']; ?>" class="apellido2Votante" disabled></td>
-                            <td><input type="text" name="NIF_<?= $votante['IdVotante']; ?>" value="<?= $votante['NIF']; ?>" class="NIFVotante" disabled></td>
-                            <td><input type="text" name="CodCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['CodCentro']; ?>" class="CodCentroVotante" disabled></td>
-                            <td><input type="text" name="NombreCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['NombreCentro']; ?>" class="NombreCentroVotante" disabled></td>
+                            <td><input type="text" name="NIF_<?= $votante['IdVotante']; ?>" value="<?= $votante['NIF']; ?>" class="NIFVotante" disabled minlength="9" maxlength="9" required></td>
+                            <td><input type="text" name="CodCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['CodCentro']; ?>" class="CodCentroVotante" disabled minlength="1" required></td>
+                            <td><input type="text" name="NombreCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['NombreCentro']; ?>" class="NombreCentroVotante" disabled minlength="3" required></td>
                             <td><select name="optSelectMesa_<?= $votante['IdVotante']; ?>" class="optSelectMesa" id="optSelectMesa_<?= $votante['IdVotante']; ?>" disabled>
                                     <?php foreach ($mesas as $mesa) {
                                         if ($mesa['idMesa'] == $votante['idMesa']) { ?>
@@ -60,11 +62,10 @@ if (isset($_SESSION['admin'])) {
                                         <option value="1">Sí ha votado </option>
                                     <?php  } ?>
                             </td>
-                            <td><input type="datetime" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php
-                                                                                                                                if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
+                            <td><input type="datetime" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
                                                                                                                                     echo substr($votante['Fecha'], 0, -4);
                                                                                                                                 } else {
-                                                                                                                                    echo "Vacio";
+                                                                                                                                    echo "Sin fecha de voto";
                                                                                                                                 }
                                                                                                                                 ?>" disabled>
                             </td>
@@ -79,9 +80,9 @@ if (isset($_SESSION['admin'])) {
                 </tbody>
             </table>
             <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
+            <?= isset($existe) ? "<span>" . $error . "</span>" : "" ?>
             <?= isset($guardarVotante) ? "<span>" . $error . "</span>" : "" ?>
             <?= isset($borraVotante) ? "<span>" . $error . "</span>" : "" ?>
-
         </form>
 
     <?php

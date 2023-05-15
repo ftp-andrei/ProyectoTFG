@@ -5,11 +5,11 @@ ob_start();
 if (isset($_SESSION['admin'])) {
 ?>
 
-    <h1>Estadísticas</h1>
+    <h2>Estadísticas</h2>
 
 <?php
 } else { ?>
-    <h1 id="errPerms">No tienes los permisos suficientes para acceder a esta página</h1>
+    <h2 id="errPerms">No tienes los permisos suficientes para acceder a esta página</h2>
 <?php
 }
 $contenido = ob_get_clean();
