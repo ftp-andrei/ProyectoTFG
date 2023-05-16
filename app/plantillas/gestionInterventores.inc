@@ -3,16 +3,6 @@
 */
 
 echo "<script src='web/js/interventor.js'></script>"; // código JavaScript aquí
-
-// Hecho: Añadir campos con posibles errores al añadir/borrar/modificar
-// Hecho: Añadir campo select con las opciones de las mesas.
-// Hecho: Editar los interventores (pass + mesa)
-// TODO: Refactorizar
-// ARREGLADO: Interventor puede acceder por URL a las paginas del admin. Averiguar como quitarlo.
-// Hecho: Poder editar campo nombre
-// Hecho: Mostrar errores en caso de fallo en usuario
-// Hecho: Minimo 8 caracteres en pass
-// Hecho: Minimo 5 caracteres en nombre
 ob_start();
 
 if (isset($_SESSION['admin'])) {

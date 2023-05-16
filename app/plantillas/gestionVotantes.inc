@@ -1,14 +1,10 @@
 <?php
 /*´ Pagina ver y gestionar votantes admin
 */
-// Solucionado: Solucionar fechas al guardar
-// Solucionado: Error al editar cualquier campo modificaba la fecha
-// Hecho: Eliminar votantes
-// Solucionado: Revisar posibles errores (Mismo NIF)
+
 // TODO: Error DNI, si no ha votado no sale duplicado
 // TODO: Regex DNI
-// Solucionado: Minimo y maximo de caracteres en NIF, CodCentro,NombreCentro,
-// Solucionado: Poner mensaje borrando
+
 // TODO: Filtros arriba. Intentar que sea lo mas comodo posible.
 // TODO: Boton exportar a excel
 // TODO: Mensaje de confirmacion al eliminar

@@ -53,7 +53,7 @@
   </nav>
   <div id="contenido">
     <!-- el id css facilita (si se define) la definición del aspecto visual
-           de su contenido
+           de su contenido 
            La variable $contenido hará que se muestre la plantilla concreta, el
            contenido concreto, según la solicitud realizada por el usuario
       -->
