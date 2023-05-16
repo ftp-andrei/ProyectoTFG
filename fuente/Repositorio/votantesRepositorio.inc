@@ -31,7 +31,7 @@ class VotantesRepositorio
     public function existeNIF(string $nif): bool
     {
         // SQL para comprobar si existe el NIF
-        $sql = 'SELECT count(NIF) as "nif" FROM Votantes WHERE nif = :nif';
+        $sql = 'SELECT count(NIF) as "nif" FROM Votantes WHERE NIF = :nif';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
@@ -39,7 +39,7 @@ class VotantesRepositorio
             $snt->bindValue(':nif', $nif);
             $snt->execute();
             $fila = $snt->fetch(\PDO::FETCH_ASSOC);
-            return empty($fila);
+            return empty($fila['nif']);
         } catch (\PDOException $th) {
             throw $th;
         } finally {

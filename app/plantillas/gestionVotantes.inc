@@ -4,9 +4,16 @@
 // Solucionado: Solucionar fechas al guardar
 // Solucionado: Error al editar cualquier campo modificaba la fecha
 // Hecho: Eliminar votantes
-// TODO: Revisar posibles errores (Mismo NIF)
+// Solucionado: Revisar posibles errores (Mismo NIF)
+// TODO: Error DNI, si no ha votado no sale duplicado
+// TODO: Regex DNI
 // Solucionado: Minimo y maximo de caracteres en NIF, CodCentro,NombreCentro,
-// TODO: Poner mensaje borrando
+// Solucionado: Poner mensaje borrando
+// TODO: Filtros arriba. Intentar que sea lo mas comodo posible.
+// TODO: Boton exportar a excel
+// TODO: Mensaje de confirmacion al eliminar
+// TODO: Cambiar orden columnas
+// TODO: Filtrar columnas click (th)
 echo "<script src='web/js/votante.js'></script>";
 
 ob_start();
@@ -20,15 +27,15 @@ if (isset($_SESSION['admin'])) {
                 <caption>Gestión de votantes</caption>
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Primer Apellido</th>
-                        <th>Segundo Apellido</th>
-                        <th>NIF</th>
-                        <th>Codigo Centro</th>
-                        <th>Nombre del Centro</th>
-                        <th>Mesa</th>
-                        <th>Voto</th>
-                        <th>Fecha</th>
+                        <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>Nombre <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>NIF <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>Nombre del Centro <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>Mesa <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>Voto <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>Fecha <i class="fa-sharp fa-solid fa-sort"></i></th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -36,12 +43,12 @@ if (isset($_SESSION['admin'])) {
                 <tbody>
                     <?php foreach ($votantes as $votante) { ?>
                         <tr>
-                            <td><input type="text" name="nombre_<?= $votante['IdVotante']; ?>" value="<?= $votante['Nombre']; ?>" class="nombreVotante" disabled></td>
                             <td><input type="text" name="apellido1_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido1']; ?>" class="apellido1Votante" disabled></td>
                             <td><input type="text" name="apellido2_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido2']; ?>" class="apellido2Votante" disabled></td>
+                            <td><input type="text" name="nombre_<?= $votante['IdVotante']; ?>" value="<?= $votante['Nombre']; ?>" class="nombreVotante" disabled minlength="1"></td>
                             <td><input type="text" name="NIF_<?= $votante['IdVotante']; ?>" value="<?= $votante['NIF']; ?>" class="NIFVotante" disabled minlength="9" maxlength="9" required></td>
-                            <td><input type="text" name="CodCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['CodCentro']; ?>" class="CodCentroVotante" disabled minlength="1" required></td>
-                            <td><input type="text" name="NombreCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['NombreCentro']; ?>" class="NombreCentroVotante" disabled minlength="3" required></td>
+                            <td><input type="text" name="CodCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['CodCentro']; ?>" class="CodCentroVotante" disabled></td>
+                            <td><input type="text" name="NombreCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['NombreCentro']; ?>" class="NombreCentroVotante" disabled></td>
                             <td><select name="optSelectMesa_<?= $votante['IdVotante']; ?>" class="optSelectMesa" id="optSelectMesa_<?= $votante['IdVotante']; ?>" disabled>
                                     <?php foreach ($mesas as $mesa) {
                                         if ($mesa['idMesa'] == $votante['idMesa']) { ?>

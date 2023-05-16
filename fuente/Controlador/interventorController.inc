@@ -18,36 +18,6 @@ class InterventorController
         require __DIR__ . '/../../app/plantillas/inicioInterventor.inc';
     }
 
-
-    // Metodo de generar interventores al iniciar sesion el admin
-    public function generaInterventores()
-    {
-        $titulo = (new TitleController())->setTitle('Interventores - ANPE');
-
-
-        if (isset($_POST['okGenerarInterventores'])) {
-            if ($borra = (new InterventorRepositorio())->borraTodosInterventores()) {
-                $numeroInterventores = $_POST['numeroInterventores'];
-                for ($i = 0; $i < $numeroInterventores; $i++) {
-                    // Creo una instancia del controlador
-                    $obj = new InterventorController();
-                    $pass = $obj->randomPassword();
-                    // Devuelve true o false.
-                    if ($genInterventor = (new InterventorRepositorio())->generaInterventorAdmin($pass)) {
-                        continue;
-                    } else {
-                        $error = "Error al generar los interventores";
-                    }
-                }
-                header('Location: index.php?ctl=gestionVotantes');
-            } else {
-                $error = "Error al borrar los interventores";
-            }
-        }
-
-        require __DIR__ . '/../../app/plantillas/generaInterventoresAdmin.inc';
-    }
-
     // Funcion que genera una contraseña aleatoria para los interventores
     public function randomPassword()
     {

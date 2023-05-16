@@ -37,8 +37,8 @@ if (isset($_SESSION['admin'])) {
                 <tbody>
                     <?php foreach ($interventores as $interventor) { ?>
                         <tr>
-                            <td><input type="text" class="usuario" name="user_<?= $interventor['usuario']; ?>" id="user_<?= $interventor['usuario']; ?>" value="<?= $interventor['usuario']; ?>" disabled minlength="5"></td>
-                            <td><input type="password" class="ocultarPass" name="password_<?= $interventor['usuario']; ?>" id="pass_<?= $interventor['usuario']; ?>" value="<?= $interventor['password']; ?>" disabled minlength="8"></td>
+                            <td><input type="text" class="usuario" name="user_<?= $interventor['usuario']; ?>" id="user_<?= $interventor['usuario']; ?>" value="<?= $interventor['usuario']; ?>" disabled minlength="4" required></td>
+                            <td><input type="password" class="ocultarPass" name="password_<?= $interventor['usuario']; ?>" id="pass_<?= $interventor['usuario']; ?>" value="<?= $interventor['password']; ?>" disabled minlength="8" required></td>
                             <td><i class="fa fa-eye-slash ocultar" id="ocultar_<?= $interventor['usuario']; ?>"></i></td>
                             <td><i class="fa-solid fa-copy copiar" id="copiar_<?= $interventor['usuario']; ?>"></i></td>
                             <td><select name="optSelect_<?= $interventor['usuario']; ?>" class="optSelect" id="optSelect_<?= $interventor['usuario']; ?>" disabled>

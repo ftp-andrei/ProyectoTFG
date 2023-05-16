@@ -13,8 +13,19 @@ class VotantesController
         $titulo = (new TitleController())->setTitle('Votantes - ANPE');
         $votantes = (new VotantesRepositorio())->getVotantes();
         $mesas = (new MesasController())->getAllMesas();
-        // Guardar cambios
 
+        // Elimina un votante
+        foreach ($votantes as $votante) {
+            if (isset($_POST["remove_{$votante['IdVotante']}"])) {
+                if ($borraVotante = (new VotantesRepositorio())->borraVotante($votante['IdVotante'])) {
+                    header('Location: index.php?ctl=gestionVotantes');
+                } else {
+                    $error = "Error al borrar votante";
+                }
+            }
+        }
+
+        // Guardar cambios
         if (isset($_POST["guardarCambios"])) {
             $arr = [];
             $tamano = sizeof($votantes);
@@ -44,7 +55,8 @@ class VotantesController
                 if (isset($_POST["NIF_{$votantes[$i]['IdVotante']}"])) {
                     if ($_POST["NIF_{$votantes[$i]['IdVotante']}"] != $nif) {
                         // Comprueba si existe el NIF
-                        if ($existe = (new VotantesRepositorio())->existeNIF($_POST["NIF_{$votantes[$i]['IdVotante']}"])) {
+                        // Array_search busca si en los post se a introducido varios dnis iguales. Cambia solo el 1ero
+                        if ($existe = (new VotantesRepositorio())->existeNIF($_POST["NIF_{$votantes[$i]['IdVotante']}"]) && array_search($_POST["NIF_{$votantes[$i]['IdVotante']}"], array_column($arr, 'NIF')) === false) {
                             $nif = $_POST["NIF_{$votantes[$i]['IdVotante']}"];
                         } else {
                             $error = "<br>Error: El NIF ya existe o es duplicado";
@@ -92,17 +104,6 @@ class VotantesController
                     header('Location: index.php?ctl=gestionVotantes');
                 } else {
                     $error = "<br>Error al guardar los cambios";
-                }
-            }
-        }
-
-        // Elimina un votante
-        foreach ($votantes as $votante) {
-            if (isset($_POST["remove_{$votante['IdVotante']}"])) {
-                if ($borraVotante = (new VotantesRepositorio())->borraVotante($votante['IdVotante'])) {
-                    header('Location: index.php?ctl=gestionVotantes');
-                } else {
-                    $error = "Error al borrar votante";
                 }
             }
         }

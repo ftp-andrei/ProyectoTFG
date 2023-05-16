@@ -40,9 +40,7 @@
       <a href="index.php?ctl=gestionVotantes">Votantes</a>
       <a href="index.php?ctl=gestionAfiliados">Afiliados</a>
       <a href="index.php?ctl=gestionInterventores">Interventores</a>
-      <!-- <a href="index.php?ctl=panelDeControl">Panel de Control</a> | -->
       <a href="index.php?ctl=estadisticas">Estadísticas</a>
-      <a href="index.php?ctl=listadosFiltrados">Listados Filtrados</a>
       <a href="index.php?ctl=logout" class="salir">Salir</a>
       <hr>
     <?php  } ?>
@@ -62,10 +60,12 @@
 
     <?= $contenido ?>
   </div>
-  <footer>
-    <hr>
-    <p id="piePagina">- Pie de página -</p>
-  </footer>
+  <?php if ($_SESSION) { ?>
+    <footer>
+      <hr>
+      <p id="piePagina">- Pie de página -</p>
+    </footer>
+  <?php } ?>
 </body>
 
 </html>

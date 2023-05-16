@@ -16,17 +16,17 @@ if (isset($_SESSION['admin'])) {
                 <caption>Gestión de afiliados</caption>
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Primer Apellido</th>
-                        <th>Segundo Apellido</th>
-                        <th>NIF</th>
-                        <th>Teléfono</th>
-                        <th>Dirección</th>
-                        <th>Email</th>
-                        <th>Codigo Centro</th>
-                        <th>Nombre del Centro</th>
-                        <th>Voto</th>
-                        <th>Fecha</th>
+                        <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Nombre <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>NIF <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Teléfono <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Dirección <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Email <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Nombre del Centro <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Voto <i class="fa-sharp fa-solid fa-sort"></th>
+                        <th>Fecha <i class="fa-sharp fa-solid fa-sort"></th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -34,11 +34,11 @@ if (isset($_SESSION['admin'])) {
                 <tbody>
                     <?php foreach ($votantes as $votante) { ?>
                         <tr>
-                            <td><input type="text" name="nombre_<?= $votante['IdVotante']; ?>" value="<?= $votante['Nombre']; ?>" class="nombreVotante" disabled></td>
                             <td><input type="text" name="apellido1_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido1']; ?>" class="apellido1Votante" disabled></td>
                             <td><input type="text" name="apellido2_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido2']; ?>" class="apellido2Votante" disabled></td>
-                            <td><input type="text" name="NIF_<?= $votante['IdVotante']; ?>" value="<?= $votante['NIF']; ?>" class="NIFVotante" disabled></td>
-                            <td><input type="tel" name="Telefono_<?= $votante['IdVotante']; ?>" value="<?= $votante['Telefono']; ?>" class="TelefonoVotante" disabled></td>
+                            <td><input type="text" name="nombre_<?= $votante['IdVotante']; ?>" value="<?= $votante['Nombre']; ?>" class="nombreVotante" disabled></td>
+                            <td><input type="text" name="NIF_<?= $votante['IdVotante']; ?>" value="<?= $votante['NIF']; ?>" class="NIFVotante" disabled minlength="9" maxlength="9"></td>
+                            <td><input type="tel" name="Telefono_<?= $votante['IdVotante']; ?>" value="<?= $votante['Telefono']; ?>" class="TelefonoVotante" disabled minlength="9" maxlength="9"></td>
                             <td><input type="text" name="Direccion_<?= $votante['IdVotante']; ?>" value="<?= $votante['Direccion']; ?>" class="DireccionVotante" disabled></td>
                             <td><input type="mail" name="Email_<?= $votante['IdVotante']; ?>" value="<?= $votante['Email']; ?>" class="EmailVotante" disabled></td>
                             <td><input type="text" name="CodCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['CodCentro']; ?>" class="CodCentroVotante" disabled></td>
@@ -82,7 +82,7 @@ if (isset($_SESSION['admin'])) {
     <?php
     }
 } else { ?>
-    <h1 id="errPerms">No tienes los permisos suficientes para acceder a esta página</h1>
+    <h2 id="errPerms">No tienes los permisos suficientes para acceder a esta página</h2>
 <?php
 }
 $contenido = ob_get_clean();

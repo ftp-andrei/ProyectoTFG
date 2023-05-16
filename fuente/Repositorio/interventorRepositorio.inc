@@ -42,10 +42,7 @@ class InterventorRepositorio
             $snt->bindValue(':usuario', $user);
             $snt->execute();
             $fila = $snt->fetch(\PDO::FETCH_ASSOC);
-            if ($fila['usuarios'] == 0) {
-                return true;
-            }
-            return false;
+            return empty($fila['usuarios']);
         } catch (\PDOException $th) {
             throw $th;
         } finally {

@@ -27,7 +27,7 @@ if (isset($_SESSION['admin'])) {
                     ?>
                             <tr>
                                 <td><input type="text" name="idMesa_<?= $mesa['idMesa']; ?>" value="<?= $mesa['idMesa']; ?>" class="idMesa" id="<?= $mesa['idMesa']; ?>" disabled></td>
-                                <td><input type="text" name="nombre_<?= $mesa['idMesa']; ?>" value="<?= $mesa['nombre']; ?>" class="nombreMesa" id="<?= $mesa['idMesa']; ?>" disabled></td>
+                                <td><input type="text" name="nombre_<?= $mesa['idMesa']; ?>" value="<?= $mesa['nombre']; ?>" class="nombreMesa" id="<?= $mesa['idMesa']; ?>" disabled required></td>
                                 <td><i class="fa-solid fa-copy copiar" id="copiar_<?= $mesa['nombre']; ?>"></i></td>
                                 <td> <i class="fas fa-edit editar"></i></td>
                                 <td>
