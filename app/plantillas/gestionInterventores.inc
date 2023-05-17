@@ -2,10 +2,10 @@
 /*´ Pagina ver y gestionar interventores admin
 */
 
-echo "<script src='web/js/interventor.js'></script>"; // código JavaScript aquí
 ob_start();
 
 if (isset($_SESSION['admin'])) {
+    echo "<script src='web/js/interventor.js'></script>";
     if (!empty($interventores)) {
 ?>
         <form method="post">

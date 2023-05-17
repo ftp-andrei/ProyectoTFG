@@ -6,23 +6,42 @@ use ConexionBd;
 
 class EstadisticasRepositorio
 {
-    // Metodo para mostrar las estadísticas totales. Se refrescan en el controller.
-    public function estadisticasTotales(): array
-    {
-        $sql = 'count(idMesa)-1 as "NumMesas" FROM mesas';
-        $sql2 = 'SELECT count(Voto) as "VotadoV" FROM votantes WHERE voto=1';
-        $sql3 = 'SELECT count(Voto) as "NoVotadoV" FROM votantes WHERE voto=0';
-        $sql4 = 'SELECT count(Voto) as "VotadoA" FROM afiliados WHERE voto=1';
-        $sql5 = 'SELECT count(Voto) as "NoVotadoA" FROM afiliados WHERE voto=0';
-        $sql6 = 'SELECT count(idVotante) as "TotalVotantes" FROM votantes';
-        $sql7 = 'SELECT count(idVotante) as "TotalAfiliados" FROM afiliados';
+    // Metodo para mostrar las estadísticas de votantes. Se refrescan en el controller.
+    public function estadisticasVotantes(): array
+    {   //SQL Votantes
+        $sql = 'SELECT m.idMesa,COUNT(vt.idVotante) AS TotalVotantes,SUM(CASE WHEN vt.voto = 1 THEN 1 ELSE 0 END) AS VotadoV,
+        SUM(CASE WHEN vt.voto = 0 THEN 1 ELSE 0 END) AS NoVotadoV FROM mesas m
+       LEFT JOIN votantes vt ON m.idMesa = vt.idMesa WHERE m.idMesa<> 0 GROUP BY m.idMesa';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
             $snt->execute();
-            $arr = $snt->fetch(\PDO::FETCH_ASSOC);
-            return $arr;
+            $arrayEstadisticas = $snt->fetchAll(\PDO::FETCH_ASSOC);
+            return $arrayEstadisticas;
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
+    // Metodo para mostrar las estadísticas de afiliados. Se refrescan en el controller
+    public function estadisticasAfiliados(): array
+    {
+        $sql = '  SELECT (SELECT COUNT(idVotante) FROM afiliados) AS TotalAfiliados,
+       (SELECT COUNT(Voto) FROM afiliados WHERE Voto = 1) AS VotadoA,
+       (SELECT COUNT(Voto) FROM afiliados WHERE Voto = 0) AS NoVotadoA';
+
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            $snt->execute();
+            $arrayEstadisticas = $snt->fetch(\PDO::FETCH_ASSOC);
+            return $arrayEstadisticas;
         } catch (\PDOException $th) {
             throw $th;
         } finally {

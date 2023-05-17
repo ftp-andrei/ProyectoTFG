@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const guardarCambios = document.getElementById("guardarCambios");
   const eliminaVotante = document.getElementsByClassName("eliminar");
   const icono = document.getElementsByClassName("fa-solid fa-sort");
-
   const idEditarVotante = document.getElementsByClassName("editar");
   const nombre = document.getElementsByClassName("nombreVotante");
   const apellido1 = document.getElementsByClassName("apellido1Votante");
@@ -20,24 +19,28 @@ document.addEventListener("DOMContentLoaded", function () {
     idEditarVotante[i].addEventListener("click", function () {
       editarVotante(nifVotante[i], mesaNombre[i], voto[i], nombreCentro[i], codCentro[i], nombre[i], apellido1[i], apellido2[i]);
     });
-
+    // Elimina un votante
     eliminaVotante[i].addEventListener("click", function () {
       borradoExitoso();
     });
-
-    icono[i].addEventListener("mouseover", function () {
-      // Cambia la clase del icono
-      icono.classList.add("fa-fade");
-    });
-
-    // Agrega el evento de 'mouseout' (cuando el mouse sale del icono)
-    icono[i].addEventListener("mouseout", function () {
-      // Elimina la nueva clase y vuelve a la clase original
-      icono.classList.remove("fa-fade");
-    });
   }
   // Bucle para ordenar los th de la tabla
-  for (let index = 0; index < 10; index++) {}
+  for (let index = 0; index < icono.length; index++) {
+    const icon = icono[index];
+    // icono[index].addEventListener("mouseover", function () {
+    //   // Cambia la clase del icono
+    //   icono[index].classList.add("fa-fade");
+    // });
+
+    // icono[index].addEventListener("mouseout", function () {
+    //   // Elimina la nueva clase y vuelve a la clase original
+    //   icono[index].classList.remove("fa-fade");
+    // });
+    // Si hace click se cambia de icono y lista
+    icon.addEventListener("click", function () {
+      ordenarTabla(icon.id);
+    });
+  }
   // Guarda los cambios
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
@@ -79,36 +82,19 @@ function borradoExitoso() {
   span.textContent = "Borrando..";
 }
 // Metodo para ordenar los th de la tabla
-function ordenarTabla(columna, ascendente) {
-  var table, rows, switching, i, x, y, shouldSwitch;
-  table = document.getElementById("miTabla");
-  switching = true;
+function ordenarTabla(icono) {
+  let elementoIcono = document.getElementById(icono);
 
-  while (switching) {
-    switching = false;
-    rows = table.rows;
-
-    for (i = 1; i < rows.length - 1; i++) {
-      shouldSwitch = false;
-      x = rows[i].getElementsByTagName("td")[columna];
-      y = rows[i + 1].getElementsByTagName("td")[columna];
-
-      if (ascendente) {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          shouldSwitch = true;
-          break;
-        }
-      } else {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-
-    if (shouldSwitch) {
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-    }
+  if (elementoIcono.classList.contains("fa-sharp")) {
+    elementoIcono.classList.remove("fa-sharp");
+    elementoIcono.classList.remove("fa-sort");
+    elementoIcono.classList.add("fa-sort-up");
+  } else if (elementoIcono.classList.contains("fa-sort-up")) {
+    elementoIcono.classList.remove("fa-sort-up");
+    elementoIcono.classList.add("fa-sort-down");
+  } else if (elementoIcono.classList.contains("fa-sort-down")) {
+    elementoIcono.classList.remove("fa-sort-down");
+    elementoIcono.classList.add("fa-sharp");
+    elementoIcono.classList.add("fa-sort");
   }
 }

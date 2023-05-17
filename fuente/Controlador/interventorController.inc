@@ -45,18 +45,10 @@ class InterventorController
             $pass = $obj->randomPassword();
 
             // Hashear password, para introducirlo en la bbdd
-            // $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
-
-            // Verificar que es la misma password
-            // if (password_verify($pass, $hashed_password)) {
-            //     echo "La contraseña es válida.";
-            // } else {
-            //     echo "La contraseña no es válida.";
-            // }
-
+            $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
 
             // // Devuelve true o false.
-            if ($nuevoInterventor = (new InterventorRepositorio())->generaInterventorAdmin($pass)) {
+            if ($nuevoInterventor = (new InterventorRepositorio())->generaInterventorAdmin($hashed_password)) {
                 header('Location: index.php?ctl=gestionInterventores');
             } else {
                 $error = "<br>Error al crear el interventor";

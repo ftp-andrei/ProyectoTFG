@@ -2,12 +2,13 @@
 /*´ Pagina ver y gestionar afiliados admin
 */
 
-echo "<script src='web/js/afiliados.js'></script>"; // código JavaScript aquí
+
 
 ob_start();
 
 if (isset($_SESSION['admin'])) {
-    if (!empty($votantes)) {
+    echo "<script src='web/js/afiliados.js'></script>";
+    if (!empty($afiliados)) {
 ?>
         <form method="post">
             <span id="copiado"></span>
@@ -32,20 +33,20 @@ if (isset($_SESSION['admin'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($votantes as $votante) { ?>
+                    <?php foreach ($afiliados as $afiliado) { ?>
                         <tr>
-                            <td><input type="text" name="apellido1_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido1']; ?>" class="apellido1Votante" disabled></td>
-                            <td><input type="text" name="apellido2_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido2']; ?>" class="apellido2Votante" disabled></td>
-                            <td><input type="text" name="nombre_<?= $votante['IdVotante']; ?>" value="<?= $votante['Nombre']; ?>" class="nombreVotante" disabled></td>
-                            <td><input type="text" name="NIF_<?= $votante['IdVotante']; ?>" value="<?= $votante['NIF']; ?>" class="NIFVotante" disabled minlength="9" maxlength="9"></td>
-                            <td><input type="tel" name="Telefono_<?= $votante['IdVotante']; ?>" value="<?= $votante['Telefono']; ?>" class="TelefonoVotante" disabled minlength="9" maxlength="9"></td>
-                            <td><input type="text" name="Direccion_<?= $votante['IdVotante']; ?>" value="<?= $votante['Direccion']; ?>" class="DireccionVotante" disabled></td>
-                            <td><input type="mail" name="Email_<?= $votante['IdVotante']; ?>" value="<?= $votante['Email']; ?>" class="EmailVotante" disabled></td>
-                            <td><input type="text" name="CodCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['CodCentro']; ?>" class="CodCentroVotante" disabled></td>
-                            <td><input type="text" name="NombreCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['NombreCentro']; ?>" class="NombreCentroVotante" disabled></td>
-                            <td><select name="optSelectVoto_<?= $votante['IdVotante']; ?>" class="optSelectVoto" id="optSelectVoto_<?= $votante['IdVotante']; ?>" disabled>
+                            <td><input type="text" name="apellido1_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Apellido1']; ?>" class="apellido1Votante" disabled></td>
+                            <td><input type="text" name="apellido2_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Apellido2']; ?>" class="apellido2Votante" disabled></td>
+                            <td><input type="text" name="nombre_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Nombre']; ?>" class="nombreVotante" disabled></td>
+                            <td><input type="text" name="NIF_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['NIF']; ?>" class="NIFVotante" disabled minlength="9" maxlength="9"></td>
+                            <td><input type="tel" name="Telefono_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Telefono']; ?>" class="TelefonoVotante" disabled minlength="9" maxlength="9"></td>
+                            <td><input type="text" name="Direccion_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Direccion']; ?>" class="DireccionVotante" disabled></td>
+                            <td><input type="mail" name="Email_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Email']; ?>" class="EmailVotante" disabled></td>
+                            <td><input type="text" name="CodCentro_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['CodCentro']; ?>" class="CodCentroVotante" disabled></td>
+                            <td><input type="text" name="NombreCentro_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['NombreCentro']; ?>" class="NombreCentroVotante" disabled></td>
+                            <td><select name="optSelectVoto_<?= $afiliado['IdVotante']; ?>" class="optSelectVoto" id="optSelectVoto_<?= $afiliado['IdVotante']; ?>" disabled>
                                     <?php
-                                    if ($votante['Voto']) { ?>
+                                    if ($afiliado['Voto']) { ?>
                                         <option value="1" selected="selected">Sí ha votado </option>
                                         <option value="0">No ha votado </option>
                                     <?php } else { ?>
@@ -53,17 +54,17 @@ if (isset($_SESSION['admin'])) {
                                         <option value="1">Sí ha votado </option>
                                     <?php  } ?>
                             </td>
-                            <td><input type="datetime" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php
-                                                                                                                                if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
-                                                                                                                                    echo substr($votante['Fecha'], 0, -4);
+                            <td><input type="datetime" name="Fecha_<?= $afiliado['IdVotante']; ?>" class="FechaVotante" value="<?php
+                                                                                                                                if ($afiliado['Fecha'] !== "1900-01-01 00:00:00.000") {
+                                                                                                                                    echo substr($afiliado['Fecha'], 0, -4);
                                                                                                                                 } else {
                                                                                                                                     echo "Vacio";
                                                                                                                                 }
                                                                                                                                 ?>" disabled>
                             </td>
-                            <td><i class="fas fa-edit editar" name="editar_<?= $votante['IdVotante']; ?>"></i></td>
+                            <td><i class="fas fa-edit editar" name="editar_<?= $afiliado['IdVotante']; ?>"></i></td>
                             <td>
-                                <button type="submit" name="remove_<?= $votante['IdVotante']; ?>" class="eliminar">
+                                <button type="submit" name="remove_<?= $afiliado['IdVotante']; ?>" class="eliminar">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </td>
@@ -73,7 +74,7 @@ if (isset($_SESSION['admin'])) {
             </table>
             <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
             <?= isset($guardarVotante) ? "<span>" . $error . "</span>" : "" ?>
-            <?= isset($borraVotante) ? "<span>" . $error . "</span>" : "" ?>
+            <?= isset($borraAfiliado) ? "<span>" . $error . "</span>" : "" ?>
 
         </form>
     <?php

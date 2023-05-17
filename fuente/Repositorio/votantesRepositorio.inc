@@ -9,7 +9,7 @@ class VotantesRepositorio
     // Devuelve todos los votantes
     public function getVotantes(): array
     {
-        $sql = 'SELECT IdVotante,Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha FROM votantes ORDER BY IdVotante asc';
+        $sql = 'SELECT IdVotante,Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha FROM votantes ORDER BY Apellido1,Apellido2,Nombre,NIF';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();

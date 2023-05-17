@@ -145,45 +145,13 @@ form fieldset {
   text-align: center;
 }
 
-/* Form y Botones inicio admin */
-
-#desea fieldset {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5em;
+.enLinea {
+  display: inline-block;
+  margin-right: 20px; /* Espacio entre las tablas */
 }
 
-#si,
-#no {
-  padding: 0.5em;
-  margin: 0.5em;
-  text-align: center;
-  color: #fff;
-  border-radius: 0.5em;
-}
-
-#si {
-  background-color: #3c763d;
-  border: 1px solid #3c763d;
-}
-
-#si:hover {
-  background-color: #418c57;
-  color: #f2e9e4;
-}
-
-#no {
-  background-color: #b92309;
-  border: 1px solid #b92309;
-}
-
-#no:hover {
-  background-color: #d0270a;
-  color: #f2e9e4;
-}
-
-#estadisticas form {
-  text-align: left;
+/* Scroll vertical */
+.scrollable {
+  height: 600px;
+  overflow-y: scroll;
 }

@@ -150,7 +150,7 @@ AMPLIACIONES Y POSIBLES MEJORAS:
 -En las cabeceras (th), que se ordenen en forma ascendente o descendente.
 -Mejora estética/visual de la aplicación.
 -El tema de fluidez/rendimiento se puede mejorar.
--
+-Añadir porcentajes a las estadísticas
 
 Respecto a estilos y demas:
 Posibilidad boostrap + CSS 

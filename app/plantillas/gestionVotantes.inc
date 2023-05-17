@@ -4,34 +4,34 @@
 
 // TODO: Error DNI, si no ha votado no sale duplicado
 // TODO: Regex DNI
-
+// Solucionado: Orden por ap1,ap2,nombre,nif
 // TODO: Filtros arriba. Intentar que sea lo mas comodo posible.
 // TODO: Boton exportar a excel
 // TODO: Mensaje de confirmacion al eliminar
 // TODO: Cambiar orden columnas
 // TODO: Filtrar columnas click (th)
-echo "<script src='web/js/votante.js'></script>";
 
 ob_start();
 if (isset($_SESSION['admin'])) {
+    echo "<script src='web/js/votante.js'></script>";
     if (!empty($votantes)) {
 ?>
         <form method="post">
             <span id="copiado"></span>
             <br>
-            <table>
+            <table id="tabla">
                 <caption>Gestión de votantes</caption>
                 <thead>
                     <tr>
-                        <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort"></i></th>
-                        <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort"></i></th>
-                        <th>Nombre <i class="fa-sharp fa-solid fa-sort"></i></th>
-                        <th>NIF <i class="fa-sharp fa-solid fa-sort"></i></th>
-                        <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort"></i></th>
-                        <th>Nombre del Centro <i class="fa-sharp fa-solid fa-sort"></i></th>
-                        <th>Mesa <i class="fa-sharp fa-solid fa-sort"></i></th>
-                        <th>Voto <i class="fa-sharp fa-solid fa-sort"></i></th>
-                        <th>Fecha <i class="fa-sharp fa-solid fa-sort"></i></th>
+                        <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort" id="ap1"></i></th>
+                        <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort" id="ap2"></i></th>
+                        <th>Nombre <i class="fa-sharp fa-solid fa-sort" id="nombre"></i></th>
+                        <th>NIF <i class="fa-sharp fa-solid fa-sort" id="nif"></i></th>
+                        <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="codCentro"></i></th>
+                        <th>Nombre del Centro <i class="fa-sharp fa-solid fa-sort" id="nombreCentro"></i></th>
+                        <th>Mesa <i class="fa-sharp fa-solid fa-sort" id="mesa"></i></th>
+                        <th>Voto <i class="fa-sharp fa-solid fa-sort" id="voto"></i></th>
+                        <th>Fecha <i class="fa-sharp fa-solid fa-sort" id="fecha"></i></th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>

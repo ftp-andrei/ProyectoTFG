@@ -2,44 +2,49 @@
 /*´ Pagina ver y gestionar mesa admin
 */
 
-echo "<script src='web/js/mesa.js'></script>";
 ob_start();
 
 if (isset($_SESSION['admin'])) {
+    echo "<script src='web/js/mesa.js'></script>";
     if (sizeof($mesas) != 1) {  ?>
+
         <form method="post">
             <span id="copiado"></span>
             <br>
-            <table>
-                <caption>Gestión de mesas</caption>
-                <thead>
-                    <tr>
-                        <th>idMesa</th>
-                        <th>Nombre</th>
-                        <th>Copiar</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($mesas as $mesa) {
-                        if ($mesa['idMesa'] != 0) {
-                    ?>
-                            <tr>
-                                <td><input type="text" name="idMesa_<?= $mesa['idMesa']; ?>" value="<?= $mesa['idMesa']; ?>" class="idMesa" id="<?= $mesa['idMesa']; ?>" disabled></td>
-                                <td><input type="text" name="nombre_<?= $mesa['idMesa']; ?>" value="<?= $mesa['nombre']; ?>" class="nombreMesa" id="<?= $mesa['idMesa']; ?>" disabled required></td>
-                                <td><i class="fa-solid fa-copy copiar" id="copiar_<?= $mesa['nombre']; ?>"></i></td>
-                                <td> <i class="fas fa-edit editar"></i></td>
-                                <td>
-                                    <button type="submit" name="remove_<?= $mesa['idMesa']; ?>" class="eliminar">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                    <?php }
-                    } ?>
-                </tbody>
-            </table>
+            <div class="scrollable">
+
+                <table>
+                    <caption>Gestión de mesas</caption>
+                    <thead>
+                        <tr>
+                            <th>idMesa</th>
+                            <th>Nombre</th>
+                            <th>Copiar</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($mesas as $mesa) {
+                            if ($mesa['idMesa'] != 0) {
+                        ?>
+                                <tr>
+                                    <td><input type="text" name="idMesa_<?= $mesa['idMesa']; ?>" value="<?= $mesa['idMesa']; ?>" class="idMesa" id="<?= $mesa['idMesa']; ?>" disabled></td>
+                                    <td><input type="text" name="nombre_<?= $mesa['idMesa']; ?>" value="<?= $mesa['nombre']; ?>" class="nombreMesa" id="<?= $mesa['idMesa']; ?>" disabled required></td>
+                                    <td><i class="fa-solid fa-copy copiar" id="copiar_<?= $mesa['nombre']; ?>"></i></td>
+                                    <td> <i class="fas fa-edit editar"></i></td>
+                                    <td>
+                                        <button type="submit" name="remove_<?= $mesa['idMesa']; ?>" class="eliminar">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                        <?php }
+                        } ?>
+
+                    </tbody>
+                </table>
+            </div>
             <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
             <input type="submit" name="anadirMesa" value="Añadir mesa" class="boton" id="anadir">
             <?= isset($nuevaMesa) ? "<span>" . $error . "</span>" : "" ?>

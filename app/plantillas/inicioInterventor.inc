@@ -5,9 +5,9 @@
 // TODO: Menu Sticky
 // TODO: Boton hacia arriba
 // TODO: Cambiar el titulo de la pagina
-echo "<script src='web/js/interventorMesa.js'></script>";
 ob_start();
 if (isset($_SESSION['interventor'])) {
+    echo "<script src='web/js/interventorMesa.js'></script>";
     if (!empty($listaInterventor)) {
         var_dump($listaInterventor);
 ?>
