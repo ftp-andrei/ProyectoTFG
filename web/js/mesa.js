@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const idEditarMesa = document.getElementsByClassName("editar");
   const idCopy = document.getElementsByClassName("copiar");
   const nombreMesas = document.getElementsByClassName("nombreMesa");
-
+  const windowWidth = window.innerWidth; // Tamaño ventana
   for (let i = 0; i < nombreMesas.length; i++) {
     // Copia el nombre de mesa al portapapeles
     idCopy[i].addEventListener("click", function () {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       borradoExitoso();
     });
   }
-
+  window.addEventListener("resize", scrollVertical(windowWidth));
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
   });
@@ -31,6 +31,35 @@ document.addEventListener("DOMContentLoaded", function () {
     AnadidoExitoso();
   });
 });
+
+function scrollVertical(windowWidth) {
+  const div = document.getElementById("scrollable");
+  const numeroInterventores = document.getElementsByClassName("idMesa");
+
+  let limiteElementos;
+
+  // Definir los límites de elementos en función del ancho de la ventana
+  if (windowWidth < 480) {
+    // Si el ancho es menor que 600px
+    limiteElementos = 5;
+  } else if (windowWidth < 1600 && windowWidth > 780) {
+    // Si el ancho es menor que 900px
+    limiteElementos = 10;
+  } else {
+    // Si el ancho es mayor o igual a 900px
+    limiteElementos = 15;
+  }
+  // Verificar si existen 10 elementos
+  if (numeroInterventores.length >= limiteElementos) {
+    // Iterar sobre los elementos
+    div.classList.add("scrollable");
+  } else {
+    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
+    if (div.classList.contains("scrollable")) {
+      div.classList.remove("scrollable");
+    }
+  }
+}
 // Copia la contrasena al portapapeles
 function copiarNombreMesa(nombre) {
   navigator.clipboard

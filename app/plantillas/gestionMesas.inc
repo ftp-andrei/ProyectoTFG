@@ -11,8 +11,7 @@ if (isset($_SESSION['admin'])) {
         <form method="post">
             <span id="copiado"></span>
             <br>
-            <div class="scrollable">
-
+            <div id="scrollable">
                 <table>
                     <caption>Gestión de mesas</caption>
                     <thead>

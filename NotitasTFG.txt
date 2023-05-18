@@ -147,11 +147,23 @@ ______ ¿ CUADRO PARA NO HACER SCROLL ? ______
 Como crear contenedor div con scroll vertical.
 
 AMPLIACIONES Y POSIBLES MEJORAS:
--En las cabeceras (th), que se ordenen en forma ascendente o descendente.
+Ampliación:
+-Añadido un botón de exportar los datos a excel en el apartado de votantes y afiliados.
+-Añadido un boton de resetar los votos y fechas de estos.
+-Añadido un boton de copiar contraseña
+-Añadido un texto informando de la accion al guardar/eliminar los datos
+-Añadido un scroll vertical, evitando así hacer scroll a toda la página.
+
+Posibles mejoras:
 -Mejora estética/visual de la aplicación.
 -El tema de fluidez/rendimiento se puede mejorar.
--Añadir porcentajes a las estadísticas
+-Añadir mas cosas en el apartado de estadísticas.
+-Añadir un boton de importar los datos a excel.
+-Añadir filtros en las cabeceras TH (ascendente y descendente).
+-Añadir patron regex para NIF/NIE.
+-Añadir votantes/afiliados desde el programa.
 
+---
 Respecto a estilos y demas:
 Posibilidad boostrap + CSS 
 Responsive
@@ -160,16 +172,31 @@ JS recomendaciones?
 
 ---Profe---
 
-Memoria 23 M
-Proyecto 29 M
+Memoria 23 M --> Se entrega al final el 29.
+Proyecto 29 M --> Se pueden hacer cosas hasta el dia de la presentación, y decir: se a implementado esto extra, que no está en la memoria.
 Presentaciones - 1 al 16 J.
 
-Se puede seguir programando hasta el 29?
-Como y por donde te entregamos el proyecto?
-Y la memoria? Tanto Pdf como en fisico?
-Lo de las pruebas, es así o tengo que poner un cuadro?
-Respecto a lo de los controladores, debería cambiar rutas y poner las funciones del admin 
-(verVotantes,verAfiliados.. etc) en el controlador del admin, no?
-
 Recomendaciones y mejoras?
+-------- PRUEBAS ---------
+En la memoria pruebas poner: Se ha realizado de manera manual las siguientes pruebas:
+---
+Las siguientes pruebas han sido llevadas a cabo con éxito de forma manual:
+---
+Con satisfacción y éxito, se han completado las siguientes pruebas de manera minuciosa y manual:
+---
+---------- PASSWD -----------
+Poner tambien que el administrador puede ver las contraseñas (asi se evita usar hash)
+---
+------------ DESPLIEGUE --------------
+Tema de despliegue: se habló con el cliente de que eso lo gestionan ellos de manera interna.
+Cambiar idVotante por idAfiliado (afiliados)
+Poner en el diagrama de casos de uso SISTEMA
+---
+En cuanto al despliegue de la aplicación del cliente, 
+es importante destacar que será responsabilidad del propio cliente llevar a cabo dicha gestión. 
+Esto implica que el cliente deberá encargarse de la puesta en marcha de la aplicación en su entorno. 
+Además, es crucial mencionar que el cumplimiento del Reglamento General de Protección de Datos (RGPD) también recae en manos del cliente. 
+El cliente deberá asegurarse de que la aplicación cumple con todos los requisitos legales y normativos 
+establecidos por el RGPD para garantizar la protección y privacidad de los datos personales de los usuarios. 
+
 

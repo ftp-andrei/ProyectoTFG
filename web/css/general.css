@@ -140,18 +140,19 @@ form fieldset {
   border-color: #e82c0c;
   border-radius: 0.4em;
 }
-
+/* Footer y texto footer */
 #piePagina {
   text-align: center;
 }
-
-.enLinea {
-  display: inline-block;
-  margin-right: 20px; /* Espacio entre las tablas */
+/* De forma que el footer siempre se quede abajo del todo. */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 99%;
 }
 
-/* Scroll vertical */
-.scrollable {
-  height: 600px;
-  overflow-y: scroll;
+.enLinea {
+  margin-right: 1.25em; /* Espacio entre las tablas */
+  vertical-align: top;
+  display: inline-block;
 }

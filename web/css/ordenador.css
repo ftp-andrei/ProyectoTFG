@@ -1,2 +1,7 @@
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1600px) {
+  .scrollable {
+    height: 70vh;
+    overflow-y: scroll;
+    margin-bottom: 1em;
+  }
 }

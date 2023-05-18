@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const codcentro = document.getElementsByClassName("codcentroVotante");
   const nomcentro = document.getElementsByClassName("NombreCentroVotante");
   const voto = document.getElementsByClassName("optSelectVoto");
+  const div = document.getElementById("scrollable");
 
   for (let i = 0; i < nombre.length; i++) {
     // Habilita los campos para editar el Mesa
@@ -25,6 +26,18 @@ document.addEventListener("DOMContentLoaded", function () {
     eliminaAfiliado[i].addEventListener("click", function () {
       borradoExitoso();
     });
+  }
+  const numeroNIFs = document.getElementsByClassName("NIFVotante");
+
+  // Verificar si existen 10 elementos
+  if (numeroNIFs.length >= 15) {
+    // Iterar sobre los elementos
+    div.classList.add("scrollable");
+  } else {
+    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
+    if (div.classList.contains("scrollable")) {
+      div.classList.remove("scrollable");
+    }
   }
 
   guardarCambios.addEventListener("click", function () {

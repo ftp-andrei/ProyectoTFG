@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const nombreCentro = document.getElementsByClassName("NombreCentroVotante");
   const mesaNombre = document.getElementsByClassName("optSelectMesa");
   const voto = document.getElementsByClassName("optSelectVoto");
+  const windowWidth = window.innerWidth; // Tamaño ventana
   //Bucle para editar campos de la mesa/Borrar
   for (let i = 0; i < nifVotante.length; i++) {
     // Edita los campos de la mesa
@@ -41,11 +42,41 @@ document.addEventListener("DOMContentLoaded", function () {
       ordenarTabla(icon.id);
     });
   }
+  window.addEventListener("resize", scrollVertical(windowWidth, nifVotante));
+
   // Guarda los cambios
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
   });
 });
+
+function scrollVertical(windowWidth, nifVotante) {
+  const div = document.getElementById("scrollable");
+
+  let limiteElementos;
+
+  // Definir los límites de elementos en función del ancho de la ventana
+  if (windowWidth < 480) {
+    // Si el ancho es menor que 600px
+    limiteElementos = 5;
+  } else if (windowWidth < 1600 && windowWidth > 780) {
+    // Si el ancho es menor que 900px
+    limiteElementos = 10;
+  } else {
+    // Si el ancho es mayor o igual a 900px
+    limiteElementos = 15;
+  }
+  // Verificar si existen 10 elementos
+  if (nifVotante.length >= limiteElementos) {
+    // Iterar sobre los elementos
+    div.classList.add("scrollable");
+  } else {
+    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
+    if (div.classList.contains("scrollable")) {
+      div.classList.remove("scrollable");
+    }
+  }
+}
 // Funcion que habilita los campos para editar el votante
 function editarVotante(nif, idMesa, idVoto, nombreCentro, codCentro, nombre, apellido1, apellido2) {
   if (nif.disabled) {
