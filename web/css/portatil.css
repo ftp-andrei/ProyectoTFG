@@ -1,4 +1,75 @@
 @media screen and (max-width: 1599px) and (min-width: 770px) {
+  /* Imagen del header */
+  header img {
+    width: 110px;
+    height: 40px;
+  }
+  /* Para el h1 del header */
+  h1 {
+    color: #598c41;
+    /* color: #0099ff; */
+    font-weight: normal;
+    font-size: 2em;
+    font-family: "Times New Roman", Times, serif;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* Nav */
+  nav a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.9em;
+    display: inline-block;
+    width: 10%;
+    padding: 5px 10px;
+    background-color: #3c763d;
+    border: 1px solid #3c763d;
+    text-align: center;
+    color: #fff;
+    border-radius: 1em;
+  }
+  /* Tamaños tabla */
+  td input {
+    width: 140px;
+  }
+  table th {
+    font-size: 16px;
+  }
+  table td input {
+    font-size: 14px;
+  }
+  .DireccionVotante {
+    width: 120px;
+  }
+  .nombreMesa {
+    width: 175px;
+  }
+
+  .idMesa,
+  .numeroMesa {
+    width: 50px;
+  }
+
+  .NIFVotante,
+  .TelefonoVotante,
+  .CodCentroVotante {
+    width: 85px;
+  }
+
+  .NombreCentroVotante,
+  .apellido1Votante,
+  .apellido2Votante,
+  .nombreVotante {
+    width: 100px;
+  }
+  /* Estilo para el título de la tabla */
+  caption {
+    font-size: 1.75em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  /* Scroll */
   .scrollable {
     max-height: 60vh;
     overflow-y: scroll;

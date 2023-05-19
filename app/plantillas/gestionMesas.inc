@@ -1,12 +1,13 @@
 <?php
-/*´ Pagina ver y gestionar mesa admin
+/* Pagina ver y gestionar mesa admin
 */
 
 ob_start();
 
 if (isset($_SESSION['admin'])) {
     echo "<script src='web/js/mesa.js'></script>";
-    if (sizeof($mesas) != 1) {  ?>
+    if (sizeof($mesas) != 1) {
+?>
 
         <form method="post">
             <span id="copiado"></span>
@@ -28,8 +29,8 @@ if (isset($_SESSION['admin'])) {
                             if ($mesa['idMesa'] != 0) {
                         ?>
                                 <tr>
-                                    <td><input type="text" name="idMesa_<?= $mesa['idMesa']; ?>" value="<?= $mesa['idMesa']; ?>" class="idMesa" id="<?= $mesa['idMesa']; ?>" disabled></td>
-                                    <td><input type="text" name="nombre_<?= $mesa['idMesa']; ?>" value="<?= $mesa['nombre']; ?>" class="nombreMesa" id="<?= $mesa['idMesa']; ?>" disabled required></td>
+                                    <td><input type="text" name="idMesa_<?= $mesa['idMesa']; ?>" value="<?= $mesa['idMesa']; ?>" class="idMesa" disabled></td>
+                                    <td><input type="text" name="nombre_<?= $mesa['idMesa']; ?>" value="<?= $mesa['nombre']; ?>" class="nombreMesa" disabled required></td>
                                     <td><i class="fa-solid fa-copy copiar" id="copiar_<?= $mesa['nombre']; ?>"></i></td>
                                     <td> <i class="fas fa-edit editar"></i></td>
                                     <td>
@@ -52,6 +53,7 @@ if (isset($_SESSION['admin'])) {
 
         </form>
         <!-- En caso de que no existan mesas, le saldrá un mensaje y un boton para añadir de 1 en 1 -->
+
     <?php } else { ?>
         <form method="post">
             <p>No existen mesas, ¿desea añadirlos?</p>

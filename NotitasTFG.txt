@@ -162,6 +162,7 @@ Posibles mejoras:
 -Añadir filtros en las cabeceras TH (ascendente y descendente).
 -Añadir patron regex para NIF/NIE.
 -Añadir votantes/afiliados desde el programa.
+-Añadir regex/filtro al email de los afiliados
 
 ---
 Respecto a estilos y demas:

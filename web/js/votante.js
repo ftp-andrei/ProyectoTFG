@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // });
     // Si hace click se cambia de icono y lista
     icon.addEventListener("click", function () {
+      // let columna = document.getElementsByClassName("apellido2Votante");
+      // columna
       ordenarTabla(icon.id);
     });
   }
@@ -113,19 +115,45 @@ function borradoExitoso() {
   span.textContent = "Borrando..";
 }
 // Metodo para ordenar los th de la tabla
+// columna
 function ordenarTabla(icono) {
   let elementoIcono = document.getElementById(icono);
-
+  // let table = document.getElementsByClassName(tabla);
+  // let filas = Array.from(table.getElementsByTagName("tr"));
   if (elementoIcono.classList.contains("fa-sharp")) {
     elementoIcono.classList.remove("fa-sharp");
     elementoIcono.classList.remove("fa-sort");
     elementoIcono.classList.add("fa-sort-up");
+    // Ordenar de forma ascendente
+    // filas.sort(function (a, b) {
+    //   var valorA = obtenerValorColumna(a, columna);
+    //   var valorB = obtenerValorColumna(b, columna);
+    //   return valorA.localeCompare(valorB, undefined, { numeric: true });
+    // });
   } else if (elementoIcono.classList.contains("fa-sort-up")) {
     elementoIcono.classList.remove("fa-sort-up");
     elementoIcono.classList.add("fa-sort-down");
+    // Ordenar de forma descendente
+    // filas.sort(function (a, b) {
+    //   var valorA = obtenerValorColumna(a, columna);
+    //   var valorB = obtenerValorColumna(b, columna);
+    //   return valorB.localeCompare(valorA, undefined, { numeric: true });
+    // });
   } else if (elementoIcono.classList.contains("fa-sort-down")) {
     elementoIcono.classList.remove("fa-sort-down");
     elementoIcono.classList.add("fa-sharp");
     elementoIcono.classList.add("fa-sort");
+    // return;
   }
+
+  // // Volver a agregar las filas ordenadas a la tabla
+  // var tbody = tabla.querySelector("tbody");
+  // filas.forEach(function (fila) {
+  //   tbody.appendChild(fila);
+  // });
+}
+
+function obtenerValorColumna(fila, columna) {
+  var celda = fila.querySelector("td:nth-child(" + columna + ")");
+  return celda ? celda.innerText : "";
 }

@@ -34,7 +34,7 @@ class AfiliadosController
                 $nif = $afiliados[$i]['NIF'];
                 $telf = $afiliados[$i]['Telefono'];
                 $direccion = $afiliados[$i]['Direccion'];
-                $email = $afiliados[$i]['Direccion'];
+                $email = $afiliados[$i]['Email'];
                 $codCentro = $afiliados[$i]['CodCentro'];
                 $nombreCentro = $afiliados[$i]['NombreCentro'];
                 $voto = $afiliados[$i]['Voto'];

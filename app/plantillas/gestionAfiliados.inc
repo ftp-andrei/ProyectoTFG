@@ -26,7 +26,7 @@ if (isset($_SESSION['admin'])) {
                             <th>Dirección <i class="fa-sharp fa-solid fa-sort"></th>
                             <th>Email <i class="fa-sharp fa-solid fa-sort"></th>
                             <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Nombre del Centro <i class="fa-sharp fa-solid fa-sort"></th>
+                            <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort"></th>
                             <th>Voto <i class="fa-sharp fa-solid fa-sort"></th>
                             <th>Fecha <i class="fa-sharp fa-solid fa-sort"></th>
                             <th>Editar</th>
@@ -42,7 +42,7 @@ if (isset($_SESSION['admin'])) {
                                 <td><input type="text" name="NIF_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['NIF']; ?>" class="NIFVotante" disabled minlength="9" maxlength="9"></td>
                                 <td><input type="tel" name="Telefono_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Telefono']; ?>" class="TelefonoVotante" disabled minlength="9" maxlength="9"></td>
                                 <td><input type="text" name="Direccion_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Direccion']; ?>" class="DireccionVotante" disabled></td>
-                                <td><input type="mail" name="Email_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Email']; ?>" class="EmailVotante" disabled></td>
+                                <td><input type="email" name="Email_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['Email']; ?>" class="EmailVotante" disabled></td>
                                 <td><input type="text" name="CodCentro_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['CodCentro']; ?>" class="CodCentroVotante" disabled></td>
                                 <td><input type="text" name="NombreCentro_<?= $afiliado['IdVotante']; ?>" value="<?= $afiliado['NombreCentro']; ?>" class="NombreCentroVotante" disabled></td>
                                 <td><select name="optSelectVoto_<?= $afiliado['IdVotante']; ?>" class="optSelectVoto" id="optSelectVoto_<?= $afiliado['IdVotante']; ?>" disabled>
