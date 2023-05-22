@@ -121,3 +121,23 @@ footer {
   vertical-align: top;
   display: inline-block;
 }
+
+#votoSi {
+  background-color: #00ff00;
+  border-color: #00ff00;
+}
+
+#votoNo {
+  background-color: #ff0d0d;
+  border-color: #ff0d0d;
+}
+
+#resetVotos {
+  background-color: #856965;
+  border-color: #856965;
+}
+
+#resetVotos:hover {
+  background-color: #5e4b48;
+  border-color: #5e4b48;
+}

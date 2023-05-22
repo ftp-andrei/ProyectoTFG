@@ -31,7 +31,7 @@ class EstadisticasRepositorio
     // Metodo para mostrar las estadísticas de afiliados. Se refrescan en el controller
     public function estadisticasAfiliados(): array
     {
-        $sql = '  SELECT (SELECT COUNT(idVotante) FROM afiliados) AS TotalAfiliados,
+        $sql = 'SELECT (SELECT COUNT(idAfiliado) FROM afiliados) AS TotalAfiliados,
        (SELECT COUNT(Voto) FROM afiliados WHERE Voto = 1) AS VotadoA,
        (SELECT COUNT(Voto) FROM afiliados WHERE Voto = 0) AS NoVotadoA';
 

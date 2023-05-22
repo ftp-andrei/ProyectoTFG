@@ -31,10 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Verificar si existen 10 elementos
   if (numeroNIFs.length >= 15) {
-    // Iterar sobre los elementos
     div.classList.add("scrollable");
   } else {
-    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
     if (div.classList.contains("scrollable")) {
       div.classList.remove("scrollable");
     }
@@ -59,18 +57,19 @@ function editarNombreMesa(nombre, apellido1, apellido2, nif, telf, direccion, em
     codcentro.disabled = false;
     nomcentro.disabled = false;
     opVoto.disabled = false;
-  } else {
-    nombre.disabled = true;
-    apellido1.disabled = true;
-    apellido2.disabled = true;
-    nif.disabled = true;
-    telf.disabled = true;
-    direccion.disabled = true;
-    email.disabled = true;
-    codcentro.disabled = true;
-    nomcentro.disabled = true;
-    opVoto.disabled = true;
   }
+  // else {
+  //   nombre.disabled = true;
+  //   apellido1.disabled = true;
+  //   apellido2.disabled = true;
+  //   nif.disabled = true;
+  //   telf.disabled = true;
+  //   direccion.disabled = true;
+  //   email.disabled = true;
+  //   codcentro.disabled = true;
+  //   nomcentro.disabled = true;
+  //   opVoto.disabled = true;
+  // }
 }
 
 // Guardado con éxito

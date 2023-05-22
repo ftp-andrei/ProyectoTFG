@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const idMesa = idMesaInterventor[i];
     // Agregar un evento click para mostrar las contraseñas
     idVerImg.addEventListener("click", function () {
-      mostrarContrasena(idVerImg.id, idVerPass[i].id);
+      mostrarContrasena(idVerImg.id, idVerPass[i].id, user[i].id);
     });
     // Copia la contrasena al portapapeles
     idCopy[i].addEventListener("click", function () {
@@ -50,38 +50,36 @@ function scrollVertical(windowWidth) {
 
   // Definir los límites de elementos en función del ancho de la ventana
   if (windowWidth < 480) {
-    // Si el ancho es menor que 600px
     limiteElementos = 5;
   } else if (windowWidth < 1600 && windowWidth > 780) {
-    // Si el ancho es menor que 900px
     limiteElementos = 10;
   } else {
-    // Si el ancho es mayor o igual a 900px
     limiteElementos = 15;
   }
-  // Verificar si existen 10 elementos
+  // Verificar los elementos
   if (numeroInterventores.length >= limiteElementos) {
-    // Iterar sobre los elementos
     div.classList.add("scrollable");
   } else {
-    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
     if (div.classList.contains("scrollable")) {
       div.classList.remove("scrollable");
     }
   }
 }
 // Funcion que muestra la contraseña (sin editarla)
-function mostrarContrasena(idVerImg, idPass) {
+function mostrarContrasena(idVerImg, idPass, usuario) {
+  let user = document.getElementById(usuario);
   let img = document.getElementById(idVerImg);
   let pass = document.getElementById(idPass);
-  if (pass.type === "password") {
-    img.className = "fa fa-eye mostrar";
-    pass.type = "text";
-    // pass.disabled = false; // Evita editar la contraseña
-  } else {
-    img.className = "fa fa-eye-slash ocultar";
-    pass.type = "password";
-    pass.disabled = true;
+  if (user.disabled) {
+    if (pass.type === "password") {
+      img.className = "fa fa-eye mostrar";
+      pass.type = "text";
+      //pass.disabled = false; // Evita editar la contraseña
+    } else {
+      img.className = "fa fa-eye-slash ocultar";
+      pass.type = "password";
+      pass.disabled = true;
+    }
   }
 }
 // Copia la contraseña al portapapeles y muestra un mensaje en la pantalla
@@ -115,13 +113,14 @@ function editarInterventorInterventor(idPass, idMesa, idVerImg, usuario) {
     mesa.disabled = false;
     user.disabled = false;
     contrasena.select();
-  } else {
-    img.className = "fa fa-eye-slash ocultar";
-    contrasena.type = "password";
-    contrasena.disabled = true;
-    mesa.disabled = true;
-    user.disabled = true;
   }
+  // else {
+  //   img.className = "fa fa-eye-slash ocultar";
+  //   contrasena.type = "password";
+  //   contrasena.disabled = true;
+  //   mesa.disabled = true;
+  //   user.disabled = true;
+  // }
 }
 
 // Mensaje de que se ha guardado con éxito el interventor

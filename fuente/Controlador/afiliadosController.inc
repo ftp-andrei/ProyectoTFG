@@ -14,8 +14,8 @@ class AfiliadosController
         $afiliados = (new AfiliadosRepositorio())->getAfiliados();
         // Elimina un afiliado
         foreach ($afiliados as $afiliado) {
-            if (isset($_POST["remove_{$afiliado['IdVotante']}"])) {
-                if ($borraAfiliado = (new AfiliadosRepositorio())->borraAfiliado($afiliado['IdVotante'])) {
+            if (isset($_POST["remove_{$afiliado['IdAfiliado']}"])) {
+                if ($borraAfiliado = (new AfiliadosRepositorio())->borraAfiliado($afiliado['IdAfiliado'])) {
                     header('Location: index.php?ctl=gestionAfiliados');
                 } else {
                     $error = "Error al borrar afiliado";
@@ -40,52 +40,52 @@ class AfiliadosController
                 $voto = $afiliados[$i]['Voto'];
                 $fecha = $afiliados[$i]['Fecha'];
                 // POST apellido1
-                if (isset($_POST["apellido1_{$afiliados[$i]['IdVotante']}"])) {
-                    $apellido1 = $_POST["apellido1_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["apellido1_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $apellido1 = $_POST["apellido1_{$afiliados[$i]['IdAfiliado']}"];
                 }
                 // POST apellido2
-                if (isset($_POST["apellido2_{$afiliados[$i]['IdVotante']}"])) {
-                    $apellido2 = $_POST["apellido2_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["apellido2_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $apellido2 = $_POST["apellido2_{$afiliados[$i]['IdAfiliado']}"];
                 }
                 // POST nombre
-                if (isset($_POST["nombre_{$afiliados[$i]['IdVotante']}"])) {
-                    $nombre = $_POST["nombre_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["nombre_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $nombre = $_POST["nombre_{$afiliados[$i]['IdAfiliado']}"];
                 }
                 // POST nif
-                if (isset($_POST["NIF_{$afiliados[$i]['IdVotante']}"])) {
-                    if ($_POST["NIF_{$afiliados[$i]['IdVotante']}"] != $nif) {
+                if (isset($_POST["NIF_{$afiliados[$i]['IdAfiliado']}"])) {
+                    if ($_POST["NIF_{$afiliados[$i]['IdAfiliado']}"] != $nif) {
                         // Comprueba si existe el NIF
                         // Array_search busca si en los post se a introducido varios dnis iguales. Cambia solo el 1ero
-                        if ($existe = (new AfiliadosRepositorio())->existeNIF($_POST["NIF_{$afiliados[$i]['IdVotante']}"]) && array_search($_POST["NIF_{$afiliados[$i]['IdVotante']}"], array_column($arr, 'NIF')) === false) {
-                            $nif = $_POST["NIF_{$afiliados[$i]['IdVotante']}"];
+                        if ($existe = (new AfiliadosRepositorio())->existeNIF($_POST["NIF_{$afiliados[$i]['IdAfiliado']}"]) && array_search($_POST["NIF_{$afiliados[$i]['IdAfiliado']}"], array_column($arr, 'NIF')) === false) {
+                            $nif = $_POST["NIF_{$afiliados[$i]['IdAfiliado']}"];
                         } else {
                             $error = "<br>Error: El NIF ya existe o es duplicado";
                         }
                     }
                 }
                 // POST Telf centro
-                if (isset($_POST["Telefono_{$afiliados[$i]['IdVotante']}"])) {
-                    $telf = $_POST["Telefono_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["Telefono_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $telf = $_POST["Telefono_{$afiliados[$i]['IdAfiliado']}"];
                 }
                 // POST Direccion centro
-                if (isset($_POST["Direccion_{$afiliados[$i]['IdVotante']}"])) {
-                    $direccion = $_POST["Direccion_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["Direccion_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $direccion = $_POST["Direccion_{$afiliados[$i]['IdAfiliado']}"];
                 }
                 // POST Email centro
-                if (isset($_POST["Email_{$afiliados[$i]['IdVotante']}"])) {
-                    $email = $_POST["Email_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["Email_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $email = $_POST["Email_{$afiliados[$i]['IdAfiliado']}"];
                 }
                 // POST Cod centro
-                if (isset($_POST["CodCentro_{$afiliados[$i]['IdVotante']}"])) {
-                    $codCentro = $_POST["CodCentro_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["CodCentro_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $codCentro = $_POST["CodCentro_{$afiliados[$i]['IdAfiliado']}"];
                 }
                 // POST Nombre centro
-                if (isset($_POST["NombreCentro_{$afiliados[$i]['IdVotante']}"])) {
-                    $nombreCentro = $_POST["NombreCentro_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["NombreCentro_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $nombreCentro = $_POST["NombreCentro_{$afiliados[$i]['IdAfiliado']}"];
                 }
                 // POST Voto
-                if (isset($_POST["optSelectVoto_{$afiliados[$i]['IdVotante']}"])) {
-                    $voto = $_POST["optSelectVoto_{$afiliados[$i]['IdVotante']}"];
+                if (isset($_POST["optSelectVoto_{$afiliados[$i]['IdAfiliado']}"])) {
+                    $voto = $_POST["optSelectVoto_{$afiliados[$i]['IdAfiliado']}"];
                     if (intval($voto) && $fecha == "1900-01-01 00:00:00.000") {
                         $fecha = date("Y-m-d H:i:s");
                     } else {
@@ -94,7 +94,7 @@ class AfiliadosController
                         }
                     }
                 }
-                $arr[$i]["IdVotante"] = $afiliados[$i]['IdVotante'];
+                $arr[$i]["IdAfiliado"] = $afiliados[$i]['IdAfiliado'];
                 $arr[$i]["Nombre"] = $nombre;
                 $arr[$i]["Apellido1"] = $apellido1;
                 $arr[$i]["Apellido2"] = $apellido2;

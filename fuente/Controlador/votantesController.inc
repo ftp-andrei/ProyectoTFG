@@ -6,7 +6,7 @@ use app\EleccionesSindicales\repositorio\VotantesRepositorio;
 
 class VotantesController
 {
-
+    // Añadir boton de reset votos y guardar en csv.
     // Le muestra al admin la pagina de votantes
     public function verVotantes()
     {
@@ -23,6 +23,12 @@ class VotantesController
                     $error = "Error al borrar votante";
                 }
             }
+        }
+        if (isset($_POST['resetVotos'])) {
+        }
+
+        if (isset($_POST['exportarDatos'])) {
+            $this->descargarCSV($votantes);
         }
 
         // Guardar cambios
@@ -76,7 +82,6 @@ class VotantesController
                     $mesa = $_POST["optSelectMesa_{$votantes[$i]['IdVotante']}"];
                 }
                 // POST Voto
-
                 if (isset($_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"])) {
                     $voto = $_POST["optSelectVoto_{$votantes[$i]['IdVotante']}"];
                     if (intval($voto) && $fecha == "1900-01-01 00:00:00.000") {
@@ -99,7 +104,7 @@ class VotantesController
                 $arr[$i]["Fecha"] = $fecha;
             }
             // Guarda cambios si es distinto
-            if ($arr != $votantes) {
+            if ($arr != $votantes && $error == null) {
                 if ($guardarVotante = (new VotantesRepositorio())->guardarCambiosVotantes($arr)) {
                     header('Location: index.php?ctl=gestionVotantes');
                 } else {
@@ -109,5 +114,28 @@ class VotantesController
         }
 
         require __DIR__ . '/../../app/plantillas/gestionVotantes.inc';
+    }
+
+    public function descargarCSV($votantes)
+    {
+        $hora_actual = date('Y-m-d_His');
+        // Nombre del archivo CSV
+        $archivo = 'datos' . $hora_actual . '.csv';
+
+        // Abrir el archivo en modo escritura
+        $manejador = fopen($archivo, 'w');
+
+        // Escribir los datos en el archivo
+        foreach ($votantes as $fila) {
+            fputcsv($manejador, $fila);
+        }
+
+        // Cerrar el archivo
+        fclose($manejador);
+
+        // Descargar el archivo CSV
+        header("Content-Disposition: attachment; filename=\"$archivo\"");
+        header("Content-Type: application/csv");
+        readfile($archivo);
     }
 }

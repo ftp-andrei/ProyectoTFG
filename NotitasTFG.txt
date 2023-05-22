@@ -38,7 +38,7 @@ CREATE TABLE Votantes (
 
 --Tabla Afiliado, que es lo mismo que votantes pero varian un par de campos
 CREATE TABLE Afiliados (
-  IdVotante INT NOT NULL IDENTITY(1,1),
+  IdAfiliado INT NOT NULL IDENTITY(1,1),
   Nombre VARCHAR(50) NOT NULL,
   Apellido1 VARCHAR(50) NOT NULL,
   Apellido2 VARCHAR(50) NOT NULL,
@@ -95,14 +95,43 @@ INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,C
 VALUES ('Dario','Alcobendas','Fernandez','22244477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
 
 --Creamos Votantes
-INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa)
-VALUES ('Santiago','Perez','Vildosola','232323234','12121','Gonzalo Berceo','1');
-INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa)
-VALUES ('Martin','Salosa','Morado','121111111','12121','Gonzalo Berceo','2');
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Santiago','Perez','Vildosola','232323234','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Martin','Salosa','Morado','121111111','12121','Gonzalo Berceo','2',1,GETDATE());
 INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa)
 VALUES ('Diana','Fati','Harom','444444444','55','Delhuyar','2');
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Maria','Perez','Silleda','121222222','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Mario','Exam','Tumbor','331231457','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Gonzalo','Perez','Vildosola','567345672','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Silla','Salom','Vildosola','123412345','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Tudor','Exachi','Vildosola','786786786','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Rama','Por','','345456765','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Maria','Belbas','Sagastume','328876794','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Luna','Exachi','Vildosola','000005546','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Oumaima','Exachi','Vildosola','900978456','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Hamza','Exachi','Vildosola','123456456','12121','Gonzalo Berceo','1',1,GETDATE());
+INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
+VALUES ('Bilal','Exachi','Vildosola','777766690','12121','Gonzalo Berceo','1',1,GETDATE());
 
-
+  --SQL VOTANTES ESTADISTICAS
+SELECT m.idMesa,COUNT(vt.idVotante) AS TotalVotantes,SUM(CASE WHEN vt.voto = 1 THEN 1 ELSE 0 END) AS VotadoV,
+ SUM(CASE WHEN vt.voto = 0 THEN 1 ELSE 0 END) AS NoVotadoV FROM mesas m
+LEFT JOIN votantes vt ON m.idMesa = vt.idMesa WHERE m.idMesa<> 0 GROUP BY m.idMesa;
+--SQL AFILIADOS ESTADISTICAS
+  SELECT (SELECT COUNT(idVotante) FROM afiliados) AS TotalAfiliados,
+  (SELECT COUNT(Voto) FROM afiliados WHERE Voto = 1) AS VotadoA,
+  (SELECT COUNT(Voto) FROM afiliados WHERE Voto = 0) AS NoVotadoA
 ---PROYECTO---
 Pagina default admin: Votantes
 
@@ -150,16 +179,16 @@ AMPLIACIONES Y POSIBLES MEJORAS:
 Ampliación:
 -Añadido un botón de exportar los datos a excel en el apartado de votantes y afiliados.
 -Añadido un boton de resetar los votos y fechas de estos.
--Añadido un boton de copiar contraseña
+-Añadido un boton de copiar contraseña/nombre mesa
 -Añadido un texto informando de la accion al guardar/eliminar los datos
--Añadido un scroll vertical, evitando así hacer scroll a toda la página.
+-Añadido un scroll vertical y horizontal, evitando así hacer scroll a toda la página.
 
 Posibles mejoras:
 -Mejora estética/visual de la aplicación.
 -El tema de fluidez/rendimiento se puede mejorar.
 -Añadir mas cosas en el apartado de estadísticas.
 -Añadir un boton de importar los datos a excel.
--Añadir filtros en las cabeceras TH (ascendente y descendente).
+-Añadir filtros ascendente y descendente en las cabeceras th de las tablas.
 -Añadir patron regex para NIF/NIE.
 -Añadir votantes/afiliados desde el programa.
 -Añadir regex/filtro al email de los afiliados

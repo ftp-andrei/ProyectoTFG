@@ -28,15 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // Bucle para ordenar los th de la tabla
   for (let index = 0; index < icono.length; index++) {
     const icon = icono[index];
-    // icono[index].addEventListener("mouseover", function () {
-    //   // Cambia la clase del icono
-    //   icono[index].classList.add("fa-fade");
-    // });
+    icon.addEventListener("mouseover", function () {
+      // Cambia la clase del icono
+      icon.classList.add("fa-fade");
+    });
 
-    // icono[index].addEventListener("mouseout", function () {
-    //   // Elimina la nueva clase y vuelve a la clase original
-    //   icono[index].classList.remove("fa-fade");
-    // });
+    icon.addEventListener("mouseout", function () {
+      // Elimina la nueva clase y vuelve a la clase original
+      icon.classList.remove("fa-fade");
+    });
     // Si hace click se cambia de icono y lista
     icon.addEventListener("click", function () {
       // let columna = document.getElementsByClassName("apellido2Votante");
@@ -54,26 +54,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function scrollVertical(windowWidth, nifVotante) {
   const div = document.getElementById("scrollable");
-
   let limiteElementos;
 
   // Definir los límites de elementos en función del ancho de la ventana
   if (windowWidth < 480) {
-    // Si el ancho es menor que 600px
     limiteElementos = 5;
   } else if (windowWidth < 1600 && windowWidth > 780) {
-    // Si el ancho es menor que 900px
     limiteElementos = 10;
   } else {
-    // Si el ancho es mayor o igual a 900px
     limiteElementos = 15;
   }
-  // Verificar si existen 10 elementos
+  // Verificar el tamaño de los elementos elementos y asigna o no la clase scrollable
   if (nifVotante.length >= limiteElementos) {
-    // Iterar sobre los elementos
     div.classList.add("scrollable");
   } else {
-    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
     if (div.classList.contains("scrollable")) {
       div.classList.remove("scrollable");
     }
@@ -90,16 +84,17 @@ function editarVotante(nif, idMesa, idVoto, nombreCentro, codCentro, nombre, ape
     nombre.disabled = false;
     apellido1.disabled = false;
     apellido2.disabled = false;
-  } else {
-    nif.disabled = true;
-    document.getElementById(idMesa.id).disabled = true;
-    document.getElementById(idVoto.id).disabled = true;
-    nombreCentro.disabled = true;
-    codCentro.disabled = true;
-    nombre.disabled = true;
-    apellido1.disabled = true;
-    apellido2.disabled = true;
   }
+  // else {
+  //   nif.disabled = true;
+  //   document.getElementById(idMesa.id).disabled = true;
+  //   document.getElementById(idVoto.id).disabled = true;
+  //   nombreCentro.disabled = true;
+  //   codCentro.disabled = true;
+  //   nombre.disabled = true;
+  //   apellido1.disabled = true;
+  //   apellido2.disabled = true;
+  // }
 }
 
 // Guardado con éxito
@@ -120,6 +115,9 @@ function ordenarTabla(icono) {
   let elementoIcono = document.getElementById(icono);
   // let table = document.getElementsByClassName(tabla);
   // let filas = Array.from(table.getElementsByTagName("tr"));
+  if (elementoIcono.classList.contains("fa-fade")) {
+    elementoIcono.classList.remove("fa-fade");
+  }
   if (elementoIcono.classList.contains("fa-sharp")) {
     elementoIcono.classList.remove("fa-sharp");
     elementoIcono.classList.remove("fa-sort");

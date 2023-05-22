@@ -1,4 +1,4 @@
-@media screen and (min-width: 1600px) {
+@media screen and (max-width: 769px) and (min-width: 481px) {
   /* Imagen del header */
   header img {
     width: 110px;
@@ -9,7 +9,7 @@
     color: #598c41;
     /* color: #0099ff; */
     font-weight: normal;
-    font-size: 2em;
+    font-size: 1.5em;
     font-family: "Times New Roman", Times, serif;
     text-transform: uppercase;
     text-align: center;
@@ -21,7 +21,7 @@
     color: inherit;
     font-size: 0.9em;
     display: inline-block;
-    width: 10%;
+    width: 120px;
     padding: 5px 10px;
     background-color: #3c763d;
     border: 1px solid #3c763d;
@@ -40,32 +40,41 @@
     font-size: 14px;
   }
   .DireccionVotante {
-    width: 150px;
+    width: 120px;
   }
   .nombreMesa {
     width: 175px;
   }
 
   .idMesa,
-  .numeroMesaV {
+  .numeroMesa {
     width: 50px;
   }
 
   .NIFVotante,
   .TelefonoVotante,
   .CodCentroVotante {
+    width: 85px;
+  }
+
+  .NombreCentroVotante,
+  .apellido1Votante,
+  .apellido2Votante,
+  .nombreVotante {
     width: 100px;
   }
   /* Estilo para el título de la tabla */
   caption {
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: bold;
     margin-bottom: 0.5em;
   }
   /* Scroll */
   .scrollable {
-    height: 65vh;
-    overflow-y: scroll;
+    overflow: auto;
+    width: 480px;
+    height: 350px;
+    white-space: nowrap;
     margin-bottom: 1em;
   }
 }

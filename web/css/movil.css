@@ -10,7 +10,6 @@
   /* Para el h1 del header */
   h1 {
     color: #598c41;
-    /* color: #0099ff; */
     font-weight: normal;
     font-size: 1em;
     font-family: "Times New Roman", Times, serif;
@@ -40,8 +39,10 @@
   }
   /* Scroll */
   .scrollable {
-    height: 50vh;
-    overflow-y: scroll;
+    overflow: auto;
+    width: 300px;
+    height: 300px;
+    white-space: nowrap;
     margin-bottom: 1em;
   }
 }

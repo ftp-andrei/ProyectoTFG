@@ -8,7 +8,7 @@ class AfiliadosRepositorio
 {
     public function getAfiliados(): array
     {
-        $sql = 'SELECT IdVotante,Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha FROM Afiliados ORDER BY Apellido1,Apellido2,Nombre,NIF';
+        $sql = 'SELECT IdAfiliado,Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha FROM Afiliados ORDER BY Apellido1,Apellido2,Nombre,NIF';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
@@ -27,16 +27,16 @@ class AfiliadosRepositorio
         }
     }
 
-    // Elimina un afiliado por IdVotante
+    // Elimina un afiliado por IdAfiliado
     public function borraAfiliado(int $id): bool
     {
-        $sql = 'DELETE FROM afiliados WHERE IdVotante=:IdVotante';
+        $sql = 'DELETE FROM afiliados WHERE IdAfiliado=:IdAfiliado';
 
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
             $snt = $con->prepare($sql);
-            $snt->bindValue(':IdVotante', $id);
+            $snt->bindValue(':IdAfiliado', $id);
             return $snt->execute();
         } catch (\PDOException $th) {
             throw $th;
@@ -76,14 +76,14 @@ class AfiliadosRepositorio
     {
         // 120 -> indica que el valor a convertir está en el formato 'YYYY-MM-DD'.
         $sql = 'UPDATE afiliados SET Nombre=:Nombre,Apellido1=:Apellido1,Apellido2=:Apellido2,NIF=:NIF,Telefono=:telf,Direccion=:direccion,Email=:email,
-        CodCentro=:CodCentro,NombreCentro=:NombreCentro,Voto=:Voto,Fecha=Convert(datetime,:Fecha,120) WHERE IdVotante=:IdVotante';
+        CodCentro=:CodCentro,NombreCentro=:NombreCentro,Voto=:Voto,Fecha=Convert(datetime,:Fecha,120) WHERE IdAfiliado=:IdAfiliado';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
             $con->beginTransaction();
             foreach ($arr as $afiliado) {
                 $snt = $con->prepare($sql);
-                $snt->bindValue(':IdVotante', $afiliado['IdVotante']);
+                $snt->bindValue(':IdAfiliado', $afiliado['IdAfiliado']);
                 $snt->bindValue(':Nombre', $afiliado['Nombre']);
                 $snt->bindValue(':Apellido1', $afiliado["Apellido1"]);
                 $snt->bindValue(':Apellido2', $afiliado["Apellido2"]);

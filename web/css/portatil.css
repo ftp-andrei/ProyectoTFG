@@ -21,7 +21,7 @@
     color: inherit;
     font-size: 0.9em;
     display: inline-block;
-    width: 10%;
+    width: 12%;
     padding: 5px 10px;
     background-color: #3c763d;
     border: 1px solid #3c763d;
@@ -71,7 +71,7 @@
   }
   /* Scroll */
   .scrollable {
-    max-height: 60vh;
+    max-height: 55vh;
     overflow-y: scroll;
     margin-bottom: 1em;
   }

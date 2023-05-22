@@ -39,17 +39,14 @@ function scrollVertical(windowWidth) {
   let limiteElementos;
 
   // Definir los límites de elementos en función del ancho de la ventana
-  if (windowWidth < 480) {
-    // Si el ancho es menor que 600px
-    limiteElementos = 5;
+  if (windowWidth < 510) {
+    limiteElementos = 0;
   } else if (windowWidth < 1600 && windowWidth > 780) {
-    // Si el ancho es menor que 900px
     limiteElementos = 10;
   } else {
-    // Si el ancho es mayor o igual a 900px
     limiteElementos = 15;
   }
-  // Verificar si existen 10 elementos
+  // Verificar los elementos
   if (numeroInterventores.length >= limiteElementos) {
     // Iterar sobre los elementos
     div.classList.add("scrollable");
@@ -82,8 +79,6 @@ function editarNombreMesa(nombre) {
   if (nombre.disabled) {
     nombre.disabled = false;
     nombre.select();
-  } else {
-    nombre.disabled = true;
   }
 }
 

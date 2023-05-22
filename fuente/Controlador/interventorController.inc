@@ -13,6 +13,31 @@ class InterventorController
         if ($_SESSION) {
             if (isset($_SESSION['interventor'])) {
                 $listaInterventor = (new InterventorRepositorio())->listaInterventor($_SESSION['usuInterventor']);
+
+                foreach ($listaInterventor as $votante) {
+                    if (isset($_POST["votoSi_{$votante['IdVotante']}"])) {
+                        // Devuelve true o false.
+                        // Si ya tiene marcado el voto a 1, no lo hace.
+                        if (intval($votante['Voto']) != 1) {
+                            if ($votoSi = (new InterventorRepositorio())->guardaVotoSi($votante['NIF'])) {
+                                header('Location: index.php?ctl=inicioInterventor');
+                            } else {
+                                $error = "<br>Error al modificar el voto del votante";
+                            }
+                        }
+                    }
+                    if (isset($_POST["votoNo_{$votante['IdVotante']}"])) {
+                        // Devuelve true o false.
+                        // Si ya tiene marcado el voto a 0, no lo hace.
+                        if (intval($votante['Voto']) != 0) {
+                            if ($votoNo = (new InterventorRepositorio())->guardaVotoNo($votante['NIF'])) {
+                                header('Location: index.php?ctl=inicioInterventor');
+                            } else {
+                                $error = "<br>Error al modificar el voto del votante";
+                            }
+                        }
+                    }
+                }
             }
         }
         require __DIR__ . '/../../app/plantillas/inicioInterventor.inc';
