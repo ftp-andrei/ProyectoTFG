@@ -63,6 +63,7 @@ class InterventorController
         // Mesas para el select
         $mesas = (new MesasController())->getAllMesas();
         $interventores = (new InterventorRepositorio())->getAllInterventores();
+
         // Añadir interventores
         if (isset($_POST['anadirInterventor']) || isset($_POST['crearInterventor'])) {
             // Creo una instancia del controlador

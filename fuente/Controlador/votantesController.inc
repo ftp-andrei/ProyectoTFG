@@ -14,6 +14,11 @@ class VotantesController
         $votantes = (new VotantesRepositorio())->getVotantes();
         $mesas = (new MesasController())->getAllMesas();
 
+        // Descarga los datos en formato csv
+        if (isset($_POST['exportarDatos'])) {
+            $this->descargarCSV($votantes);
+        }
+
         // Elimina un votante
         foreach ($votantes as $votante) {
             if (isset($_POST["remove_{$votante['IdVotante']}"])) {
@@ -25,10 +30,11 @@ class VotantesController
             }
         }
         if (isset($_POST['resetVotos'])) {
-        }
-
-        if (isset($_POST['exportarDatos'])) {
-            $this->descargarCSV($votantes);
+            if ($resetVotos = (new VotantesRepositorio())->resetVotos()) {
+                header('Location: index.php?ctl=gestionVotantes');
+            } else {
+                $error = "Error al resetear los votos";
+            }
         }
 
         // Guardar cambios
@@ -118,13 +124,17 @@ class VotantesController
 
     public function descargarCSV($votantes)
     {
+        // Limpiamos el contenido
+        ob_end_clean();
+        // Cogemos la hora actual
         $hora_actual = date('Y-m-d_His');
         // Nombre del archivo CSV
-        $archivo = 'datos' . $hora_actual . '.csv';
+        $archivo = 'datosVotantes_' . $hora_actual . '.csv';
 
         // Abrir el archivo en modo escritura
         $manejador = fopen($archivo, 'w');
-
+        // Añadimos las cabeceras
+        fputcsv($manejador, array('IdVotante', 'Nombre', 'Apellido1', 'Apellido2', 'NIF', 'CodCentro', 'NombreCentro', 'idMesa', 'Voto', 'Fecha'));
         // Escribir los datos en el archivo
         foreach ($votantes as $fila) {
             fputcsv($manejador, $fila);
@@ -132,10 +142,11 @@ class VotantesController
 
         // Cerrar el archivo
         fclose($manejador);
-
         // Descargar el archivo CSV
         header("Content-Disposition: attachment; filename=\"$archivo\"");
-        header("Content-Type: application/csv");
+        header("Content-Type: application/csv;charset=utf-8");
         readfile($archivo);
+        // Salimos para evitar que nos cargue el html
+        exit;
     }
 }

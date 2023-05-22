@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const codcentro = document.getElementsByClassName("codcentroVotante");
   const nomcentro = document.getElementsByClassName("NombreCentroVotante");
   const voto = document.getElementsByClassName("optSelectVoto");
-  const div = document.getElementById("scrollable");
-
+  const windowWidth = window.innerWidth; // Tamaño ventana
+  window.addEventListener("resize", scrollVertical(windowWidth));
   for (let i = 0; i < nombre.length; i++) {
     // Habilita los campos para editar el Mesa
     idEditar[i].addEventListener("click", function () {
@@ -28,15 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   const numeroNIFs = document.getElementsByClassName("NIFVotante");
-
-  // Verificar si existen 10 elementos
-  if (numeroNIFs.length >= 15) {
-    div.classList.add("scrollable");
-  } else {
-    if (div.classList.contains("scrollable")) {
-      div.classList.remove("scrollable");
-    }
-  }
 
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
@@ -87,4 +78,31 @@ function borradoExitoso() {
 function AnadidoExitoso() {
   let span = document.getElementById("copiado");
   span.textContent = "Añadiendo...";
+}
+
+function scrollVertical(windowWidth) {
+  const div = document.getElementById("scrollable");
+  const numAfiliados = document.getElementsByClassName("NIFVotante");
+
+  let limiteElementos;
+
+  if (windowWidth <= 480) {
+    limiteElementos = 5;
+  } else if (windowWidth <= 769 && windowWidth > 480) {
+    limiteElementos = 7;
+  } else if (windowWidth <= 1600 && windowWidth >= 770) {
+    limiteElementos = 9;
+  } else {
+    limiteElementos = 15;
+  }
+  // Verificar si existen 10 elementos
+  if (numAfiliados.length >= limiteElementos) {
+    // Iterar sobre los elementos
+    div.classList.add("scrollable");
+  } else {
+    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
+    if (div.classList.contains("scrollable")) {
+      div.classList.remove("scrollable");
+    }
+  }
 }

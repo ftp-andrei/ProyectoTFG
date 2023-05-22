@@ -110,4 +110,24 @@ class VotantesRepositorio
             }
         }
     }
+
+    //Reseta los votos
+    public function resetVotos(): bool
+    {
+        $sql = 'UPDATE votantes SET Voto=0,Fecha=0';
+
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            return $snt->execute();
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
 }

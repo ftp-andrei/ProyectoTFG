@@ -12,6 +12,11 @@ class AfiliadosController
     {
         $titulo = (new TitleController())->setTitle('Afiliados - ANPE');
         $afiliados = (new AfiliadosRepositorio())->getAfiliados();
+
+        // Descarga los datos en formato csv
+        if (isset($_POST['exportarDatos'])) {
+            $this->descargarCSV($afiliados);
+        }
         // Elimina un afiliado
         foreach ($afiliados as $afiliado) {
             if (isset($_POST["remove_{$afiliado['IdAfiliado']}"])) {
@@ -20,6 +25,14 @@ class AfiliadosController
                 } else {
                     $error = "Error al borrar afiliado";
                 }
+            }
+        }
+
+        if (isset($_POST['resetVotos'])) {
+            if ($resetVotos = (new AfiliadosRepositorio())->resetVotos()) {
+                header('Location: index.php?ctl=gestionAfiliados');
+            } else {
+                $error = "Error al resetear los votos";
             }
         }
 
@@ -108,7 +121,7 @@ class AfiliadosController
                 $arr[$i]["Fecha"] = $fecha;
             }
             // Guarda cambios si es distinto
-            if ($arr != $afiliados) {
+            if ($arr != $afiliados && $error == null) {
                 if ($guardarVotante = (new AfiliadosRepositorio())->guardarCambiosAfiliados($arr)) {
                     header('Location: index.php?ctl=gestionAfiliados');
                 } else {
@@ -119,5 +132,33 @@ class AfiliadosController
 
 
         require __DIR__ . '/../../app/plantillas/gestionAfiliados.inc';
+    }
+
+    public function descargarCSV($votantes)
+    {
+        // Limpiamos el contenido
+        ob_end_clean();
+        // Cogemos la hora actual
+        $hora_actual = date('Y-m-d_His');
+        // Nombre del archivo CSV
+        $archivo = 'datosAfiliados_' . $hora_actual . '.csv';
+
+        // Abrir el archivo en modo escritura
+        $manejador = fopen($archivo, 'w');
+        // Añadimos las cabeceras
+        fputcsv($manejador, array('IdAfiliado', 'Nombre', 'Apellido1', 'Apellido2', 'NIF', 'Telefono', 'Direccion', 'Email', 'CodCentro', 'NombreCentro', 'Voto', 'Fecha'));
+        // Escribir los datos en el archivo
+        foreach ($votantes as $fila) {
+            fputcsv($manejador, $fila);
+        }
+
+        // Cerrar el archivo
+        fclose($manejador);
+        // Descargar el archivo CSV
+        header("Content-Disposition: attachment; filename=\"$archivo\"");
+        header("Content-Type: application/csv;charset=utf-8");
+        readfile($archivo);
+        // Salimos para evitar que nos cargue el html
+        exit;
     }
 }

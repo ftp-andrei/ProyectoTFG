@@ -39,10 +39,12 @@ function scrollVertical(windowWidth) {
   let limiteElementos;
 
   // Definir los límites de elementos en función del ancho de la ventana
-  if (windowWidth < 510) {
-    limiteElementos = 0;
-  } else if (windowWidth < 1600 && windowWidth > 780) {
-    limiteElementos = 10;
+  if (windowWidth <= 480) {
+    limiteElementos = 5;
+  } else if (windowWidth <= 769 && windowWidth > 480) {
+    limiteElementos = 7;
+  } else if (windowWidth <= 1600 && windowWidth >= 770) {
+    limiteElementos = 9;
   } else {
     limiteElementos = 15;
   }
