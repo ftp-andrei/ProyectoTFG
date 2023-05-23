@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function scrollVertical(windowWidth) {
   const div = document.getElementById("scrollable");
-  const numeroInterventores = document.getElementsByClassName("idMesa");
+  const numMesas = document.getElementsByClassName("idMesa");
 
   let limiteElementos;
 
@@ -49,13 +49,11 @@ function scrollVertical(windowWidth) {
     limiteElementos = 15;
   }
   // Verificar los elementos
-  if (numeroInterventores.length >= limiteElementos) {
-    // Iterar sobre los elementos
-    div.classList.add("scrollable");
+  if (numMesas.length >= limiteElementos || windowWidth <= 480) {
+    div.classList.add("scrollableMesas");
   } else {
-    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
-    if (div.classList.contains("scrollable")) {
-      div.classList.remove("scrollable");
+    if (div.classList.contains("scrollableMesas")) {
+      div.classList.remove("scrollableMesas");
     }
   }
 }
@@ -88,12 +86,6 @@ function editarNombreMesa(nombre) {
 function guardadoExitoso() {
   let span = document.getElementById("copiado");
   span.textContent = "Guardando...";
-}
-// Borrado con éxito
-function borradoExitoso() {
-  let span = document.getElementById("copiado");
-  span.style.color = "red";
-  span.textContent = "Borrando...";
 }
 // Añadido con exito
 function AnadidoExitoso() {

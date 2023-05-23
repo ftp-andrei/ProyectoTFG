@@ -6,7 +6,6 @@ use app\EleccionesSindicales\repositorio\VotantesRepositorio;
 
 class VotantesController
 {
-    // Añadir boton de reset votos y guardar en csv.
     // Le muestra al admin la pagina de votantes
     public function verVotantes()
     {

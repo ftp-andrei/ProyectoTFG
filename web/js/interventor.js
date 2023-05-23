@@ -59,11 +59,11 @@ function scrollVertical(windowWidth) {
     limiteElementos = 15;
   }
   // Verificar los elementos
-  if (numeroInterventores.length >= limiteElementos) {
-    div.classList.add("scrollable");
+  if (numeroInterventores.length >= limiteElementos || windowWidth <= 480) {
+    div.classList.add("scrollableInterventores");
   } else {
-    if (div.classList.contains("scrollable")) {
-      div.classList.remove("scrollable");
+    if (div.classList.contains("scrollableInterventores")) {
+      div.classList.remove("scrollableInterventores");
     }
   }
 }
@@ -129,12 +129,6 @@ function editarInterventorInterventor(idPass, idMesa, idVerImg, usuario) {
 function guardadoExitoso() {
   let span = document.getElementById("copiado");
   span.textContent = "Guardando...";
-}
-// Borrado con éxito
-function borradoExitoso() {
-  let span = document.getElementById("copiado");
-  span.style.color = "red";
-  span.textContent = "Borrando...";
 }
 // Añadido con exito
 function AnadidoExitoso() {

@@ -13,26 +13,48 @@
 
 ob_start();
 if (isset($_SESSION['admin'])) {
-    echo "<script src='web/js/votante.js'></script>";
+    // JS
+    echo "<script src='web/js/votante.js'></script>" .
+        // SweetAlert
+        "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js'></script>" .
+        "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css'>";
     if (!empty($votantes)) {
 ?>
         <form method="post">
+            <div id="scrollFiltros">
+                <fieldset id="filtros">
+                    <legend>Filtros</legend>
+                    <label for="apellidosFiltro">Apellidos: <input type="text" name="apellidosFiltro" id="apellidosFiltro"></label>
+                    <label for="nombreFiltro">Nombre: <input type="text" name="nombreFiltro" id="nombreFiltro"></label>
+                    <label for="NIFfiltro">NIF: <input type="text" name="NIFfiltro" id="NIFfiltro"></label>
+                    <label for="mesaFiltro">Mesa: <select name="mesaFiltro" id="mesaFiltro">
+                            <option value="-1" selected="selected">Selecciona una opcion </option>
+                            <?php foreach ($mesas as $mesa) { ?>
+                                <option value="<?= $mesa['idMesa'] ?>"><?= $mesa['nombre'] ?> </option>
+                            <?php
+                            } ?>
+                        </select></label>
+                    <label for="inicioFecha">Inicio fecha: <input type="date" name="inicioFecha" id="inicioFecha"></label>
+                    <label for="finFecha">Fin fecha: <input type="date" name="finFecha" id="finFecha"></label>
+                    <input type="submit" value="Buscar" name="okFiltro" id="okFiltro">
+                </fieldset>
+            </div>
             <span id="copiado"></span>
             <br>
             <div id="scrollable">
-                <table id="tabla">
+                <table id="tablaVotantes">
                     <caption>Gestión de votantes</caption>
                     <thead>
                         <tr>
-                            <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort" id="ap1"></i></th>
-                            <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort" id="ap2"></i></th>
-                            <th>Nombre <i class="fa-sharp fa-solid fa-sort" id="nombre"></i></th>
-                            <th>NIF <i class="fa-sharp fa-solid fa-sort" id="nif"></i></th>
-                            <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="codCentro"></i></th>
-                            <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort" id="nombreCentro"></i></th>
-                            <th>Mesa <i class="fa-sharp fa-solid fa-sort" id="mesa"></i></th>
-                            <th>Voto <i class="fa-sharp fa-solid fa-sort" id="voto"></i></th>
-                            <th>Fecha <i class="fa-sharp fa-solid fa-sort" id="fecha"></i></th>
+                            <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort" id="apellido1Votante"></i></th>
+                            <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort" id="apellido2Votante"></i></th>
+                            <th>Nombre <i class="fa-sharp fa-solid fa-sort" id="nombreVotante"></i></th>
+                            <th>NIF <i class="fa-sharp fa-solid fa-sort" id="NIFVotante"></i></th>
+                            <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="CodCentroVotante"></i></th>
+                            <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort" id="NombreCentroVotante"></i></th>
+                            <th>Mesa <i class="fa-sharp fa-solid fa-sort" id="optSelectMesa"></i></th>
+                            <th>Voto <i class="fa-sharp fa-solid fa-sort" id="optSelectVoto"></i></th>
+                            <th>Fecha <i class="fa-sharp fa-solid fa-sort" id="FechaVotante"></i></th>
                             <th>Editar</th>
                             <th>Eliminar</th>
                         </tr>
@@ -75,7 +97,7 @@ if (isset($_SESSION['admin'])) {
                                 </td>
                                 <td><i class="fas fa-edit editar" name="editar_<?= $votante['IdVotante']; ?>"></i></td>
                                 <td>
-                                    <button type="submit" name="remove_<?= $votante['IdVotante']; ?>" class="eliminar">
+                                    <button type="button" id="remove_<?= $votante['IdVotante']; ?>" class="eliminar">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
@@ -87,10 +109,11 @@ if (isset($_SESSION['admin'])) {
             <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
             <input type="submit" name="exportarDatos" value="Descargar en CSV" class="boton" id="exportarDatos">
             <input type="submit" name="resetVotos" value="Resetear votos" class="boton" id="resetVotos">
+        </form>
 
-            <?= isset($existe) ? "<span>" . $error . "</span>" : "" ?>
-            <?= isset($guardarVotante) ? "<span>" . $error . "</span>" : "" ?>
-            <?= isset($borraVotante) ? "<span>" . $error . "</span>" : "" ?>
+        <?= isset($existe) ? "<span>" . $error . "</span>" : "" ?>
+        <?= isset($guardarVotante) ? "<span>" . $error . "</span>" : "" ?>
+        <?= isset($borraVotante) ? "<span>" . $error . "</span>" : "" ?>
         </form>
 
     <?php

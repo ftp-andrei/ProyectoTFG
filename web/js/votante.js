@@ -1,5 +1,6 @@
 // JS Gestion Votantes (Admin)
-
+// Variables globales para almacenar las filas originales
+let filasOriginales = [];
 document.addEventListener("DOMContentLoaded", function () {
   const guardarCambios = document.getElementById("guardarCambios");
   const eliminaVotante = document.getElementsByClassName("eliminar");
@@ -14,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const mesaNombre = document.getElementsByClassName("optSelectMesa");
   const voto = document.getElementsByClassName("optSelectVoto");
   const windowWidth = window.innerWidth; // Tamaño ventana
+  guardarFilasOriginales();
+
   //Bucle para editar campos de la mesa/Borrar
   for (let i = 0; i < nifVotante.length; i++) {
     // Edita los campos de la mesa
@@ -22,7 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // Elimina un votante
     eliminaVotante[i].addEventListener("click", function () {
-      borradoExitoso();
+      // borradoExitoso();
+      confirmacion(eliminaVotante[i].id);
     });
   }
   // Bucle para ordenar los th de la tabla
@@ -39,8 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // Si hace click se cambia de icono y lista
     icon.addEventListener("click", function () {
-      // let columna = document.getElementsByClassName("apellido2Votante");
-      // columna
+      resetearIconos(icon.id);
       ordenarTabla(icon.id);
     });
   }
@@ -64,7 +67,7 @@ function scrollVertical(windowWidth, nifVotante) {
   } else if (windowWidth <= 1600 && windowWidth >= 770) {
     limiteElementos = 9;
   } else {
-    limiteElementos = 15;
+    limiteElementos = 12;
   }
   // Verificar el tamaño de los elementos elementos y asigna o no la clase scrollable
   if (nifVotante.length >= limiteElementos) {
@@ -104,56 +107,124 @@ function guardadoExitoso() {
   let span = document.getElementById("copiado");
   span.textContent = "Guardando...";
 }
-
-// Borrado con éxito SIN USAR TODAVIA
-function borradoExitoso() {
-  let span = document.getElementById("copiado");
-  span.style.color = "red";
-  span.textContent = "Borrando..";
-}
-// Metodo para ordenar los th de la tabla
-// columna
+// Metodo para ordenar los th de la tabla SIN IMPLEMENTAR TODAVIA
 function ordenarTabla(icono) {
   let elementoIcono = document.getElementById(icono);
-  // let table = document.getElementsByClassName(tabla);
-  // let filas = Array.from(table.getElementsByTagName("tr"));
+  // Remueve el fade del th
   if (elementoIcono.classList.contains("fa-fade")) {
     elementoIcono.classList.remove("fa-fade");
   }
+  // Cambia los iconos
   if (elementoIcono.classList.contains("fa-sharp")) {
     elementoIcono.classList.remove("fa-sharp");
     elementoIcono.classList.remove("fa-sort");
     elementoIcono.classList.add("fa-sort-up");
-    // Ordenar de forma ascendente
-    // filas.sort(function (a, b) {
-    //   var valorA = obtenerValorColumna(a, columna);
-    //   var valorB = obtenerValorColumna(b, columna);
-    //   return valorA.localeCompare(valorB, undefined, { numeric: true });
-    // });
+    ordenarFilas(icono, "asc");
   } else if (elementoIcono.classList.contains("fa-sort-up")) {
     elementoIcono.classList.remove("fa-sort-up");
     elementoIcono.classList.add("fa-sort-down");
-    // Ordenar de forma descendente
-    // filas.sort(function (a, b) {
-    //   var valorA = obtenerValorColumna(a, columna);
-    //   var valorB = obtenerValorColumna(b, columna);
-    //   return valorB.localeCompare(valorA, undefined, { numeric: true });
-    // });
+    ordenarFilas(icono, "desc");
   } else if (elementoIcono.classList.contains("fa-sort-down")) {
     elementoIcono.classList.remove("fa-sort-down");
     elementoIcono.classList.add("fa-sharp");
     elementoIcono.classList.add("fa-sort");
-    // return;
+    ordenarFilas(icono, "default");
   }
-
-  // // Volver a agregar las filas ordenadas a la tabla
-  // var tbody = tabla.querySelector("tbody");
-  // filas.forEach(function (fila) {
-  //   tbody.appendChild(fila);
-  // });
 }
+// Cambia el orden de las filas de la tabla
+function ordenarFilas(icono, orden) {
+  let tabla = document.getElementById("tablaVotantes");
+  let filas = Array.from(tabla.tBodies[0].querySelectorAll("tr"));
+  let columnaIndex = obtenerColumnaIndex(icono);
 
-function obtenerValorColumna(fila, columna) {
-  var celda = fila.querySelector("td:nth-child(" + columna + ")");
-  return celda ? celda.innerText : "";
+  if (orden === "default") {
+    // Restaurar filas originales
+    while (tabla.tBodies[0].firstChild) {
+      tabla.tBodies[0].removeChild(tabla.tBodies[0].firstChild);
+    }
+    filasOriginales.forEach(function (fila) {
+      tabla.tBodies[0].appendChild(fila);
+    });
+  } else {
+    filas.sort(function (filaA, filaB) {
+      let contenidoA = obtenerContenidoColumna(filaA, columnaIndex);
+      let contenidoB = obtenerContenidoColumna(filaB, columnaIndex);
+      if (orden === "asc") {
+        return contenidoA.localeCompare(contenidoB);
+      } else {
+        return contenidoB.localeCompare(contenidoA);
+      }
+    });
+    // eliminamos todos los elementos hijos
+    while (tabla.tBodies[0].firstChild) {
+      tabla.tBodies[0].removeChild(tabla.tBodies[0].firstChild);
+    }
+    // los añadimos
+    filas.forEach(function (fila) {
+      tabla.tBodies[0].appendChild(fila);
+    });
+  }
+}
+// Obtiene el índice de la columna en la que se encuentra el icono de ordenación
+function obtenerColumnaIndex(icono) {
+  let columna = document.getElementById(icono).parentNode;
+  let encabezados = Array.from(columna.parentNode.children);
+  return encabezados.indexOf(columna);
+}
+// Obtiene el contenido de una celda específica
+function obtenerContenidoColumna(fila, columnaIndex) {
+  let celda = fila.children[columnaIndex];
+  let input = celda.querySelector("input");
+  if (input) {
+    return input.value;
+  } else {
+    return "";
+  }
+}
+// Guarda las filas originales de la tabla para poder resetear el ordenamiento
+function guardarFilasOriginales() {
+  let tabla = document.getElementById("tablaVotantes");
+  let filas = Array.from(tabla.tBodies[0].querySelectorAll("tr"));
+  filasOriginales = [...filas];
+}
+// Metodo para resetear iconos de forma que solo permita ordenar por 1 columna
+function resetearIconos(icono) {
+  let elementoIcono = document.getElementById(icono);
+  let elementos = Array.from(document.querySelectorAll(".fa-solid")).filter((elemento) => elemento.id !== elementoIcono.id);
+  for (var i = 0; i < elementos.length; i++) {
+    if (elementos[i].classList.contains("fa-sort-up")) {
+      elementos[i].classList.remove("fa-sort-up");
+    }
+    if (elementos[i].classList.contains("fa-sort-down")) {
+      elementos[i].classList.remove("fa-sort-down");
+    }
+    elementos[i].classList.add("fa-sharp");
+    elementos[i].classList.add("fa-sort");
+  }
+}
+// SweetAlert - Ventana para confirmar que el usuario quiere borrar un votante
+function confirmacion(idBorrar) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    icon: "warning",
+    html: `<form method="post" id="confirmarEliminacion">
+        <p>Esta acción no se puede deshacer</p>
+        <input type="button" name="cancelar" value="Cancelar" id="SA_cancelar">
+        <input type="submit" name="borrarVotante" value="Borrar" id="SA_borrar">
+      </form>`,
+    showConfirmButton: false,
+    didOpen: () => {
+      // Obtener el botón por su id
+      const botonBorrar = document.getElementById("SA_borrar");
+      // Verificar si se encontró el botón
+      if (botonBorrar) {
+        // Establecer el nuevo nombre
+        botonBorrar.name = idBorrar;
+      }
+      const cancelarVotante = document.getElementById("SA_cancelar");
+      cancelarVotante.addEventListener("click", function () {
+        Swal.close(); // Cerrar SweetAlert
+      });
+    },
+  });
 }

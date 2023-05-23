@@ -6,13 +6,13 @@ use app\EleccionesSindicales\repositorio\EstadisticasRepositorio;
 
 class EstadisticasController
 {
-    // TODO: AÑADIR CAMPO NUMERO INTERVENTORES
-    // Le muestra al admin la pagina de afiliados
+    // Pagina estadisticas - Muestra estadísticas (admin)
     public function verEstadisticas()
     {
-        // Un array con todos los datos (Numtotal Mesas/Afiliados/Votantes/Votos) que se van a mostrar en la pagina?
         $titulo = (new TitleController())->setTitle('Estadísticas - ANPE');
+        // Estadísticas apartado votantes
         $estadisticasVotantes = (new EstadisticasRepositorio())->estadisticasVotantes();
+        // Estadísticas apartado afiliados
         $estadisticasAfiliados = (new EstadisticasRepositorio())->estadisticasAfiliados();
         require __DIR__ . '/../../app/plantillas/estadisticas.inc';
     }

@@ -7,6 +7,8 @@ use app\EleccionesSindicales\repositorio\InterventorRepositorio;
 
 class SessionController
 {
+  // Funcion que realiza el login de los usuarios
+  // Tambien hace el unset de los sessions
   public function login()
   {
     // Si accede a login desde la ruta limpiamos la session para quitar el nav, además el logout redirige aqui
@@ -20,7 +22,7 @@ class SessionController
       // Comprueba que exista usuario admin
       if ($usuario = (new AdminRepositorio())->loginAdmin($_POST['user'], $_POST['pass'])) {
         $_SESSION['admin'] = true;
-        // Si el usuario es admin redirige a la página donde le pregunta si desea generar  mesas
+        // Si el usuario es admin redirige a la página principal (votantes)
         header('Location: index.php?ctl=gestionVotantes');
       } else {
         // Comprueba que exista usuario interventor

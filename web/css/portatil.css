@@ -15,6 +15,13 @@
     text-align: center;
   }
 
+  /* De forma que el footer siempre se quede abajo del todo. */
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 99%;
+  }
+
   /* Nav */
   nav a {
     text-decoration: none;
@@ -71,7 +78,13 @@
   }
   /* Scroll */
   .scrollable {
-    max-height: 55vh;
+    max-height: 45vh;
+    overflow-y: scroll;
+    margin-bottom: 1em;
+  }
+  .scrollableMesas,
+  .scrollableInterventores {
+    height: 55vh;
     overflow-y: scroll;
     margin-bottom: 1em;
   }

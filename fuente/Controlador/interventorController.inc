@@ -12,6 +12,7 @@ class InterventorController
         $titulo = (new TitleController())->setTitle('Inicio - ANPE');
         if ($_SESSION) {
             if (isset($_SESSION['interventor'])) {
+                // Hacemos uso del nombre del interventor guardado en $_SESSION para devolver una lista con los votantes de su mesa.
                 $listaInterventor = (new InterventorRepositorio())->listaInterventor($_SESSION['usuInterventor']);
 
                 foreach ($listaInterventor as $votante) {
@@ -43,7 +44,7 @@ class InterventorController
         require __DIR__ . '/../../app/plantillas/inicioInterventor.inc';
     }
 
-    // Funcion que genera una contraseña aleatoria para los interventores
+    // Funcion que genera una contraseña aleatoria de longitud 8 para los interventores
     public function randomPassword()
     {
         $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&@#$*!^';
@@ -55,8 +56,8 @@ class InterventorController
         }
         return $pass;
     }
-    // Funcion que muestra los interventores (solo para el admin). 
-    // Contiene los metodos de añadir, borrar y modificar interventores.
+    // Pagina interventores - Devuelve los interventores, con contraseña y mesa (admin). 
+    // Contiene CRUD interventores.
     public function verInterventores()
     {
         $titulo = (new TitleController())->setTitle('Interventores - ANPE');

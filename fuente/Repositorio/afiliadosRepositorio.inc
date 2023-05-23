@@ -6,6 +6,7 @@ use ConexionBd;
 
 class AfiliadosRepositorio
 {
+    // Devuelve un array con todos los afiliados
     public function getAfiliados(): array
     {
         $sql = 'SELECT IdAfiliado,Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha FROM Afiliados ORDER BY Apellido1,Apellido2,Nombre,NIF';

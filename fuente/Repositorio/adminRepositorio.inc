@@ -6,6 +6,7 @@ use ConexionBd;
 
 class AdminRepositorio
 {
+    // Devuelve true si existe admin
     public function loginAdmin(string $user, string $password): bool
     {
         $sql = 'SELECT usuario,password FROM Admin WHERE usuario = :user AND password = :password';

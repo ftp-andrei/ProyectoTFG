@@ -219,8 +219,6 @@ Poner tambien que el administrador puede ver las contraseñas (asi se evita usar
 ---
 ------------ DESPLIEGUE --------------
 Tema de despliegue: se habló con el cliente de que eso lo gestionan ellos de manera interna.
-Cambiar idVotante por idAfiliado (afiliados)
-Poner en el diagrama de casos de uso SISTEMA
 ---
 En cuanto al despliegue de la aplicación del cliente, 
 es importante destacar que será responsabilidad del propio cliente llevar a cabo dicha gestión. 

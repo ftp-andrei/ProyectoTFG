@@ -68,12 +68,6 @@ function guardadoExitoso() {
   let span = document.getElementById("copiado");
   span.textContent = "Guardando...";
 }
-// Borrado con éxito
-function borradoExitoso() {
-  let span = document.getElementById("copiado");
-  span.style.color = "red";
-  span.textContent = "Borrando...";
-}
 // Añadido con exito SIN USAR
 function AnadidoExitoso() {
   let span = document.getElementById("copiado");
@@ -93,7 +87,7 @@ function scrollVertical(windowWidth) {
   } else if (windowWidth <= 1600 && windowWidth >= 770) {
     limiteElementos = 9;
   } else {
-    limiteElementos = 15;
+    limiteElementos = 12;
   }
   // Verificar si existen 10 elementos
   if (numAfiliados.length >= limiteElementos) {

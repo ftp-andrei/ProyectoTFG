@@ -178,7 +178,7 @@ class InterventorRepositorio
     public function listaInterventor(string $usuario): array
     {
         $sql = 'SELECT IdVotante,Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,v.idMesa,Voto,Fecha FROM Votantes v 
-        JOIN Interventor i ON i.idMesa=v.idMesa WHERE usuario=:usuario ORDER BY IdVotante asc';
+        JOIN Interventor i ON i.idMesa=v.idMesa WHERE usuario=:usuario ORDER BY Apellido1,Apellido2,Nombre';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
             $con = (new ConexionBd())->getConexion();
@@ -196,7 +196,7 @@ class InterventorRepositorio
             }
         }
     }
-
+    // Cambia el voto de un votante
     public function guardaVotoSi(string $nif): bool
     {
         $sql = 'UPDATE Votantes SET Voto = 1, Fecha = getdate() WHERE NIF = :nif';
@@ -215,7 +215,7 @@ class InterventorRepositorio
             }
         }
     }
-
+    // Cambia el voto de un votante
     public function guardaVotoNo(string $nif): bool
     {
         $sql = 'UPDATE Votantes SET Voto = 0, Fecha = 0 WHERE NIF = :nif';

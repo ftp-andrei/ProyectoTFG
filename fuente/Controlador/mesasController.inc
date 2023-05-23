@@ -6,7 +6,8 @@ use app\EleccionesSindicales\repositorio\MesasRepositorio;
 
 class MesasController
 {
-    // Paginas que muestra las mesas (solo para el admin)
+    // Pagina mesas - Devuelve todas las mesas (Admin)
+    // Contiene CRUD mesas
     public function verMesas()
     {
         $titulo = (new TitleController())->setTitle('Mesas - ANPE');

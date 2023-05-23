@@ -63,7 +63,6 @@
   </div>
   <?php if ($_SESSION) { ?>
     <footer>
-      <hr>
       <p id="piePagina">- Pie de página -</p>
     </footer>
   <?php } ?>
