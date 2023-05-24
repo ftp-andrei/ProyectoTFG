@@ -1,45 +1,31 @@
 <?php
-/*´ Pagina ver y gestionar votantes admin
-*/
+/* Gestion Votantes - Admin */
 
-// TODO: Error DNI, si no ha votado no sale duplicado
+// Hecho: Error DNI, si no ha votado no sale duplicado
 // TODO: Regex DNI
-// Solucionado: Orden por ap1,ap2,nombre,nif
-// TODO: Filtros arriba. Intentar que sea lo mas comodo posible.
-// TODO: Boton exportar a excel
-// TODO: Mensaje de confirmacion al eliminar
-// TODO: Cambiar orden columnas
-// TODO: Filtrar columnas click (th)
+// TODO: Intentar que el editar vuelva a su posicion original y guarde bien
+// Hecho: Orden por ap1,ap2,nombre,nif
+// Hecho: Filtros arriba. Intentar que sea lo mas comodo posible.
+// Hecho: Boton exportar a excel
+// Hecho: Mensaje de confirmacion al eliminar
+// Hecho: Cambiar orden columnas
+// Hecho: Filtrar columnas click (th)
+// ERROR: Darle a la X al buscar, la tabla queda vacia/o con los elementos de antes
 
 ob_start();
 if (isset($_SESSION['admin'])) {
-    // JS
-    echo "<script src='web/js/votante.js'></script>" .
-        // SweetAlert
-        "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js'></script>" .
-        "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css'>";
     if (!empty($votantes)) {
+        // JS
+        echo "<script src='web/js/votante.js'></script>" .
+            // SweetAlert
+            "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js'></script>" .
+            "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css'>";
+
 ?>
         <form method="post">
-            <div id="scrollFiltros">
-                <fieldset id="filtros">
-                    <legend>Filtros</legend>
-                    <label for="apellidosFiltro">Apellidos: <input type="text" name="apellidosFiltro" id="apellidosFiltro"></label>
-                    <label for="nombreFiltro">Nombre: <input type="text" name="nombreFiltro" id="nombreFiltro"></label>
-                    <label for="NIFfiltro">NIF: <input type="text" name="NIFfiltro" id="NIFfiltro"></label>
-                    <label for="mesaFiltro">Mesa: <select name="mesaFiltro" id="mesaFiltro">
-                            <option value="-1" selected="selected">Selecciona una opcion </option>
-                            <?php foreach ($mesas as $mesa) { ?>
-                                <option value="<?= $mesa['idMesa'] ?>"><?= $mesa['nombre'] ?> </option>
-                            <?php
-                            } ?>
-                        </select></label>
-                    <label for="inicioFecha">Inicio fecha: <input type="date" name="inicioFecha" id="inicioFecha"></label>
-                    <label for="finFecha">Fin fecha: <input type="date" name="finFecha" id="finFecha"></label>
-                    <input type="submit" value="Buscar" name="okFiltro" id="okFiltro">
-                </fieldset>
-            </div>
             <span id="copiado"></span>
+            <br>
+            <label for="search" id="searchLabel">Filtro: <input type="search" id="search" placeholder="Buscar..." class="filtro"></label>
             <br>
             <div id="scrollable">
                 <table id="tablaVotantes">
@@ -52,8 +38,8 @@ if (isset($_SESSION['admin'])) {
                             <th>NIF <i class="fa-sharp fa-solid fa-sort" id="NIFVotante"></i></th>
                             <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="CodCentroVotante"></i></th>
                             <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort" id="NombreCentroVotante"></i></th>
-                            <th>Mesa <i class="fa-sharp fa-solid fa-sort" id="optSelectMesa"></i></th>
-                            <th>Voto <i class="fa-sharp fa-solid fa-sort" id="optSelectVoto"></i></th>
+                            <th>Mesa</i></th>
+                            <th>Voto</i></th>
                             <th>Fecha <i class="fa-sharp fa-solid fa-sort" id="FechaVotante"></i></th>
                             <th>Editar</th>
                             <th>Eliminar</th>
@@ -61,7 +47,7 @@ if (isset($_SESSION['admin'])) {
                     </thead>
                     <tbody>
                         <?php foreach ($votantes as $votante) { ?>
-                            <tr>
+                            <tr class="votante">
                                 <td><input type="text" name="apellido1_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido1']; ?>" class="apellido1Votante" disabled></td>
                                 <td><input type="text" name="apellido2_<?= $votante['IdVotante']; ?>" value="<?= $votante['Apellido2']; ?>" class="apellido2Votante" disabled></td>
                                 <td><input type="text" name="nombre_<?= $votante['IdVotante']; ?>" value="<?= $votante['Nombre']; ?>" class="nombreVotante" disabled minlength="1"></td>

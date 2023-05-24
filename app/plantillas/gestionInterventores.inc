@@ -1,7 +1,7 @@
 <?php
-/*´ Pagina ver y gestionar interventores admin
-*/
-// TODO: Error mismo interventor. Poner Existe como en el nif
+/* Gestion Interventores - Admin */
+// Hecho: Error mismo interventor. Poner Existe como en el nif
+// Hecho: Solventado error ver contraseña disabled
 ob_start();
 
 if (isset($_SESSION['admin'])) {

@@ -112,10 +112,12 @@ form fieldset {
   padding-top: 1em;
 }
 
-.enLinea {
-  margin-right: 1.25em; /* Espacio entre las tablas */
-  vertical-align: top;
-  display: inline-block;
+.enBloque {
+  display: block;
+}
+
+#grafico {
+  margin-top: 5em;
 }
 
 #votoSi {
@@ -157,7 +159,7 @@ form fieldset {
   border-radius: 4px;
   cursor: pointer;
 }
-
+/* Filtro boton */
 #okFiltro {
   background-color: #333;
   color: #fff;
@@ -170,25 +172,8 @@ form fieldset {
 #okLogin:hover {
   background-color: #555;
 }
-/* Scroll filtros */
-#scrollFiltros {
-  margin-bottom: 0.5em;
-}
 
-/* Filtros */
-#filtros {
-  display: inline-block;
-}
-
-fieldset {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-legend {
-  font-weight: bold;
-}
-
-/* SweetAlert */
+/* SweetAlert botones */
 
 #SA_cancelar {
   padding: 10px 20px;
@@ -216,4 +201,10 @@ legend {
 
 #SA_borrar:hover {
   background-color: #c0392b;
+}
+/* Input filtro */
+#search {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  display: inline-block;
 }

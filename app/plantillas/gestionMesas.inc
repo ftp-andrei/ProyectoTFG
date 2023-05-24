@@ -1,6 +1,5 @@
 <?php
-/* Pagina ver y gestionar mesa admin
-*/
+/* Gestion Mesas - Admin */
 
 ob_start();
 

@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const windowWidth = window.innerWidth; // Tamaño ventana
   refresh();
   window.addEventListener("resize", scrollVertical(windowWidth));
+
+  grafico(datos);
 });
 // Metodo para refrescar los datos cada 30segundos
 function refresh() {
@@ -37,4 +39,50 @@ function scrollVertical(windowWidth) {
       div.classList.remove("scrollable");
     }
   }
+}
+
+function grafico(datos) {
+  // Obtener el contexto del lienzo del gráfico
+  var ctx = document.getElementById("grafico").getContext("2d");
+
+  // Crear el gráfico de barras
+  var chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: datos.map((e) => "Mesa " + e.idMesa),
+      datasets: [
+        {
+          label: "Total de Votantes",
+          data: datos.map((e) => e.TotalVotantes),
+          backgroundColor: "#3399CC",
+        },
+        {
+          label: "Votado",
+          data: datos.map((e) => e.VotadoV),
+          backgroundColor: "#66CCCC",
+        },
+        {
+          label: "No Votado",
+          data: datos.map((e) => e.NoVotadoV),
+          backgroundColor: "#FF6699",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          grid: {
+            display: false,
+          },
+        },
+        y: {
+          beginAtZero: true,
+          grid: {
+            display: true,
+          },
+        },
+      },
+    },
+  });
 }

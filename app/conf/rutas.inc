@@ -11,11 +11,11 @@
     el controlador que debe decidir cuál es la vista que se debe mostrar
 */
 $mapeoRutas = [
-    // Pagina inicial - Login
+    // Login
     'login' => ['controller' => 'app\EleccionesSindicales\controlador\SessionController', 'action' => 'login'],
     // Logout
     'logout' => ['controller' => 'app\EleccionesSindicales\controlador\SessionController', 'action' => 'logout'],
-    // Pagina inicial - Home Admin
+    // Pagina inicial - Admin
     'gestionVotantes' => ['controller' => 'app\EleccionesSindicales\controlador\VotantesController', 'action' => 'verVotantes'],
     // Gestion Interventores - Admin
     'gestionInterventores' => ['controller' => 'app\EleccionesSindicales\controlador\InterventorController', 'action' => 'verInterventores'],
@@ -25,6 +25,6 @@ $mapeoRutas = [
     'gestionAfiliados' => ['controller' => 'app\EleccionesSindicales\controlador\AfiliadosController', 'action' => 'verAfiliados'],
     // Estadisticas - Admin
     'estadisticas' => ['controller' => 'app\EleccionesSindicales\controlador\EstadisticasController', 'action' => 'verEstadisticas'],
-    // Pagina inicial - Home Interventores
+    // Pagina inicial - Interventores
     'inicioInterventor' => ['controller' => 'app\EleccionesSindicales\controlador\InterventorController', 'action' => 'inicioInterventor'],
 ];

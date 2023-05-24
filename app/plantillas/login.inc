@@ -1,6 +1,5 @@
 <?php
-/*´ Página de Login
-*/
+/* Página de Login */
 ob_start();
 echo "<script src='web/js/login.js'></script>";
 ?>

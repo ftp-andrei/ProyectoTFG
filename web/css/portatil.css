@@ -76,6 +76,15 @@
     font-weight: bold;
     margin-bottom: 0.5em;
   }
+
+  /* Estadisticas */
+
+  .enLinea {
+    margin-right: 1.25em; /* Espacio entre las tablas */
+    vertical-align: top;
+    display: inline-block;
+  }
+
   /* Scroll */
   .scrollable {
     max-height: 45vh;

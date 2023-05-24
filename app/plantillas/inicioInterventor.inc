@@ -1,31 +1,30 @@
 <?php
-/*´ Pagina de inicio del interventor
+/*´ Pagina de inicio - Interventor
 */
-// Solucionado: Errores con las rutas Y Permisos de acceso
-// TODO: Menu Sticky
-// TODO: Boton hacia arriba
-// TODO: Cambiar el titulo de la pagina
+// Hecho?: Errores con las rutas Y Permisos de acceso
+// Hecho: Cambiar el titulo de la pagina
 ob_start();
 if (isset($_SESSION['interventor'])) {
-    echo "<script src='web/js/interventorMesa.js'></script>";
     if (!empty($listaInterventor)) {
+        echo "<script src='web/js/interventorMesa.js'></script>";
 ?>
+
         <form method="post">
-            <span id="copiado"></span>
+            <label for="search" id="searchLabel">Filtro: <input type="search" id="search" placeholder="Buscar..." class="filtro"></label>
             <br>
             <div id="scrollable">
-                <table id="tabla">
+                <table id="tablaInterventor">
                     <caption>Lista de votantes</caption>
                     <thead>
                         <tr>
-                            <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort" id="ap1"></i></th>
-                            <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort" id="ap2"></i></th>
-                            <th>Nombre <i class="fa-sharp fa-solid fa-sort" id="nombre"></i></th>
-                            <th>NIF <i class="fa-sharp fa-solid fa-sort" id="nif"></i></th>
-                            <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="codCentro"></i></th>
-                            <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort" id="nombreCentro"></i></th>
-                            <th>Voto <i class="fa-sharp fa-solid fa-sort" id="voto"></i></th>
-                            <th>Fecha <i class="fa-sharp fa-solid fa-sort" id="fecha"></i></th>
+                            <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort" id="apellido1Votante"></i></th>
+                            <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort" id="apellido2Votante"></i></th>
+                            <th>Nombre <i class="fa-sharp fa-solid fa-sort" id="nombreVotante"></i></th>
+                            <th>NIF <i class="fa-sharp fa-solid fa-sort" id="NIFVotante"></i></th>
+                            <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="CodCentroVotante"></i></th>
+                            <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort" id="NombreCentroVotante"></i></th>
+                            <th>Voto</i></th>
+                            <th>Fecha <i class="fa-sharp fa-solid fa-sort" id="FechaVotante"></i></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,7 +49,6 @@ if (isset($_SESSION['interventor'])) {
                     </tbody>
                 </table>
             </div>
-            <?= isset($guardarVotante) ? "<span>" . $error . "</span>" : "" ?>
         </form>
     <?php
 

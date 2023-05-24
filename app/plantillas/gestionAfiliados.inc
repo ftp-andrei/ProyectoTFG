@@ -1,31 +1,37 @@
 <?php
-/*´ Pagina ver y gestionar afiliados admin
-*/
+/* Gestion Afiliados - Admin */
 ob_start();
 
 if (isset($_SESSION['admin'])) {
-    echo "<script src='web/js/afiliados.js'></script>";
     if (!empty($afiliados)) {
+        // JS
+        echo "<script src='web/js/afiliados.js'></script>" .
+            // Libreria SweetAlert
+            "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js'></script>" .
+            "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css'>";
+
 ?>
         <form method="post">
             <span id="copiado"></span>
             <br>
+            <label for="search" id="searchLabel">Filtro: <input type="search" id="search" placeholder="Buscar..." class="filtro"></label>
+            <br>
             <div id="scrollable">
-                <table>
+                <table id="tablaAfiliados">
                     <caption>Gestión de afiliados</caption>
                     <thead>
                         <tr>
-                            <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Nombre <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>NIF <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Teléfono <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Dirección <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Email <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Voto <i class="fa-sharp fa-solid fa-sort"></th>
-                            <th>Fecha <i class="fa-sharp fa-solid fa-sort"></th>
+                            <th>Primer Apellido <i class="fa-sharp fa-solid fa-sort" id="apellido1Votante"></i></th>
+                            <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort" id="apellido2Votante"></i></th>
+                            <th>Nombre <i class="fa-sharp fa-solid fa-sort" id="nombreVotante"></i></th>
+                            <th>NIF <i class="fa-sharp fa-solid fa-sort" id="NIFVotante"></i></th>
+                            <th>Teléfono <i class="fa-sharp fa-solid fa-sort" id="TelefonoVotante"></th>
+                            <th>Dirección <i class="fa-sharp fa-solid fa-sort" id="DireccionVotante"></th>
+                            <th>Email <i class="fa-sharp fa-solid fa-sort" id="EmailVotante"></th>
+                            <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="CodCentroVotante"></i></th>
+                            <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort" id="NombreCentroVotante"></i></th>
+                            <th>Voto</th>
+                            <th>Fecha <i class="fa-sharp fa-solid fa-sort" id="FechaVotante"></i></th>
                             <th>Editar</th>
                             <th>Eliminar</th>
                         </tr>

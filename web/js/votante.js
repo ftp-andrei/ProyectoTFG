@@ -1,11 +1,16 @@
 // JS Gestion Votantes (Admin)
-// Variables globales para almacenar las filas originales
+// Variables globales para almacenar el contenido original de la tabla
 let filasOriginales = [];
 document.addEventListener("DOMContentLoaded", function () {
+  // Boton guardar cambios
   const guardarCambios = document.getElementById("guardarCambios");
+  // Boton eliminar
   const eliminaVotante = document.getElementsByClassName("eliminar");
+  // Icono ordenacion tabla
   const icono = document.getElementsByClassName("fa-solid fa-sort");
+  // Boton editar
   const idEditarVotante = document.getElementsByClassName("editar");
+  // Valores tabla
   const nombre = document.getElementsByClassName("nombreVotante");
   const apellido1 = document.getElementsByClassName("apellido1Votante");
   const apellido2 = document.getElementsByClassName("apellido2Votante");
@@ -14,49 +19,55 @@ document.addEventListener("DOMContentLoaded", function () {
   const nombreCentro = document.getElementsByClassName("NombreCentroVotante");
   const mesaNombre = document.getElementsByClassName("optSelectMesa");
   const voto = document.getElementsByClassName("optSelectVoto");
-  const windowWidth = window.innerWidth; // Tamaño ventana
-  guardarFilasOriginales();
+  // Tamaño ventana
+  const windowWidth = window.innerWidth;
 
-  //Bucle para editar campos de la mesa/Borrar
+  // Añade scroll vertical si lo necesita.
+  window.addEventListener("resize", scrollVertical(windowWidth));
+  // Metodo que guarda el orden de las filas originales
+  guardarFilasOriginales();
+  // Filtros
+  busquedaFiltro();
+
+  //Bucle para editar campos del votante/Borrar
   for (let i = 0; i < nifVotante.length; i++) {
-    // Edita los campos de la mesa
+    // Habilita que se pueda editar los campos
     idEditarVotante[i].addEventListener("click", function () {
       editarVotante(nifVotante[i], mesaNombre[i], voto[i], nombreCentro[i], codCentro[i], nombre[i], apellido1[i], apellido2[i]);
     });
     // Elimina un votante
     eliminaVotante[i].addEventListener("click", function () {
-      // borradoExitoso();
       confirmacion(eliminaVotante[i].id);
     });
   }
-  // Bucle para ordenar los th de la tabla
+  // Ordenacion th tabla + metodos
   for (let index = 0; index < icono.length; index++) {
     const icon = icono[index];
+
+    // Añade o quita la clase fa-fade
     icon.addEventListener("mouseover", function () {
-      // Cambia la clase del icono
       icon.classList.add("fa-fade");
     });
-
     icon.addEventListener("mouseout", function () {
-      // Elimina la nueva clase y vuelve a la clase original
       icon.classList.remove("fa-fade");
     });
-    // Si hace click se cambia de icono y lista
+
+    // Si hace click se cambia de icono y ordena la tabla
     icon.addEventListener("click", function () {
       resetearIconos(icon.id);
       ordenarTabla(icon.id);
     });
   }
-  window.addEventListener("resize", scrollVertical(windowWidth, nifVotante));
-
-  // Guarda los cambios
+  // Mensaje al guardar los cambios
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
   });
 });
 
-function scrollVertical(windowWidth, nifVotante) {
-  const div = document.getElementById("scrollable");
+// Metodo que implementa (si lo necesita) el scroll vertical/horizontal
+function scrollVertical(windowWidth) {
+  let div = document.getElementById("scrollable");
+  let nifVotante = document.getElementsByClassName("NIFVotante");
   let limiteElementos;
 
   // Definir los límites de elementos en función del ancho de la ventana
@@ -102,12 +113,12 @@ function editarVotante(nif, idMesa, idVoto, nombreCentro, codCentro, nombre, ape
   // }
 }
 
-// Guardado con éxito
+// Mensaje al guardar con éxito
 function guardadoExitoso() {
   let span = document.getElementById("copiado");
   span.textContent = "Guardando...";
 }
-// Metodo para ordenar los th de la tabla SIN IMPLEMENTAR TODAVIA
+// Metodo para ordenar los th de la tabla
 function ordenarTabla(icono) {
   let elementoIcono = document.getElementById(icono);
   // Remueve el fade del th
@@ -159,13 +170,13 @@ function ordenarFilas(icono, orden) {
     while (tabla.tBodies[0].firstChild) {
       tabla.tBodies[0].removeChild(tabla.tBodies[0].firstChild);
     }
-    // los añadimos
+    // los añadimos ya filtrados
     filas.forEach(function (fila) {
       tabla.tBodies[0].appendChild(fila);
     });
   }
 }
-// Obtiene el índice de la columna en la que se encuentra el icono de ordenación
+// Obtiene el índice de la columna (en la que se encuentra el icono de ordenación)
 function obtenerColumnaIndex(icono) {
   let columna = document.getElementById(icono).parentNode;
   let encabezados = Array.from(columna.parentNode.children);
@@ -185,7 +196,7 @@ function obtenerContenidoColumna(fila, columnaIndex) {
 function guardarFilasOriginales() {
   let tabla = document.getElementById("tablaVotantes");
   let filas = Array.from(tabla.tBodies[0].querySelectorAll("tr"));
-  filasOriginales = [...filas];
+  filasOriginales = filas;
 }
 // Metodo para resetear iconos de forma que solo permita ordenar por 1 columna
 function resetearIconos(icono) {
@@ -202,6 +213,35 @@ function resetearIconos(icono) {
     elementos[i].classList.add("fa-sort");
   }
 }
+// Filtro de la tabla
+function busquedaFiltro() {
+  var input = document.getElementById("search");
+  var table = document.getElementById("tablaVotantes");
+  var rows = table.getElementsByTagName("tr");
+
+  input.addEventListener("keyup", function () {
+    var filter = removeAccents(input.value.toUpperCase());
+
+    for (var i = 1; i < rows.length; i++) {
+      var visible = false;
+      var cells = rows[i].getElementsByTagName("td");
+      for (var j = 0; j < cells.length; j++) {
+        // verifica el contenido de una celda en particular (quitando acentos)
+        if (removeAccents(cells[j].innerHTML.toUpperCase()).indexOf(filter) > -1) {
+          visible = true;
+          break; // No es necesario seguir verificando las demás celdas
+        }
+      }
+      rows[i].style.display = visible ? "" : "none";
+    }
+  });
+}
+
+// Función para eliminar acentos y caracteres especiales
+function removeAccents(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 // SweetAlert - Ventana para confirmar que el usuario quiere borrar un votante
 function confirmacion(idBorrar) {
   Swal.fire({
