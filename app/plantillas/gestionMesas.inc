@@ -4,8 +4,12 @@
 ob_start();
 
 if (isset($_SESSION['admin'])) {
-    echo "<script src='web/js/mesa.js'></script>";
     if (sizeof($mesas) != 1) {
+        // JS
+        echo "<script src='web/js/mesa.js'></script>" .
+            // SweetAlert
+            "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js'></script>" .
+            "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css'>";
 ?>
 
         <form method="post">
@@ -33,7 +37,7 @@ if (isset($_SESSION['admin'])) {
                                     <td><i class="fa-solid fa-copy copiar" id="copiar_<?= $mesa['nombre']; ?>"></i></td>
                                     <td> <i class="fas fa-edit editar"></i></td>
                                     <td>
-                                        <button type="submit" name="remove_<?= $mesa['idMesa']; ?>" class="eliminar">
+                                        <button type="button" id="remove_<?= $mesa['idMesa']; ?>" class="eliminar">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>

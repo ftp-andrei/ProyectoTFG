@@ -5,8 +5,12 @@
 ob_start();
 
 if (isset($_SESSION['admin'])) {
-    echo "<script src='web/js/interventor.js'></script>";
-    if (!empty($interventores)) { ?>
+    if (!empty($interventores)) {
+        // JS
+        echo "<script src='web/js/interventor.js'></script>" . // SweetAlert
+            "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js'></script>" .
+            "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css'>";;
+?>
         <form method="post">
             <span id="copiado"></span>
             <br>
@@ -46,7 +50,7 @@ if (isset($_SESSION['admin'])) {
                                 </td>
                                 <td><i class="fas fa-edit editar" name="editar_<?= $interventor['usuario']; ?>"></i></td>
                                 <td>
-                                    <button type="submit" name="remove_<?= $interventor['usuario']; ?>" class="eliminar">
+                                    <button type="button" id="remove_<?= $interventor['usuario']; ?>" class="eliminar">
                                         <i class="fa fa-trash remove"></i>
                                     </button>
                                 </td>

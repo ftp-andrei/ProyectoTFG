@@ -68,7 +68,7 @@ if (isset($_SESSION['admin'])) {
                                 </td>
                                 <td><i class="fas fa-edit editar" name="editar_<?= $afiliado['IdAfiliado']; ?>"></i></td>
                                 <td>
-                                    <button type="submit" name="remove_<?= $afiliado['IdAfiliado']; ?>" class="eliminar">
+                                    <button type="button" id="remove_<?= $afiliado['IdAfiliado']; ?>" class="eliminar">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>

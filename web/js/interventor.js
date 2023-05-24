@@ -1,16 +1,25 @@
 // JS Gestion Interventor (Admin)
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Boton guardar cambios
   const guardarCambios = document.getElementById("guardarCambios");
+  // Boton añadir
   const anadirInter = document.getElementById("anadir");
+  // Boton eliminar
   const eliminarInter = document.getElementsByClassName("eliminar");
+  // Ojo img
   const idVerImgs = document.getElementsByClassName("ocultar");
-  const idVerPass = document.getElementsByClassName("ocultarPass");
+  // Boton copiar
   const idCopy = document.getElementsByClassName("copiar");
+  // Boton editar
   const idEditarInterventor = document.getElementsByClassName("editar");
+  // Valores tabla
+  const idVerPass = document.getElementsByClassName("ocultarPass");
   const user = document.getElementsByClassName("usuario");
   const idMesaInterventor = document.getElementsByClassName("optSelect");
-  const windowWidth = window.innerWidth; // Tamaño ventana
+  // Tamaño ventana
+  const windowWidth = window.innerWidth;
+
   for (let i = 0; i < idVerImgs.length; i++) {
     const idVerImg = idVerImgs[i];
     const idMesa = idMesaInterventor[i];
@@ -26,17 +35,18 @@ document.addEventListener("DOMContentLoaded", function () {
     idEditarInterventor[i].addEventListener("click", function () {
       editarInterventorInterventor(idVerPass[i].id, idMesa.id, idVerImg.id, user[i].id);
     });
-
+    // Elimina un interventor
     eliminarInter[i].addEventListener("click", function () {
-      borradoExitoso();
+      confirmacion(eliminarInter[i].id);
     });
   }
+  // Añade scroll vertical si lo necesita.
   window.addEventListener("resize", scrollVertical(windowWidth));
-
+  // Mensaje de confirmación de guardado
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
   });
-
+  // Mensaje de confirmación de añadir
   anadirInter.addEventListener("click", function () {
     AnadidoExitoso();
   });
@@ -134,4 +144,31 @@ function guardadoExitoso() {
 function AnadidoExitoso() {
   let span = document.getElementById("copiado");
   span.textContent = "Añadiendo...";
+}
+
+// SweetAlert - Ventana para confirmar que el usuario quiere borrar un votante
+function confirmacion(idBorrar) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    icon: "warning",
+    html: `<form method="post" id="confirmarEliminacion">
+        <p>Esta acción no se puede deshacer</p>
+        <input type="button" name="cancelar" value="Cancelar" id="SA_cancelar">
+        <input type="submit" name="borrarVotante" value="Borrar" id="SA_borrar">
+      </form>`,
+    showConfirmButton: false,
+    didOpen: () => {
+      // Obtener el botón por su id
+      const botonBorrar = document.getElementById("SA_borrar");
+      // Verificar si se encontró el botón
+      if (botonBorrar) {
+        // Establecer el nuevo nombre
+        botonBorrar.name = idBorrar;
+      }
+      const cancelarVotante = document.getElementById("SA_cancelar");
+      cancelarVotante.addEventListener("click", function () {
+        Swal.close(); // Cerrar SweetAlert
+      });
+    },
+  });
 }

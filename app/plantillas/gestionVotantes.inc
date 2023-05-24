@@ -20,7 +20,6 @@ if (isset($_SESSION['admin'])) {
             // SweetAlert
             "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js'></script>" .
             "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css'>";
-
 ?>
         <form method="post">
             <span id="copiado"></span>

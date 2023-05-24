@@ -1,5 +1,4 @@
 // JS Gestion Votantes (Admin)
-// Variables globales para almacenar el contenido original de la tabla
 let filasOriginales = [];
 document.addEventListener("DOMContentLoaded", function () {
   // Boton guardar cambios

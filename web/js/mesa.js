@@ -1,13 +1,16 @@
 // JS Gestion Mesas (Admin)
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Botones
   const guardarCambios = document.getElementById("guardarCambios");
   const anadirMesa = document.getElementById("anadir");
   const eliminaMesa = document.getElementsByClassName("eliminar");
   const idEditarMesa = document.getElementsByClassName("editar");
   const idCopy = document.getElementsByClassName("copiar");
+  // Valor Nombre mesa
   const nombreMesas = document.getElementsByClassName("nombreMesa");
-  const windowWidth = window.innerWidth; // Tamaño ventana
+  // Tamaño ventana
+  const windowWidth = window.innerWidth;
   for (let i = 0; i < nombreMesas.length; i++) {
     // Copia el nombre de mesa al portapapeles
     idCopy[i].addEventListener("click", function () {
@@ -17,21 +20,23 @@ document.addEventListener("DOMContentLoaded", function () {
     idEditarMesa[i].addEventListener("click", function () {
       editarNombreMesa(nombreMesas[i]);
     });
-
+    // Elimina una mesa
     eliminaMesa[i].addEventListener("click", function () {
-      borradoExitoso();
+      confirmacion(eliminaMesa[i].id);
     });
   }
+  // Añade scroll vertical si lo necesita.
   window.addEventListener("resize", scrollVertical(windowWidth));
+  // Mensaje de guardado exitoso
   guardarCambios.addEventListener("click", function () {
     guardadoExitoso();
   });
-
+  // Mensaje de añadido exitoso
   anadirMesa.addEventListener("click", function () {
     AnadidoExitoso();
   });
 });
-
+// Metodo para hacer el scroll horizontal/vertical
 function scrollVertical(windowWidth) {
   const div = document.getElementById("scrollable");
   const numMesas = document.getElementsByClassName("idMesa");
@@ -91,4 +96,31 @@ function guardadoExitoso() {
 function AnadidoExitoso() {
   let span = document.getElementById("copiado");
   span.textContent = "Añadiendo...";
+}
+
+// SweetAlert - Ventana para confirmar que el usuario quiere borrar un votante
+function confirmacion(idBorrar) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    icon: "warning",
+    html: `<form method="post" id="confirmarEliminacion">
+        <p>Esta acción no se puede deshacer</p>
+        <input type="button" name="cancelar" value="Cancelar" id="SA_cancelar">
+        <input type="submit" name="borrarVotante" value="Borrar" id="SA_borrar">
+      </form>`,
+    showConfirmButton: false,
+    didOpen: () => {
+      // Obtener el botón por su id
+      const botonBorrar = document.getElementById("SA_borrar");
+      // Verificar si se encontró el botón
+      if (botonBorrar) {
+        // Establecer el nuevo nombre
+        botonBorrar.name = idBorrar;
+      }
+      const cancelarVotante = document.getElementById("SA_cancelar");
+      cancelarVotante.addEventListener("click", function () {
+        Swal.close(); // Cerrar SweetAlert
+      });
+    },
+  });
 }
