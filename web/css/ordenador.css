@@ -1,4 +1,4 @@
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1700px) {
   /* Imagen del header */
   header img {
     width: 110px;
@@ -7,7 +7,6 @@
   /* Para el h1 del header */
   h1 {
     color: #598c41;
-    /* color: #0099ff; */
     font-weight: normal;
     font-size: 2em;
     font-family: "Times New Roman", Times, serif;
@@ -80,7 +79,7 @@
 
   /* Scroll */
   .scrollable {
-    height: 60vh;
+    height: 65vh;
     overflow-y: scroll;
     margin-bottom: 1em;
   }
@@ -90,5 +89,27 @@
     height: 65vh;
     overflow-y: scroll;
     margin-bottom: 1em;
+  }
+
+  .scrollableVotantes {
+    height: 60vh;
+    overflow-y: scroll;
+    margin-bottom: 1em;
+  }
+
+  .scrollableEstadisticas {
+    height: 70vh;
+    overflow-y: scroll;
+    margin-bottom: 1em;
+  }
+
+  /* Login */
+
+  #loginForm {
+    width: 300px;
+  }
+  #estadisticasVotantes,
+  #estadisticasAfiliados {
+    display: "";
   }
 }

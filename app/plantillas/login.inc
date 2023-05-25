@@ -4,7 +4,7 @@ ob_start();
 echo "<script src='web/js/login.js'></script>";
 ?>
 
-<form method="post">
+<form method="post" id="loginForm">
   <fieldset>
     <legend>Credenciales de Inicio</legend>
     <label for="user">Usuario: </label>

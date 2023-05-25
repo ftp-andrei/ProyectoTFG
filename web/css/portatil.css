@@ -1,4 +1,4 @@
-@media screen and (max-width: 1599px) and (min-width: 770px) {
+@media screen and (max-width: 1700px) and (min-width: 1024px) {
   /* Imagen del header */
   header img {
     width: 110px;
@@ -7,7 +7,6 @@
   /* Para el h1 del header */
   h1 {
     color: #598c41;
-    /* color: #0099ff; */
     font-weight: normal;
     font-size: 2em;
     font-family: "Times New Roman", Times, serif;
@@ -54,7 +53,8 @@
   }
 
   .idMesa,
-  .numeroMesa {
+  .numeroMesa,
+  .numeroMesaV {
     width: 50px;
   }
 
@@ -87,8 +87,10 @@
 
   /* Scroll */
   .scrollable {
-    max-height: 45vh;
-    overflow-y: scroll;
+    overflow: auto;
+    width: auto;
+    height: 50vh;
+    white-space: nowrap;
     margin-bottom: 1em;
   }
   .scrollableMesas,
@@ -96,5 +98,28 @@
     height: 55vh;
     overflow-y: scroll;
     margin-bottom: 1em;
+  }
+
+  .scrollableVotantes {
+    height: 50vh;
+    overflow-y: scroll;
+    margin-bottom: 1em;
+  }
+
+  .scrollableEstadisticas {
+    height: 60vh;
+    overflow-y: scroll;
+    margin-bottom: 1em;
+  }
+
+  /* Login */
+
+  #loginForm {
+    width: 250px;
+  }
+
+  #estadisticasVotantes,
+  #estadisticasAfiliados {
+    display: "";
   }
 }

@@ -77,10 +77,10 @@ function scrollVertical(windowWidth) {
   } else if (windowWidth <= 1600 && windowWidth >= 770) {
     limiteElementos = 9;
   } else {
-    limiteElementos = 12;
+    limiteElementos = 14;
   }
   // Verificar el tamaño de los elementos elementos y asigna o no la clase scrollable
-  if (nifVotante.length >= limiteElementos) {
+  if (nifVotante.length >= limiteElementos || windowWidth <= 480) {
     div.classList.add("scrollable");
   } else {
     if (div.classList.contains("scrollable")) {
@@ -220,7 +220,6 @@ function busquedaFiltro() {
 
   input.addEventListener("keyup", function () {
     var filter = removeAccents(input.value.toUpperCase());
-
     for (var i = 1; i < rows.length; i++) {
       var visible = false;
       var cells = rows[i].getElementsByTagName("td");

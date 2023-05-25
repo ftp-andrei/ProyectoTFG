@@ -16,34 +16,35 @@ function refresh() {
 
 function scrollVertical(windowWidth) {
   const div = document.getElementById("scrollable");
+  const div2 = document.getElementById("grafo");
   const numeroInterventores = document.getElementsByClassName("numeroMesaV");
 
   let limiteElementos;
 
   if (windowWidth <= 480) {
     limiteElementos = 5;
-  } else if (windowWidth < 780 && windowWidth > 480) {
+  } else if (windowWidth < 769 && windowWidth > 480) {
     limiteElementos = 8;
-  } else if (windowWidth < 1600 && windowWidth > 780) {
+  } else if (windowWidth < 1600 && windowWidth > 770) {
     limiteElementos = 10;
   } else {
     limiteElementos = 15;
   }
-  // Verificar si existen 10 elementos
-  if (numeroInterventores.length >= limiteElementos) {
-    // Iterar sobre los elementos
-    div.classList.add("scrollable");
+  if (numeroInterventores.length >= limiteElementos || windowWidth <= 770) {
+    div.classList.add("scrollableEstadisticas");
   } else {
-    // Si no hay 15 elementos, puedes realizar otra acción o dejarlo sin cambios
-    if (div.classList.contains("scrollable")) {
-      div.classList.remove("scrollable");
+    if (div.classList.contains("scrollableEstadisticas")) {
+      div.classList.remove("scrollableEstadisticas");
     }
   }
 }
 
-function grafico(datos) {
+function grafico(datosSinFiltrar) {
   // Obtener el contexto del lienzo del gráfico
   var ctx = document.getElementById("grafico").getContext("2d");
+
+  // Filtrar los datos para que no se muestren las mesas sin votantes
+  var datos = datosSinFiltrar.filter((e) => e.TotalVotantes != 0);
 
   // Crear el gráfico de barras
   var chart = new Chart(ctx, {
@@ -70,6 +71,7 @@ function grafico(datos) {
     },
     options: {
       responsive: true,
+      // Para las lineas del grafico
       scales: {
         x: {
           grid: {

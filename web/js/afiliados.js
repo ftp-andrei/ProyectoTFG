@@ -113,10 +113,10 @@ function scrollVertical(windowWidth) {
   } else if (windowWidth <= 1600 && windowWidth >= 770) {
     limiteElementos = 9;
   } else {
-    limiteElementos = 12;
+    limiteElementos = 14;
   }
   // Verificar el tamaño de los elementos elementos y asigna o no la clase scrollable
-  if (numAfiliados.length >= limiteElementos) {
+  if (numAfiliados.length >= limiteElementos || windowWidth <= 1600) {
     div.classList.add("scrollable");
   } else {
     if (div.classList.contains("scrollable")) {

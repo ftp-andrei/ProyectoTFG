@@ -17,6 +17,17 @@
     text-align: center;
   }
 
+  /* Valores tabla */
+
+  .idMesa,
+  .numeroMesa {
+    width: 50px;
+  }
+
+  .nombreMesa {
+    width: 150px;
+  }
+
   /* De forma que el footer siempre se quede abajo del todo. */
   footer {
     position: absolute;
@@ -45,27 +56,38 @@
     margin-bottom: 0.5em;
   }
   /* Scroll */
+  /* Afiliados/Votantes */
   .scrollable {
     overflow: auto;
-    width: 250px;
-    height: 300px;
+    width: 45vh;
+    height: 42vh;
     white-space: nowrap;
     margin-bottom: 1em;
   }
-
-  .scrollableMesas {
-    overflow: auto;
-    width: 300px;
-    height: 320px;
-    white-space: nowrap;
-    margin-bottom: 1em;
-  }
-
+  /* Scroll Interventor */
   .scrollableInterventores {
     overflow: auto;
-    width: 300px;
-    height: 320px;
+    width: 45vh;
+    height: 50vh;
     white-space: nowrap;
     margin-bottom: 1em;
+  }
+  /* Scroll Mesas */
+  .scrollableMesas {
+    overflow: auto;
+    width: 45vh;
+    height: 55vh;
+    white-space: nowrap;
+    margin-bottom: 1em;
+  }
+
+  /* Login */
+  #loginForm {
+    width: 250px;
+  }
+
+  #estadisticasVotantes,
+  #estadisticasAfiliados {
+    display: none;
   }
 }

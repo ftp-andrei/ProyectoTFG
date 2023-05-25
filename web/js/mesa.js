@@ -41,7 +41,7 @@ function scrollVertical(windowWidth) {
   const div = document.getElementById("scrollable");
   const numMesas = document.getElementsByClassName("idMesa");
 
-  let limiteElementos;
+  let limiteElementos = 0;
 
   // Definir los límites de elementos en función del ancho de la ventana
   if (windowWidth <= 480) {
@@ -54,7 +54,7 @@ function scrollVertical(windowWidth) {
     limiteElementos = 15;
   }
   // Verificar los elementos
-  if (numMesas.length >= limiteElementos || windowWidth <= 480) {
+  if (numMesas.length >= limiteElementos || windowWidth <= 770) {
     div.classList.add("scrollableMesas");
   } else {
     if (div.classList.contains("scrollableMesas")) {

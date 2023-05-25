@@ -1,4 +1,4 @@
-@media screen and (max-width: 769px) and (min-width: 481px) {
+@media screen and (max-width: 1024px) and (min-width: 481px) {
   /* Imagen del header */
   header img {
     width: 110px;
@@ -7,7 +7,6 @@
   /* Para el h1 del header */
   h1 {
     color: #598c41;
-    /* color: #0099ff; */
     font-weight: normal;
     font-size: 1.5em;
     font-family: "Times New Roman", Times, serif;
@@ -54,13 +53,20 @@
   }
 
   .idMesa,
-  .numeroMesa {
+  .numeroMesa,
+  .numeroMesaV {
     width: 50px;
   }
 
   .NIFVotante,
   .TelefonoVotante,
-  .CodCentroVotante {
+  .CodCentroVotante,
+  .hanvotadoV,
+  .nohanvotadoV,
+  .numeroVotantesV,
+  .numeroVotantesA,
+  .hanvotadoA,
+  .nohanvotadoA {
     width: 85px;
   }
 
@@ -79,8 +85,8 @@
   /* Scroll */
   .scrollable {
     overflow: auto;
-    width: 400px;
-    height: 350px;
+    width: 52vh;
+    height: 65vh;
     white-space: nowrap;
     margin-bottom: 1em;
   }
@@ -88,16 +94,35 @@
   .scrollableMesas {
     overflow: auto;
     width: 100%;
-    height: 420px;
+    height: 58vh;
     white-space: nowrap;
     margin-bottom: 1em;
   }
 
   .scrollableInterventores {
     overflow: auto;
-    width: 450px;
-    height: 350px;
+    width: 45vh;
+    height: 50vh;
     white-space: nowrap;
     margin-bottom: 1em;
+  }
+
+  .scrollableEstadisticas {
+    overflow: auto;
+    width: 100%;
+    height: 58vh;
+    white-space: nowrap;
+    margin-bottom: 1em;
+  }
+
+  /* Login */
+
+  #loginForm {
+    width: 250px;
+  }
+
+  #estadisticasVotantes,
+  #estadisticasAfiliados {
+    display: "";
   }
 }

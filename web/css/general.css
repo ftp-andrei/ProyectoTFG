@@ -78,13 +78,13 @@ th {
   font-weight: bold;
   text-align: center;
 }
-
+/* Form */
 form fieldset {
   display: flex;
   flex-direction: column;
   text-align: left;
 }
-/* Botones fuera del form (guardar/añadir) */
+/* Botones fuera del form (guardar/añadir/CSV) */
 .boton {
   background-color: #3c763d;
   border: 1px solid #3c763d;
@@ -111,7 +111,7 @@ form fieldset {
   border-top: 1px solid #808080;
   padding-top: 1em;
 }
-
+/* Estadisticas */
 .enBloque {
   display: block;
 }
@@ -120,6 +120,11 @@ form fieldset {
   margin-top: 5em;
 }
 
+#ajuste {
+  display: flex;
+}
+
+/* Botones interventor votos */
 #votoSi {
   background-color: #00ff00;
   border-color: #00ff00;
@@ -129,7 +134,7 @@ form fieldset {
   background-color: #ff0d0d;
   border-color: #ff0d0d;
 }
-
+/* Boton admin reset */
 #resetVotos {
   background-color: #595959;
   border-color: #595959;
@@ -139,11 +144,7 @@ form fieldset {
   background-color: #6f6f6f;
   border-color: #6f6f6f;
 }
-
-#log {
-  width: 200px;
-}
-
+/* Login */
 .inputLogin {
   padding: 10px;
   margin-bottom: 10px;
@@ -207,4 +208,14 @@ form fieldset {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   display: inline-block;
+  border-color: #333;
 }
+/* Elimino la X del Filtro */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* Estadisticas */

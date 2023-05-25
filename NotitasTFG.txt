@@ -92,7 +92,19 @@ INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,C
 VALUES ('Pepe','Díaz','Martínez','12345678J','111111111','Av. Gran Vía','pepedm@comercio.com','123123','Empresa Fantasma');
 --Añadiendole voto 1
 INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha)
-VALUES ('Dario','Alcobendas','Fernandez','22244477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
+VALUES ('Dario','Alcobendas','Fernandez','22241477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha)
+VALUES ('Dario','Alcobendas','Fernandez','22242477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha)
+VALUES ('Dario','Alcobendas','Fernandez','22243477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha)
+VALUES ('Dario','Alcobendas','Fernandez','22277477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha)
+VALUES ('Dario','Alcobendas','Fernandez','22246477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha)
+VALUES ('Dario','Alcobendas','Fernandez','22242277H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
+INSERT INTO Afiliados (Nombre,Apellido1,Apellido2,NIF,Telefono,Direccion,Email,CodCentro,NombreCentro,Voto,Fecha)
+VALUES ('Dario','Alcobendas','Fernandez','22233477H','987654321','Av. Madrid','dario@haribo.com','5555','Haribo',1,GETDATE());
 
 --Creamos Votantes
 INSERT INTO Votantes (Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,idMesa,Voto,Fecha)
