@@ -42,7 +42,7 @@ if (isset($_SESSION['admin'])) {
                                 <td><input type="text" name="apellido1_<?= $afiliado['IdAfiliado']; ?>" value="<?= $afiliado['Apellido1']; ?>" class="apellido1Votante" disabled></td>
                                 <td><input type="text" name="apellido2_<?= $afiliado['IdAfiliado']; ?>" value="<?= $afiliado['Apellido2']; ?>" class="apellido2Votante" disabled></td>
                                 <td><input type="text" name="nombre_<?= $afiliado['IdAfiliado']; ?>" value="<?= $afiliado['Nombre']; ?>" class="nombreVotante" disabled></td>
-                                <td><input type="text" name="NIF_<?= $afiliado['IdAfiliado']; ?>" value="<?= $afiliado['NIF']; ?>" class="NIFVotante" disabled minlength="9" maxlength="9"></td>
+                                <td><input type="text" name="NIF_<?= $afiliado['IdAfiliado']; ?>" value="<?= $afiliado['NIF']; ?>" pattern="^[XYZ]?\d{7,8}[A-Z]$" class="NIFVotante" disabled minlength="9" maxlength="9"></td>
                                 <td><input type="tel" name="Telefono_<?= $afiliado['IdAfiliado']; ?>" value="<?= $afiliado['Telefono']; ?>" class="TelefonoVotante" disabled minlength="9" maxlength="9"></td>
                                 <td><input type="text" name="Direccion_<?= $afiliado['IdAfiliado']; ?>" value="<?= $afiliado['Direccion']; ?>" class="DireccionVotante" disabled></td>
                                 <td><input type="email" name="Email_<?= $afiliado['IdAfiliado']; ?>" value="<?= $afiliado['Email']; ?>" class="EmailVotante" disabled></td>
