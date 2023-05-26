@@ -37,8 +37,8 @@ if (isset($_SESSION['admin'])) {
                             <th>NIF <i class="fa-sharp fa-solid fa-sort" id="NIFVotante"></i></th>
                             <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="CodCentroVotante"></i></th>
                             <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort" id="NombreCentroVotante"></i></th>
-                            <th>Mesa</i></th>
-                            <th>Voto</i></th>
+                            <th>Mesa</th>
+                            <th>Voto</th>
                             <th>Fecha <i class="fa-sharp fa-solid fa-sort" id="FechaVotante"></i></th>
                             <th>Editar</th>
                             <th>Eliminar</th>
@@ -72,13 +72,16 @@ if (isset($_SESSION['admin'])) {
                                             <option value="0" selected="selected">No ha votado </option>
                                             <option value="1">Sí ha votado </option>
                                         <?php  } ?>
+                                    </select>
                                 </td>
-                                <td><input type="datetime" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?php if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
-                                                                                                                                        echo substr($votante['Fecha'], 0, -4);
-                                                                                                                                    } else {
-                                                                                                                                        echo "Sin fecha de voto";
-                                                                                                                                    }
-                                                                                                                                    ?>" disabled>
+                                <?php
+                                if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
+                                    $fecha = substr($votante['Fecha'], 0, -4);
+                                } else {
+                                    $fecha = "Sin fecha de voto";
+                                }
+                                ?>
+                                <td><input type="text" name="Fecha_<?= $votante['IdVotante']; ?>" class="FechaVotante" value="<?= $fecha ?>" disabled>
                                 </td>
                                 <td><i class="fas fa-edit editar" name="editar_<?= $votante['IdVotante']; ?>"></i></td>
                                 <td>

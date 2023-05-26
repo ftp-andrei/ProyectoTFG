@@ -21,7 +21,7 @@ if (isset($_SESSION['admin'])) {
                             <th>Contraseña</th>
                             <th>Ver</th>
                             <th>Copiar</th>
-                            <th>Mesa</td>
+                            <th>Mesa</th>
                             <th>Editar</th>
                             <th>Eliminar</th>
                         </tr>

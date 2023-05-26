@@ -17,10 +17,12 @@ if (isset($_SESSION['admin'])) {
                 <table id="estadisticasVotantes">
                     <caption>Votantes</caption>
                     <thead>
-                        <th>Nº mesa</th>
-                        <th>Nº votantes</th>
-                        <th>Han votado</th>
-                        <th>No han votado</th>
+                        <tr>
+                            <th>Nº mesa</th>
+                            <th>Nº votantes</th>
+                            <th>Han votado</th>
+                            <th>No han votado</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($estadisticasVotantes as $mesaVotante) { ?>
@@ -48,9 +50,11 @@ if (isset($_SESSION['admin'])) {
                 <table id="estadisticasAfiliados">
                     <caption>Afiliados</caption>
                     <thead>
-                        <th>Nº afiliados</th>
-                        <th>Han votado</th>
-                        <th>No han votado</th>
+                        <tr>
+                            <th>Nº afiliados</th>
+                            <th>Han votado</th>
+                            <th>No han votado</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>

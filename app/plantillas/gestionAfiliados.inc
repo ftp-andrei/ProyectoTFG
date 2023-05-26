@@ -24,9 +24,9 @@ if (isset($_SESSION['admin'])) {
                             <th>Segundo Apellido <i class="fa-sharp fa-solid fa-sort" id="apellido2Votante"></i></th>
                             <th>Nombre <i class="fa-sharp fa-solid fa-sort" id="nombreVotante"></i></th>
                             <th>NIF <i class="fa-sharp fa-solid fa-sort" id="NIFVotante"></i></th>
-                            <th>Teléfono <i class="fa-sharp fa-solid fa-sort" id="TelefonoVotante"></th>
-                            <th>Dirección <i class="fa-sharp fa-solid fa-sort" id="DireccionVotante"></th>
-                            <th>Email <i class="fa-sharp fa-solid fa-sort" id="EmailVotante"></th>
+                            <th>Teléfono <i class="fa-sharp fa-solid fa-sort" id="TelefonoVotante"></i></th>
+                            <th>Dirección <i class="fa-sharp fa-solid fa-sort" id="DireccionVotante"></i></th>
+                            <th>Email <i class="fa-sharp fa-solid fa-sort" id="EmailVotante"></i></th>
                             <th>Codigo Centro <i class="fa-sharp fa-solid fa-sort" id="CodCentroVotante"></i></th>
                             <th>Nombre Centro <i class="fa-sharp fa-solid fa-sort" id="NombreCentroVotante"></i></th>
                             <th>Voto</th>
@@ -56,14 +56,16 @@ if (isset($_SESSION['admin'])) {
                                             <option value="0" selected="selected">No ha votado </option>
                                             <option value="1">Sí ha votado </option>
                                         <?php  } ?>
+                                    </select>
                                 </td>
-                                <td><input type="datetime" name="Fecha_<?= $afiliado['IdAfiliado']; ?>" class="FechaVotante" value="<?php
-                                                                                                                                    if ($afiliado['Fecha'] !== "1900-01-01 00:00:00.000") {
-                                                                                                                                        echo substr($afiliado['Fecha'], 0, -4);
-                                                                                                                                    } else {
-                                                                                                                                        echo "Vacio";
-                                                                                                                                    }
-                                                                                                                                    ?>" disabled>
+                                <?php
+                                if ($afiliado['Fecha'] !== "1900-01-01 00:00:00.000") {
+                                    $fecha = substr($afiliado['Fecha'], 0, -4);
+                                } else {
+                                    $fecha = "Sin fecha de voto";
+                                }
+                                ?>
+                                <td><input type="text" name="Fecha_<?= $afiliado['IdAfiliado']; ?>" class="FechaVotante" value="<?= $fecha ?>" disabled>
                                 </td>
                                 <td><i class="fas fa-edit editar" name="editar_<?= $afiliado['IdAfiliado']; ?>"></i></td>
                                 <td>
