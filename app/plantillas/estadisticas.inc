@@ -32,15 +32,13 @@ if (isset($_SESSION['admin'])) {
                                 <td><input type="text" name="hanvotadoV<?= $mesaVotante['idMesa']; ?>" value="<?= $mesaVotante['VotadoV']; ?>" class="hanvotadoV" disabled></td>
                                 <td><input type="text" name="nohanVotadoV<?= $mesaVotante['idMesa']; ?>" value="<?= $mesaVotante['NoVotadoV']; ?>" class="nohanVotadoV" disabled></td>
                             </tr>
-                        <?php }
-                        foreach ($recuentoTotal as $recuento) { ?>
-                            <tr>
-                                <td><input type="text" value="Total" class="numeroMesaV" disabled></td>
-                                <td><input type="text" name="numeroVotantesV<?= $recuento['TotalVotantes']; ?>" value="<?= $recuento['TotalVotantes']; ?>" class="numeroVotantesV" disabled></td>
-                                <td><input type="text" name="hanvotadoV<?= $recuento['VotadoV']; ?>" value="<?= $recuento['VotadoV']; ?>" class="hanvotadoV" disabled></td>
-                                <td><input type="text" name="nohanVotadoV<?= $recuento['NoVotadoV']; ?>" value="<?= $recuento['NoVotadoV']; ?>" class="nohanVotadoV" disabled></td>
-                            </tr>
                         <?php } ?>
+                        <tr>
+                            <td><input type="text" value="Total" class="numeroMesaV total" disabled></td>
+                            <td><input type="text" name="numeroVotantesV<?= $recuentoTotal[0]['TotalVotantes']; ?>" value="<?= $recuentoTotal[0]['TotalVotantes']; ?>" class="numeroVotantesV total" disabled></td>
+                            <td><input type="text" name="hanvotadoV<?= $recuentoTotal[0]['VotadoV']; ?>" value="<?= $recuentoTotal[0]['VotadoV']; ?>" class="hanvotadoV total" disabled></td>
+                            <td><input type="text" name="nohanVotadoV<?= $recuentoTotal[0]['NoVotadoV']; ?>" value="<?= $recuentoTotal[0]['NoVotadoV']; ?>" class="nohanVotadoV total" disabled></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

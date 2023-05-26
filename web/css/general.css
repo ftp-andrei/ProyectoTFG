@@ -219,3 +219,18 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 /* Estadisticas */
+.total {
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.numeroMesaV,
+.numeroVotantesV,
+.hanvotadoV,
+.nohanvotadoV,
+.numeroVotantesA,
+.hanvotadoA,
+.nohanvotadoA {
+  color: #030303;
+}
