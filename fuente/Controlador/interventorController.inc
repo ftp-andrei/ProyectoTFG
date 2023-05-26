@@ -44,7 +44,7 @@ class InterventorController
         require __DIR__ . '/../../app/plantillas/inicioInterventor.inc';
     }
 
-    // Funcion que genera una contraseña aleatoria de longitud 8 para los interventores
+    // Funcion que genera una contraseña aleatoria de longitud 8 al generar un interventor
     public function randomPassword()
     {
         $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&@#$*!^';
@@ -56,8 +56,8 @@ class InterventorController
         }
         return $pass;
     }
-    // Pagina interventores - Devuelve los interventores, con contraseña y mesa (admin). 
-    // Contiene CRUD interventores.
+    // Pagina gestion interventores - Admin
+    // Contiene CRUD interventores
     public function verInterventores()
     {
         $titulo = (new TitleController())->setTitle('Interventores - ANPE');

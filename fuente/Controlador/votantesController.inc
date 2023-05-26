@@ -6,7 +6,7 @@ use app\EleccionesSindicales\repositorio\VotantesRepositorio;
 
 class VotantesController
 {
-    // Le muestra al admin la pagina de votantes
+    // Pagina gestion votantes - Admin
     public function verVotantes()
     {
         $titulo = (new TitleController())->setTitle('Votantes - ANPE');
@@ -28,6 +28,7 @@ class VotantesController
                 }
             }
         }
+        // Resetea los votos
         if (isset($_POST['resetVotos'])) {
             if ($resetVotos = (new VotantesRepositorio())->resetVotos()) {
                 header('Location: index.php?ctl=gestionVotantes');
@@ -108,7 +109,7 @@ class VotantesController
                 $arr[$i]["Voto"] = $voto;
                 $arr[$i]["Fecha"] = $fecha;
             }
-            // Guarda cambios si es distinto
+            // Guarda cambios
             if ($arr != $votantes && $error == null) {
                 if ($guardarVotante = (new VotantesRepositorio())->guardarCambiosVotantes($arr)) {
                     header('Location: index.php?ctl=gestionVotantes');
@@ -120,7 +121,7 @@ class VotantesController
 
         require __DIR__ . '/../../app/plantillas/gestionVotantes.inc';
     }
-
+    // Metodo para descargar los datos en formato csv
     public function descargarCSV($votantes)
     {
         // Limpiamos el contenido

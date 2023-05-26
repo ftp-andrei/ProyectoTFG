@@ -48,7 +48,7 @@ function scrollVertical(windowWidth) {
     limiteElementos = 12;
   }
   // Verificar el tamaño de los elementos elementos y asigna o no la clase scrollable
-  if (numAfiliados.length >= limiteElementos) {
+  if (numAfiliados.length >= limiteElementos || windowWidth <= 480) {
     div.classList.add("scrollable");
   } else {
     if (div.classList.contains("scrollable")) {

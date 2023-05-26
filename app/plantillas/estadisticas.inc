@@ -30,6 +30,14 @@ if (isset($_SESSION['admin'])) {
                                 <td><input type="text" name="hanvotadoV<?= $mesaVotante['idMesa']; ?>" value="<?= $mesaVotante['VotadoV']; ?>" class="hanvotadoV" disabled></td>
                                 <td><input type="text" name="nohanVotadoV<?= $mesaVotante['idMesa']; ?>" value="<?= $mesaVotante['NoVotadoV']; ?>" class="nohanVotadoV" disabled></td>
                             </tr>
+                        <?php }
+                        foreach ($recuentoTotal as $recuento) { ?>
+                            <tr>
+                                <td><input type="text" value="Total" class="numeroMesaV" disabled></td>
+                                <td><input type="text" name="numeroVotantesV<?= $recuento['TotalVotantes']; ?>" value="<?= $recuento['TotalVotantes']; ?>" class="numeroVotantesV" disabled></td>
+                                <td><input type="text" name="hanvotadoV<?= $recuento['VotadoV']; ?>" value="<?= $recuento['VotadoV']; ?>" class="hanvotadoV" disabled></td>
+                                <td><input type="text" name="nohanVotadoV<?= $recuento['NoVotadoV']; ?>" value="<?= $recuento['NoVotadoV']; ?>" class="nohanVotadoV" disabled></td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>

@@ -2,7 +2,7 @@
 /* Gestion Votantes - Admin */
 
 // Hecho: Error DNI, si no ha votado no sale duplicado
-// TODO: Regex DNI
+// Hecho: Regex DNI
 // TODO: Intentar que el editar vuelva a su posicion original y guarde bien
 // Hecho: Orden por ap1,ap2,nombre,nif
 // Hecho: Filtros arriba. Intentar que sea lo mas comodo posible.
@@ -10,7 +10,7 @@
 // Hecho: Mensaje de confirmacion al eliminar
 // Hecho: Cambiar orden columnas
 // Hecho: Filtrar columnas click (th)
-// ERROR: Darle a la X al buscar, la tabla queda vacia/o con los elementos de antes
+// Hecho: Darle a la X al buscar, la tabla queda vacia/o con los elementos de antes
 
 ob_start();
 if (isset($_SESSION['admin'])) {

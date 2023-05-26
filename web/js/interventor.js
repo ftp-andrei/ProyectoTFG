@@ -1,4 +1,4 @@
-// JS Gestion Interventor (Admin)
+// JS Gestion Interventor
 
 document.addEventListener("DOMContentLoaded", function () {
   // Boton guardar cambios
@@ -58,11 +58,6 @@ function scrollVertical(windowWidth) {
 
   let limiteElementos;
 
-  // Definir los límites de elementos en función del ancho de la ventana
-  // if (windowWidth <= 480) {
-  //   limiteElementos = 5;
-  // } else if (windowWidth <= 769 && windowWidth > 480) {
-  //   limiteElementos = 7;
   if (windowWidth <= 1600 && windowWidth >= 770) {
     limiteElementos = 9;
   } else {
@@ -126,13 +121,6 @@ function editarInterventorInterventor(idPass, idMesa, idVerImg, usuario) {
     user.disabled = false;
     contrasena.select();
   }
-  // else {
-  //   img.className = "fa fa-eye-slash ocultar";
-  //   contrasena.type = "password";
-  //   contrasena.disabled = true;
-  //   mesa.disabled = true;
-  //   user.disabled = true;
-  // }
 }
 
 // Mensaje de que se ha guardado con éxito el interventor

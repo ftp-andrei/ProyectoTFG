@@ -1,4 +1,4 @@
-// JS Gestion Votantes (Admin)
+// JS Gestion Votantes
 let filasOriginales = [];
 document.addEventListener("DOMContentLoaded", function () {
   // Boton guardar cambios
@@ -100,16 +100,6 @@ function editarVotante(nif, idMesa, idVoto, nombreCentro, codCentro, nombre, ape
     apellido1.disabled = false;
     apellido2.disabled = false;
   }
-  // else {
-  //   nif.disabled = true;
-  //   document.getElementById(idMesa.id).disabled = true;
-  //   document.getElementById(idVoto.id).disabled = true;
-  //   nombreCentro.disabled = true;
-  //   codCentro.disabled = true;
-  //   nombre.disabled = true;
-  //   apellido1.disabled = true;
-  //   apellido2.disabled = true;
-  // }
 }
 
 // Mensaje al guardar con éxito

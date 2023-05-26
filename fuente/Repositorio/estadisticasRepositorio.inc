@@ -28,6 +28,32 @@ class EstadisticasRepositorio
             }
         }
     }
+    // Devuelve el recuento total de votantes y los votos
+    public function totalVotantes(): array
+    {
+        $sql = 'SELECT  COUNT(vt.idVotante) AS TotalVotantes,
+  SUM(CASE WHEN vt.voto = 1 THEN 1 ELSE 0 END) AS VotadoV,
+  SUM(CASE WHEN vt.voto = 0 THEN 1 ELSE 0 END) AS NoVotadoV
+FROM mesas m
+  LEFT JOIN votantes vt ON m.idMesa = vt.idMesa
+WHERE m.idMesa <> 0;';
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            $snt->execute();
+            $arrayEstadisticas = $snt->fetchAll(\PDO::FETCH_ASSOC);
+            return $arrayEstadisticas;
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+                unset($con);
+            }
+        }
+    }
+
     // Metodo para mostrar las estadísticas de afiliados. Se refrescan en el controller
     public function estadisticasAfiliados(): array
     {

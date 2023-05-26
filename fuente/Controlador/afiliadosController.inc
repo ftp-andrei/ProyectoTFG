@@ -7,7 +7,7 @@ use app\EleccionesSindicales\repositorio\AfiliadosRepositorio;
 class AfiliadosController
 {
 
-    // Le muestra al admin la pagina de afiliados
+    // Pagina gestion afiliados - Admin
     public function verAfiliados()
     {
         $titulo = (new TitleController())->setTitle('Afiliados - ANPE');
@@ -27,7 +27,7 @@ class AfiliadosController
                 }
             }
         }
-
+        // Resetear votos
         if (isset($_POST['resetVotos'])) {
             if ($resetVotos = (new AfiliadosRepositorio())->resetVotos()) {
                 header('Location: index.php?ctl=gestionAfiliados');
@@ -133,7 +133,7 @@ class AfiliadosController
 
         require __DIR__ . '/../../app/plantillas/gestionAfiliados.inc';
     }
-
+    // Metodo para descargar los datos en .CSV
     public function descargarCSV($votantes)
     {
         // Limpiamos el contenido

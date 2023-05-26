@@ -1,8 +1,6 @@
 <?php
 /*´ Pagina de inicio - Interventor
 */
-// Hecho?: Errores con las rutas Y Permisos de acceso
-// Hecho: Cambiar el titulo de la pagina
 ob_start();
 if (isset($_SESSION['interventor'])) {
     if (!empty($listaInterventor)) {

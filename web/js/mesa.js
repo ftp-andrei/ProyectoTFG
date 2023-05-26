@@ -1,4 +1,4 @@
-// JS Gestion Mesas (Admin)
+// JS Gestion Mesas
 
 document.addEventListener("DOMContentLoaded", function () {
   // Botones

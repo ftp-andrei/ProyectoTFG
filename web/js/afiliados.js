@@ -1,4 +1,4 @@
-// JS Gestion Afiliados (Admin)
+// JS Gestion Afiliados
 let filasOriginales = [];
 document.addEventListener("DOMContentLoaded", function () {
   // Boton guardar cambios
@@ -81,18 +81,6 @@ function editaAfiliado(nombre, apellido1, apellido2, nif, telf, direccion, email
     nomcentro.disabled = false;
     opVoto.disabled = false;
   }
-  // else {
-  //   nombre.disabled = true;
-  //   apellido1.disabled = true;
-  //   apellido2.disabled = true;
-  //   nif.disabled = true;
-  //   telf.disabled = true;
-  //   direccion.disabled = true;
-  //   email.disabled = true;
-  //   codcentro.disabled = true;
-  //   nomcentro.disabled = true;
-  //   opVoto.disabled = true;
-  // }
 }
 
 // Mensaje al guardar con éxito

@@ -102,7 +102,7 @@ class MesasRepositorio
             }
         }
     }
-
+    // Guarda los cambios de una mesa
     public function guardarCambiosMesa(string $nombre, int $idMesa)
     {
         $sql = 'UPDATE Mesas SET nombre = :nombre WHERE idMesa = :idMesa';

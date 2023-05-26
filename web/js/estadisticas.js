@@ -1,3 +1,4 @@
+// JS Estadisticas
 document.addEventListener("DOMContentLoaded", function () {
   const windowWidth = window.innerWidth; // Tamaño ventana
   refresh();

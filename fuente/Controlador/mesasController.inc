@@ -6,7 +6,7 @@ use app\EleccionesSindicales\repositorio\MesasRepositorio;
 
 class MesasController
 {
-    // Pagina mesas - Devuelve todas las mesas (Admin)
+    // Pagina gestion mesas - Admin
     // Contiene CRUD mesas
     public function verMesas()
     {

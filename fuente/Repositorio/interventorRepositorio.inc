@@ -17,7 +17,6 @@ class InterventorRepositorio
             $snt->bindValue(':user', $user);
             $snt->bindValue(':password', $password);
             $snt->execute();
-            //Fetch devuelve un array
             $fila = $snt->fetch(\PDO::FETCH_ASSOC);
             // Devuelve true si existe
             return !(empty($fila));
@@ -30,7 +29,7 @@ class InterventorRepositorio
             }
         }
     }
-    // Funcion que devuelve si existe o no el interventor
+    // Comprueba si existe o no el interventor - Admin
     public function existeInterventor(string $user): bool
     {
         // SQL para comprobar si existe el interventor
@@ -53,12 +52,13 @@ class InterventorRepositorio
         }
     }
 
-    // Metodo que genera interventores al iniciar sesion el admin
+    // Genera interventor - Admin 
     public function generaInterventorAdmin(string $password): bool
     {
         // Coge el numero mayor de interventores
         $sql = 'SELECT MAX(CAST(SUBSTRING("usuario", 6, LEN("usuario")) AS INT)) AS mayor_numero_usuario
         FROM Interventor';
+        // SQL inserta interventor
         $sql2 = 'INSERT INTO Interventor ("usuario", "password","idMesa") VALUES (:usuario,:password,0)';
         require_once __DIR__ . '/../../core/conexionBd.inc';
         try {
@@ -71,26 +71,6 @@ class InterventorRepositorio
             $snt->bindValue(':usuario', 'inter' . $fila['mayor_numero_usuario'] + 1);
             $snt->bindValue(':password', $password);
             // No pongo la mesa ya que por default es 0.
-
-            return $snt->execute();
-        } catch (\PDOException $th) {
-            throw $th;
-        } finally {
-            if (isset($snt)) {
-                unset($snt);
-                unset($con);
-            }
-        }
-    }
-    // Borra todos los interventores
-    public function borraTodosInterventores(): bool
-    {
-        $sql = 'DELETE FROM Interventor';
-        // Crear una nueva tabla para el IdInterventor =0?;
-        require_once __DIR__ . '/../../core/conexionBd.inc';
-        try {
-            $con = (new ConexionBd())->getConexion();
-            $snt = $con->prepare($sql);
             return $snt->execute();
         } catch (\PDOException $th) {
             throw $th;
@@ -102,7 +82,7 @@ class InterventorRepositorio
         }
     }
 
-    // Borra un interventor por id
+    // Borra un interventor por id - Admin
     public function borraInterventor(int $idInterventor): bool
     {
         $sql = 'DELETE FROM Interventor WHERE IdInterventor = :idInterventor';
@@ -121,7 +101,7 @@ class InterventorRepositorio
             }
         }
     }
-    // Devuelve un array con todos los interventores
+    // Devuelve un array con todos los interventores - Admin
     public function getAllInterventores(): array
     {
         $sql = 'SELECT IdInterventor,usuario,password,i.idMesa FROM Interventor i JOIN Mesas m ON i.idMesa = m.IdMesa ORDER BY IdInterventor asc';
@@ -142,7 +122,7 @@ class InterventorRepositorio
             }
         }
     }
-    // Guarda los cambios realizados por el admin de los interventores
+    // Guarda los cambios realizados por el admin de gestion interventores
     public function guardarCambiosInterventores(array $arr): bool
     {
         $sql = 'UPDATE Interventor SET usuario = :usuario, password = :password, idMesa = :idMesa WHERE IdInterventor = :IdInterventor';
@@ -174,7 +154,7 @@ class InterventorRepositorio
             }
         }
     }
-    // Devuelve un array con los votantes de una mesa, para el login de los interventores
+    // Devuelve un array con los votantes de una mesa - Inicio Interventor
     public function listaInterventor(string $usuario): array
     {
         $sql = 'SELECT IdVotante,Nombre,Apellido1,Apellido2,NIF,CodCentro,NombreCentro,v.idMesa,Voto,Fecha FROM Votantes v 
@@ -196,7 +176,7 @@ class InterventorRepositorio
             }
         }
     }
-    // Cambia el voto de un votante
+    // Cambia el voto de un votante - Interventor
     public function guardaVotoSi(string $nif): bool
     {
         $sql = 'UPDATE Votantes SET Voto = 1, Fecha = getdate() WHERE NIF = :nif';
@@ -215,7 +195,7 @@ class InterventorRepositorio
             }
         }
     }
-    // Cambia el voto de un votante
+    // Cambia el voto de un votante - Interventor
     public function guardaVotoNo(string $nif): bool
     {
         $sql = 'UPDATE Votantes SET Voto = 0, Fecha = 0 WHERE NIF = :nif';
