@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // Habilita los campos para editar el interventor
     idEditarInterventor[i].addEventListener("click", function () {
-      editarInterventorInterventor(idVerPass[i].id, idMesa.id, idVerImg.id, user[i].id);
+      editarInterventor(idVerPass[i].id, idMesa.id, idVerImg.id, user[i].id);
     });
     // Elimina un interventor
     eliminarInter[i].addEventListener("click", function () {
@@ -107,7 +107,7 @@ function copiarContrasena(idPass) {
 }
 
 // Funcion que habilita los campos para editar el interventor
-function editarInterventorInterventor(idPass, idMesa, idVerImg, usuario) {
+function editarInterventor(idPass, idMesa, idVerImg, usuario) {
   let img = document.getElementById(idVerImg);
   let contrasena = document.getElementById(idPass);
   let mesa = document.getElementById(idMesa);
