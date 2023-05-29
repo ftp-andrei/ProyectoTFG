@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const idEditar = document.getElementsByClassName("editar");
   // Icono ordenacion tabla
   const icono = document.getElementsByClassName("fa-solid fa-sort");
+  // Boton reset
+  const reset = document.getElementById("resetVotos");
   // Valores tabla
   const nombre = document.getElementsByClassName("nombreVotante");
   const apellido1 = document.getElementsByClassName("apellido1Votante");
@@ -29,6 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
   guardarFilasOriginales();
   // Filtros
   busquedaFiltro();
+  // ResetAlert
+  reset.addEventListener("click", function () {
+    resetAlert();
+  });
 
   //Bucle para editar campos del afiliado/Borrar
   for (let i = 0; i < nombre.length; i++) {
@@ -258,6 +264,25 @@ function confirmacion(idBorrar) {
       }
       const cancelarVotante = document.getElementById("SA_cancelar");
       cancelarVotante.addEventListener("click", function () {
+        Swal.close(); // Cerrar SweetAlert
+      });
+    },
+  });
+}
+
+function resetAlert() {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    icon: "warning",
+    html: `<form method="post" id="confirmarEliminacion">
+        <p>Esta acción no se puede deshacer</p>
+        <input type="button" name="cancelar" value="Cancelar" id="SA_cancelar">
+        <input type="submit" name="resetVotos" value="Resetear votos" id="SA_borrar">
+      </form>`,
+    showConfirmButton: false,
+    didOpen: () => {
+      const cancelarReset = document.getElementById("SA_cancelar");
+      cancelarReset.addEventListener("click", function () {
         Swal.close(); // Cerrar SweetAlert
       });
     },
