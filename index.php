@@ -3,8 +3,10 @@
 session_start();
 error_reporting(E_ALL);
 
-/* Aqui se registran funciones 
-Es el ultimo lugar en el que busca PHP para intentar resolver un tipo /interfaz..etc, antes de generar un error */
+/* Aqui se registran funciones
+Es el ultimo lugar en el que busca PHP para intentar resolver un tipo /interfaz..etc, antes de generar un error.
+Con esta función evitamos llenar el fichero de controladores.
+*/
 spl_autoload_register(function (string $clase) {
   if (strpos($clase, 'app\\EleccionesSindicales\\') === 0) {
     $nombre = str_replace('app\\EleccionesSindicales\\', '', $clase);
