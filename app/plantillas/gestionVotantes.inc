@@ -96,7 +96,7 @@ if (isset($_SESSION['admin'])) {
             </div>
             <input type="submit" name="guardarCambios" value="Guardar cambios" class="boton" id="guardarCambios">
             <input type="submit" name="exportarDatos" value="Descargar en CSV" class="boton" id="exportarDatos">
-            <input type="submit" name="resetVotos" value="Resetear votos" class="boton" id="resetVotos">
+            <input type="button" value="Resetear votos" class="boton" id="resetVotos">
 
             <?= isset($existe) ? "<span>" . $error . "</span>" : "" ?>
             <?= isset($guardarVotante) ? "<span>" . $error . "</span>" : "" ?>
