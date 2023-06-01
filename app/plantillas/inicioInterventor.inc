@@ -36,7 +36,7 @@ if (isset($_SESSION['interventor'])) {
                                 <td><input type="text" name="NombreCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['NombreCentro']; ?>" class="NombreCentroVotante" disabled></td>
                                 <?php
 
-                                if ($votante['Voto'] == 1) { ?>
+                                if ($votante['Voto']) { ?>
                                     <td><button type="submit" name="votoNo_<?= $votante['IdVotante']; ?>" id="votoSi" value="0"><i class="fa-solid fa-check"></i></button></td>
                                 <?php } else { ?>
                                     <td><button type="submit" name="votoSi_<?= $votante['IdVotante']; ?>" id="votoNo" value="1"><i class="fa-solid fa-xmark"></i></button></td>
