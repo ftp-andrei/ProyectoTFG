@@ -34,8 +34,13 @@ if (isset($_SESSION['interventor'])) {
                                 <td><input type="text" name="<?= $votante['NIF']; ?>" value="<?= $votante['NIF']; ?>" class="NIFVotante" disabled minlength="9" maxlength="9" required></td>
                                 <td><input type="text" name="CodCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['CodCentro']; ?>" class="CodCentroVotante" disabled></td>
                                 <td><input type="text" name="NombreCentro_<?= $votante['IdVotante']; ?>" value="<?= $votante['NombreCentro']; ?>" class="NombreCentroVotante" disabled></td>
-                                <td><button type="submit" name="votoSi_<?= $votante['IdVotante']; ?>" id="votoSi" value="1"><i class="fa-solid fa-check"></i></button> | <button type="submit" name="votoNo_<?= $votante['IdVotante']; ?>" id="votoNo" value="0"><i class="fa-solid fa-xmark"></i></button></td>
                                 <?php
+
+                                if ($votante['Voto'] == 1) { ?>
+                                    <td><button type="submit" name="votoNo_<?= $votante['IdVotante']; ?>" id="votoSi" value="0"><i class="fa-solid fa-check"></i></button></td>
+                                <?php } else { ?>
+                                    <td><button type="submit" name="votoSi_<?= $votante['IdVotante']; ?>" id="votoNo" value="1"><i class="fa-solid fa-xmark"></i></button></td>
+                                <?php }
                                 if ($votante['Fecha'] !== "1900-01-01 00:00:00.000") {
                                     $fecha = substr($votante['Fecha'], 0, -4);
                                 } else {
