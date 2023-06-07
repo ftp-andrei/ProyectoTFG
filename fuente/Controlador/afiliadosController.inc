@@ -73,6 +73,7 @@ class AfiliadosController
                             $nif = $_POST["NIF_{$afiliados[$i]['IdAfiliado']}"];
                         } else {
                             $error = "<br>Error: El NIF ya existe o es duplicado";
+                            break;
                         }
                     }
                 }

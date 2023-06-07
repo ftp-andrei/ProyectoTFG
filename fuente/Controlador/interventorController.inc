@@ -21,6 +21,7 @@ class InterventorController
                         // Si ya tiene marcado el voto a 1, no lo hace.
                         if (intval($votante['Voto']) != 1) {
                             if ($votoSi = (new InterventorRepositorio())->guardaVotoSi($votante['NIF'])) {
+                                $coincide = (new InterventorRepositorio())->coincideNIF();
                                 header('Location: index.php?ctl=inicioInterventor');
                             } else {
                                 $error = "<br>Error al modificar el voto del votante";
@@ -32,6 +33,7 @@ class InterventorController
                         // Si ya tiene marcado el voto a 0, no lo hace.
                         if (intval($votante['Voto']) != 0) {
                             if ($votoNo = (new InterventorRepositorio())->guardaVotoNo($votante['NIF'])) {
+                                $coincide = (new InterventorRepositorio())->coincideNIF();
                                 header('Location: index.php?ctl=inicioInterventor');
                             } else {
                                 $error = "<br>Error al modificar el voto del votante";

@@ -6,6 +6,20 @@ document.addEventListener("DOMContentLoaded", function () {
   // Tamaño ventana
   const windowWidth = window.innerWidth;
 
+  // Cambiamos el orden de la columna si el tamaño es <=480
+  window.addEventListener("DOMContentLoaded", function () {
+    window.addEventListener("resize", function () {
+      if (window.innerWidth <= 480) {
+        cambiarOrden();
+      }
+    });
+
+    // Llama a la función al cargar la página
+    if (window.innerWidth <= 480) {
+      cambiarOrden();
+    }
+  });
+
   // Añade scroll vertical si lo necesita.
   window.addEventListener("resize", scrollVertical(windowWidth));
   // Metodo que guarda el orden de las filas originales
@@ -31,6 +45,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+// Cambia el orden de las columnas
+function cambiarOrden() {
+  var table = document.getElementById("tablaInterventor");
+  var headerRow = table.getElementsByTagName("tr")[0];
+  var votoTh = headerRow.querySelector("th:nth-child(7)");
+  var bodyRows = table.getElementsByTagName("tr");
+
+  for (var i = 0; i < bodyRows.length; i++) {
+    var votoTd = bodyRows[i].querySelector("td:nth-child(7)");
+
+    if (votoTd) {
+      bodyRows[i].removeChild(votoTd);
+      bodyRows[i].insertBefore(votoTd, bodyRows[i].firstChild);
+    }
+  }
+
+  if (votoTh) {
+    headerRow.removeChild(votoTh);
+    headerRow.insertBefore(votoTh, headerRow.firstChild);
+  }
+}
 
 // Metodo que implementa (si lo necesita) el scroll vertical/horizontal
 function scrollVertical(windowWidth) {

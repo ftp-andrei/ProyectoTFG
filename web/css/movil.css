@@ -20,11 +20,23 @@
   /* Valores tabla */
 
   .idMesa,
-  .numeroMesa {
+  .numeroMesa,
+  .CodCentroVotante {
     width: 50px;
   }
 
-  .nombreMesa {
+  .apellido1Votante,
+  .apellido2Votante,
+  .NIFVotante,
+  .NombreCentroVotante,
+  .nombreVotante,
+  .TelefonoVotante {
+    width: 100px;
+  }
+
+  .nombreMesa,
+  .FechaVotante,
+  .DireccionVotante {
     width: 150px;
   }
 

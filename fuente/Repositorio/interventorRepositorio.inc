@@ -214,4 +214,40 @@ class InterventorRepositorio
             }
         }
     }
+
+    // Si coincide el nif cambia el voto. FIX votantes/afiliados
+    public function coincideNIF(): bool
+    {
+        $sql = 'SELECT v.nif, v.voto, v.fecha
+        FROM votantes v
+        INNER JOIN afiliados a ON v.nif = a.nif';
+        $sql2 = 'UPDATE afiliados SET voto = :voto, fecha=:fecha WHERE nif = :nif';
+        require_once __DIR__ . '/../../core/conexionBd.inc';
+        try {
+            $con = (new ConexionBd())->getConexion();
+            $snt = $con->prepare($sql);
+            $snt->execute();
+            while ($fila = $snt->fetch(\PDO::FETCH_ASSOC)) {
+                var_dump($fila);
+                $snt2 = $con->prepare($sql2);
+                $snt2->bindValue(':voto', $fila['voto']);
+                $snt2->bindValue(':fecha', $fila['fecha']);
+                $snt2->bindValue(':nif', $fila['nif']);
+                $snt2->execute();
+            }
+            return true;
+        } catch (\PDOException $th) {
+            throw $th;
+        } finally {
+            if (isset($snt)) {
+                unset($snt);
+            }
+            if (isset($snt2)) {
+                unset($snt2);
+            }
+            if (isset($con)) {
+                unset($con);
+            }
+        }
+    }
 }

@@ -72,6 +72,7 @@ class VotantesController
                             $nif = $_POST["NIF_{$votantes[$i]['IdVotante']}"];
                         } else {
                             $error = "<br>Error: El NIF ya existe o es duplicado";
+                            break;
                         }
                     }
                 }
@@ -98,6 +99,7 @@ class VotantesController
                         }
                     }
                 }
+
                 $arr[$i]["IdVotante"] = $votantes[$i]['IdVotante'];
                 $arr[$i]["Nombre"] = $nombre;
                 $arr[$i]["Apellido1"] = $apellido1;
@@ -112,6 +114,7 @@ class VotantesController
             // Guarda cambios
             if ($arr != $votantes && $error == null) {
                 if ($guardarVotante = (new VotantesRepositorio())->guardarCambiosVotantes($arr)) {
+                    $coincide = (new VotantesRepositorio())->coincideNIF();
                     header('Location: index.php?ctl=gestionVotantes');
                 } else {
                     $error = "<br>Error al guardar los cambios";
